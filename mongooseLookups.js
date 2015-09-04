@@ -1,17 +1,29 @@
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/test');
+
+function savedb (title, text, type, scope){
 
 var Schema = mongoose.Schema;
 
 var blogSchema = new Schema({
   title:  String,
-  author: String,
-  body:   String,
-  comments: [{ body: String, date: Date }],
-  date: { type: Date, default: Date.now },
-  hidden: Boolean,
-  meta: {
-    votes: Number,
-    favs:  Number
-  }
+  text:   String,
+  type:   String,
+  scope:  String,
+  });
+
+var Blog = mongoose.model('Blog', blogSchema);
+
+var current = new Blog({
+  title: title,
+  text: text,
+  type: type,
+  scope: scope
+}
+);
+
+current.save(function (err) {
+  if (err) return handleError(err);
 });
+}
+
+exports.savedb = savedb;

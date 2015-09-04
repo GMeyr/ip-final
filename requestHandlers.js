@@ -5,6 +5,7 @@ var MongoClient = require('mongodb').MongoClient;
 
 
 
+
 var homeHTML = fs.readFileSync('views/home.html')
 var addissueHTML = fs.readFileSync('views/addissue.html')
 
@@ -36,7 +37,7 @@ function submit(response, postData) {
 
   response.writeHead(200, {"Content-Type": "text/plain"});
   response.write("You've sent the text: " + querystring.parse(postData).text);
-  response.write("Can you read this: " + querystring.parse(postData).name);
+  response.write("Can you read this: " + querystring.parse(postData).title);
   response.write("Can you read this: " + querystring.parse(postData).text);
   response.write("Can you read this: " + querystring.parse(postData).scope);
   response.write("Can you read this: " + querystring.parse(postData).type);

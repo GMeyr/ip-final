@@ -1,4 +1,4 @@
-var mongoose = require('mongoose');
+/*var mongoose = require('mongoose');
 
 mongoose.connect('mongodb://localhost/desk');
 
@@ -9,3 +9,4 @@ db.once('open', function(){
 })
 
 module.exports = mongoose.connection;
+*/

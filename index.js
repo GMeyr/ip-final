@@ -1,7 +1,9 @@
 var server = require("./server");
 var router = require("./router");
 var requestHandlers = require("./requestHandlers");
-var db = require("./db");
+var mongoose = require("mongoose");
+
+mongoose.connect('mongodb://localhost/ip');
 
 var handle = {};
 handle["/"] = requestHandlers.start;

@@ -35,7 +35,11 @@
     }
     </style>
   <body>
-    <h1 id="logo">issueprism</h1>
+    <h1 class="logo">issueprism</h1>
+    <div class="navbar">
+      <p><a href="/">Home</a>   <a href="/addissue">Add Issue</a></p>
+    </div>
+    <h2>View Issues</h2>
     <div class="headerdash">
       <p>Select a scope</p>
       <div class="headerbuttonL">
@@ -80,7 +84,6 @@
     <div class="content">
 
     </div>
-
     <script>
 var req = new XMLHttpRequest();
 req.open("GET", "call", false);

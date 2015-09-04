@@ -5,12 +5,15 @@
   <style></style>
 </head>
 <body>
-
-    <h1>Create An Issue</h1>
+  <h1>issueprism</h1>
+  <div class="navbar">
+    <p><a href="/">Home</a>   <a href="/addissue">Add Issue</a></p>
+  </div>
+    <h2>Create An Issue</h2>
     <p>Use these forms to ask about an issue that is not currently addressed on the site, or to ask something more specific or general than what is already addressed on the site.</p>
 
     <form action="/submit" method="post">
-      <p>Title:<br><input type="text" name="name" ><br><span class="helpertext">Make sure it's a question</span></p>
+      <p>Title:<br><input type="text" name="title" ><br><span class="helpertext">Make sure it's a question</span></p>
 
       <p>Description:<br><textarea name="text" rows="4" cols="50"></textarea></p>
       <p>Scope:<br>
