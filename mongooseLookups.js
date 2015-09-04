@@ -1,7 +1,9 @@
 var mongoose = require('mongoose');
 
-function savedb (title, text, type, scope){
 
+
+function savedb (title, text, type, scope){
+console.log("Now running 'savedb' method");
 var Schema = mongoose.Schema;
 
 var blogSchema = new Schema({

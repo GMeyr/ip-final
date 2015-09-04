@@ -2,7 +2,8 @@ var exec = require('child_process').exec;
 var querystring = require('querystring');
 var fs = require('fs');
 var MongoClient = require('mongodb').MongoClient;
-
+var mongoose = require('mongoose');
+var mongooseLookups = require('./mongooseLookups');
 
 
 
@@ -33,14 +34,16 @@ function addissue(response, postData) {
 function submit(response, postData) {
   console.log("Request handler 'submit' was called.");
 
+var v1 = querystring.parse(postData).title;
+var v2 = querystring.parse(postData).text;
+var v3 = querystring.parse(postData).type;
+var v4 = querystring.parse(postData).scope;
 
+mongooseLookups.savedb(v1, v2, v3, v4);
 
   response.writeHead(200, {"Content-Type": "text/plain"});
-  response.write("You've sent the text: " + querystring.parse(postData).text);
-  response.write("Can you read this: " + querystring.parse(postData).title);
-  response.write("Can you read this: " + querystring.parse(postData).text);
-  response.write("Can you read this: " + querystring.parse(postData).scope);
-  response.write("Can you read this: " + querystring.parse(postData).type);
+  response.write("Your issue has been saved. Thanks for participating!");
+
   response.end();
 }
 
