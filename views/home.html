@@ -1,0 +1,122 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+  <head>
+    <title>Issue Prism</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+    <style>
+    .headerdash{
+
+    }
+    .headerbutton {
+      display: inline;
+      padding: 5px;
+      border: black 1px solid;
+    }
+    .headerbuttonL{
+      display: inline;
+      padding: 5px;
+      border-radius: 10px 0px 0px 10px;
+      border: black 1px solid;
+    }
+    .headerbuttonR{
+      display: inline;
+      padding: 5px;
+      border-radius: 0px 10px 10px 0px;
+      border: black 1px solid;
+    }
+    .selected {
+      background: green;
+      font: red;
+    }
+    .content {
+      padding: 60px 10px;
+    }
+    </style>
+  <body>
+    <h1 id="logo">issueprism</h1>
+    <div class="headerdash">
+      <p>Select a scope</p>
+      <div class="headerbuttonL">
+        Personal
+      </div>
+      <div class="headerbutton">
+        Local
+      </div>
+      <div class="headerbutton">
+        National
+      </div>
+      <div class="headerbuttonR">
+        Global
+      </div>
+    </div>
+
+      <div id="addIssue">
+
+      </div>
+    </div>
+    <script>
+      $(document).ready(function(){
+        $('.headerbutton').click(function(){
+          $(this).toggleClass('selected');
+        });
+      });
+    $(document).ready(function(){
+        $('.headerbuttonL').click(function(){
+          $(this).toggleClass('selected');
+        });
+      });
+      $(document).ready(function(){
+        $('.headerbuttonR').click(function(){
+          $(this).toggleClass('selected');
+        });
+      });
+
+
+    </script>
+
+
+    <div class="content">
+
+    </div>
+
+    <script>
+var req = new XMLHttpRequest();
+req.open("GET", "call", false);
+req.send(null);
+console.log(req.responseText);
+$(document).ready(function(){
+  $('.content').html(req.responseText);
+})
+
+
+/* Here's one thing I tried...
+var req = new XMLHttpRequest();
+req.open("GET", "glossary.json", false);
+req.addEventListener("load", function(){
+  console.log("Done fetching data.", req.status)
+})
+req.send = null
+*/
+/*    And here's another thing I tried...
+var http = require('http');
+    console.log("trying to make http request");
+      http.get({
+        host: 'localhost:8888',
+        path: '/data'
+      }, function(response) {
+        var body = '';
+        response.on('data', function(d) {
+          body += d;
+        });
+        response.on('end', function() {
+          var parsed = JSON.parse(body);
+          alert(body);
+        });
+});*/
+
+
+      </script>
+  </body>
+</html>
