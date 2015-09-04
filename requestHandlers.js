@@ -6,9 +6,9 @@ var mongoose = require('mongoose');
 var mongooseLookups = require('./mongooseLookups');
 
 
-
-var homeHTML = fs.readFileSync('views/home.html')
-var addissueHTML = fs.readFileSync('views/addissue.html')
+var homeHTML = fs.readFileSync('views/home.html');
+var addissueHTML = fs.readFileSync('views/addissue.html');
+var submitHTML = fs.readFileSync('views/submit.html');
 
 
 function start(response, postData) {
@@ -41,10 +41,8 @@ var v4 = querystring.parse(postData).scope;
 
 mongooseLookups.savedb(v1, v2, v3, v4);
 
-  response.writeHead(200, {"Content-Type": "text/plain"});
-  response.write("Your issue has been saved. Thanks for participating!");
-
-  response.end();
+  response.writeHead(200, {"Content-Type": "text/html"});
+  response.end(submitHTML);
 }
 
 function show(response) {

@@ -1,27 +1,17 @@
 var mongoose = require('mongoose');
+var Blog = require('./models/blog.js').Blog;
 
 
 
 function savedb (title, text, type, scope){
 console.log("Now running 'savedb' method");
-var Schema = mongoose.Schema;
-
-var blogSchema = new Schema({
-  title:  String,
-  text:   String,
-  type:   String,
-  scope:  String,
-  });
-
-var Blog = mongoose.model('Blog', blogSchema);
 
 var current = new Blog({
   title: title,
   text: text,
   type: type,
   scope: scope
-}
-);
+});
 
 current.save(function (err) {
   if (err) return handleError(err);
