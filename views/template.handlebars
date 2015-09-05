@@ -1,0 +1,59 @@
+<!--Trying to use a handlebars.js template to populate a page with
+post data within the requested scope and type parameters-->
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>handlebars demo</title>
+    <script type="text/javascript"
+            src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js">
+    </script>
+    <script type="text/javascript" src="https://github.com/downloads/wycats/handlebars.js/handlebars-1.0.rc.1.min.js">
+    </script>
+  </head>
+
+  <body>
+    <!--header-->
+    <h1 class="logo">issueprism</h1>
+    <div class="navbar">
+      <p><a href="/">Home</a> &nbsp; <a href="/addissue">Add Issue</a></p>
+    </div>
+
+    <!--handlebars content-->
+    <div id="contentplaceholder"></div>
+    <div id="dataplaceholder"></div>
+    <script id="Handlebars-Template" type="text/x-handlebars-template">
+      <p>This is the first paragraph<p>
+      <p>Title should be here: {{title}}</p>
+      <p>Text should be here: {{text}}</p>
+    </script>
+    <script type="text/javascript">
+      /*failed attempt to use a regex to handle parameters
+        from the form on the previous page to decide which
+        posts to show*/
+      var str = $("#Handlebars-Template").html();
+      var template = Handlebars.compile(str);
+
+      var pathArray = window.location.search;
+      var re = new RegExp (/(type=science)/);
+
+      console.log(re.test(pathArray));
+      console.log(pathArray);
+
+      /*HELP! Trying to use http to get posts about science.
+      Not worried about handling posts about other topics yet,
+      just trying to figure out how to do it at all.*/
+      var req = new XMLHttpRequest();
+      req.open("GET", "science", false);
+      req.send(null);
+      console.log(req.responseText);
+      $(document).ready(function(){
+        $('.content').html(req.responseText);
+      })
+
+      //When the above http request works, I'll replace this example data.
+      var data = {title: "Example Title", text: "Example Text"};
+      $("#dataplaceholder").html(template(data));
+      </script>
+
+  </body>
+</html>

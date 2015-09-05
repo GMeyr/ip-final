@@ -1,3 +1,6 @@
+<!--This was an early version of my homepage.
+    I keep it just for reference.-->
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html>
@@ -37,7 +40,7 @@
   <body>
     <h1 class="logo">issueprism</h1>
     <div class="navbar">
-      <p><a href="/">Home</a>   <a href="/addissue">Add Issue</a></p>
+      <p><a href="/">Home</a> &nbsp; <a href="/addissue">Add Issue</a></p>
     </div>
     <h2>View Issues</h2>
     <div class="headerdash">
@@ -92,33 +95,6 @@ console.log(req.responseText);
 $(document).ready(function(){
   $('.content').html(req.responseText);
 })
-
-
-/* Here's one thing I tried...
-var req = new XMLHttpRequest();
-req.open("GET", "glossary.json", false);
-req.addEventListener("load", function(){
-  console.log("Done fetching data.", req.status)
-})
-req.send = null
-*/
-/*    And here's another thing I tried...
-var http = require('http');
-    console.log("trying to make http request");
-      http.get({
-        host: 'localhost:8888',
-        path: '/data'
-      }, function(response) {
-        var body = '';
-        response.on('data', function(d) {
-          body += d;
-        });
-        response.on('end', function() {
-          var parsed = JSON.parse(body);
-          alert(body);
-        });
-});*/
-
 
       </script>
   </body>

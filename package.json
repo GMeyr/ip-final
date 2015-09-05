@@ -1,10 +1,11 @@
 {
   "name": "14",
   "version": "1.0.0",
-  "description": "A solid foundation for my app",
+  "description": "A site for examining current events",
   "main": "index.js",
   "dependencies": {
     "formidable": "^1.0.17",
+    "handlebars": "^4.0.2",
     "mongodb": "^1.4.7",
     "mongoose": "^4.1.3"
   },

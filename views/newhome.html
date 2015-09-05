@@ -1,0 +1,50 @@
+<!--home page-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+  <head>
+    <title>Issue Prism</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <meta http-equiv="Content-type" content="text/html" charset="UTF-8" />
+  </head>
+  <body>
+    <!--header-->
+    <h1 class="logo">issueprism</h1>
+    <div class="navbar">
+      <p><a href="/">Home</a> &nbsp; <a href="/addissue">Add Issue</a></p>
+    </div>
+
+    <form action="/template" method="get">
+      <h2>View Issues</h2>
+
+      <div class="headerdash">
+        <p>Select a Type<br>
+          <input type="radio" name="type" value="science">Science
+          <input type="radio" name="type" value="politics">Politics
+          <input type="radio" name="type" value="life">Life
+          <input type="radio" name="type" value="other">other<br>
+        </p>
+      </div>
+
+        <div id="addIssue">
+        </div>
+      </div>
+      <p><input type="submit" value="View Issues" /></p>
+    </form>
+<!--This section has no purpose other than figuring out how to
+use http requests.-->
+    <div class="content">
+    </div>
+    <script>
+      var req = new XMLHttpRequest();
+      req.open("GET", "call", false);
+      req.send(null);
+
+      console.log(req.responseText);
+
+      $(document).ready(function(){
+        $('.content').html(req.responseText);
+      })
+    </script>
+  </body>
+</html>

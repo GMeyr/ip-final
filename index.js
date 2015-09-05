@@ -10,11 +10,22 @@ handle["/"] = requestHandlers.start;
 handle["/start"] = requestHandlers.start;
 handle["/start/"] = requestHandlers.start;
 handle["/upload"] = requestHandlers.upload;
+handle["/upload/"] = requestHandlers.upload;
 handle["/show"] = requestHandlers.show;
-handle["/data"] = requestHandlers.data;
+handle["/show/"] = requestHandlers.show;
 handle["/call"] = requestHandlers.call;
+handle["/call/"] = requestHandlers.call;
 handle["/addissue"] = requestHandlers.addissue;
+handle["/addissue/"] = requestHandlers.addissue;
 handle["/submit"] = requestHandlers.submit;
+handle["/submit/"] = requestHandlers.submit;
+handle["/view"] = requestHandlers.view;
+handle["/view/"] = requestHandlers.view;
+handle["/template"] = requestHandlers.template;
+handle["/template/"] = requestHandlers.template;
+handle["/science"] = requestHandlers.science;
+handle["/science/"] = requestHandlers.science;
+
 
 //db.dbstart();
 

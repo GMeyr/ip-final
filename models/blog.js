@@ -1,3 +1,5 @@
+//schema used by mongooseLookups.js
+
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
