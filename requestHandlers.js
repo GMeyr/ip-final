@@ -45,13 +45,13 @@ function submit(response, postData) {
   response.writeHead(200, {"Content-Type": "text/html"});
   response.end(submitHTML);
 }
-
+/*
 function call(response){
   console.log("Request handler 'call' was called.");
   response.writeHead(200, {"Content-Type": "text/plain"});
   response.write("It's your echo!");
   response.end();
-}
+}*/
 
 function view(response, postData){
   console.log("Request handler 'view' was called.");
@@ -63,17 +63,27 @@ function view(response, postData){
 }
 
 function science (response){
-  var data = mongooseLookups.finddb();
   console.log("Request handler 'science' was called.");
-  console.log("Function finddb returned: " + data)
-  response.writeHead(200, {"Content-Type": "application/json"});
-  response.write(data);
-  response.end();
+
+  var databaseUrl = "ip"; // "username:password@example.com/mydb"
+  var collections = ["blogs"]
+  var mongoapp = require('mongojs');
+  var db = mongoapp(databaseUrl, collections);
+
+  db.blogs.findOne( function(err, found) {
+    if( err || !found) console.log("No science found");
+    else {
+  console.log(found);
+  var result = JSON.stringify(found.title);
+  response.writeHead(200, {"Content-Type": "text/plain"});
+  response.end(result);
+}});
 }
+
 
 //exports
 exports.start = start;
-exports.call = call;
+//exports.call = call;
 exports.addissue = addissue;
 exports.submit = submit;
 exports.view = view;

@@ -9,7 +9,10 @@ var issueSchema = new Schema({
   text:   String,
   type:   String,
   scope:  String,
-  user:   String
+  user:   String,
+  pro:    Object,
+  con:    Object,
+
   });
 
 var Blog = mongoose.model('Blog', blogSchema);

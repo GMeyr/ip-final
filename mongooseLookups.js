@@ -19,8 +19,10 @@ function finddb(){
   Blog.find(function (err, blogs) {
   if (err) {return console.errror(err);
   } else {
-    console.log("Now running 'finddb' method");
-    console.log(blogs);
+//    var parsedmongoose = JSON.stringify(blogs);
+//    console.log("Now running 'finddb' method", blogs);
+//    console.log("JSON parse results: " + parsedmongoose);
+  console.log("returned to science handler")
     return blogs;
   }})}
 

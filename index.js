@@ -3,7 +3,8 @@ var router = require("./router");
 var requestHandlers = require("./requestHandlers");
 var mongoose = require("mongoose");
 
-mongoose.connect('mongodb://localhost/ip');
+//mongoose.connect('mongodb://localhost/ip');
+
 
 var handle = {};
 handle["/"] = requestHandlers.start;
@@ -13,8 +14,8 @@ handle["/upload"] = requestHandlers.upload;
 handle["/upload/"] = requestHandlers.upload;
 handle["/show"] = requestHandlers.show;
 handle["/show/"] = requestHandlers.show;
-handle["/call"] = requestHandlers.call;
-handle["/call/"] = requestHandlers.call;
+//handle["/call"] = requestHandlers.call;
+//handle["/call/"] = requestHandlers.call;
 handle["/addissue"] = requestHandlers.addissue;
 handle["/addissue/"] = requestHandlers.addissue;
 handle["/submit"] = requestHandlers.submit;
@@ -25,7 +26,7 @@ handle["/template"] = requestHandlers.template;
 handle["/template/"] = requestHandlers.template;
 handle["/science"] = requestHandlers.science;
 handle["/science/"] = requestHandlers.science;
-
+handle["science"] = requestHandlers.science;
 
 //db.dbstart();
 

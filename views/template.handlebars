@@ -1,5 +1,3 @@
-<!--Trying to use a handlebars.js template to populate a page with
-post data within the requested scope and type parameters-->
 <!DOCTYPE html>
 <html>
   <head>
@@ -22,7 +20,6 @@ post data within the requested scope and type parameters-->
     <div id="contentplaceholder"></div>
     <div id="dataplaceholder"></div>
     <script id="Handlebars-Template" type="text/x-handlebars-template">
-      <p>This is the first paragraph<p>
       <p>Title should be here: {{title}}</p>
       <p>Text should be here: {{text}}</p>
     </script>
@@ -38,16 +35,20 @@ post data within the requested scope and type parameters-->
 
       console.log(re.test(pathArray));
       console.log(pathArray);
-
-      /*HELP! Trying to use http to get posts about science.
+      </script>
+      <!--HELP! Trying to use http to get posts about science.
       Not worried about handling posts about other topics yet,
-      just trying to figure out how to do it at all.*/
+      just trying to figure out how to do it at all.-->
+      <script>
       var req = new XMLHttpRequest();
-      req.open("GET", "science", false);
+      req.open("GET", "/call", true);
       req.send(null);
-      console.log(req.responseText);
+
+      var answer = req.responseText;
+      console.log("got a response:", typeof answer);
+      console.log(answer);
       $(document).ready(function(){
-        $('.content').html(req.responseText);
+        $("#contentplaceholder").html(answer);
       })
 
       //When the above http request works, I'll replace this example data.
