@@ -28,7 +28,7 @@
         from the form on the previous page to decide which
         posts to show*/
 
-      function parseURL
+
       var str = $("#Handlebars-Template").html();
       var template = Handlebars.compile(str);
 
@@ -75,7 +75,8 @@
           var req = new XMLHttpRequest();
           req.open("GET", viewThis, false);
           req.send(null);
-          console.log("Got back: " + req.responseText);
+          console.log("Got back: " + req.response);
+          console.log("Which is of type: " + typeof responseText)
           $(document).ready(function(){
             $('#issuelist').html(req.responseText);
           })

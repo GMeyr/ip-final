@@ -6,7 +6,7 @@ var MongoClient = require('mongodb').MongoClient;
 var mongoose = require('mongoose');
 var mongooseLookups = require('./mongooseLookups');
 var databaseUrl = "ip";
-var collections = ["blogs"]
+var collections = ["blogs"];
 var mongoapp = require('mongojs');
 var db = mongoapp(databaseUrl, collections);
 var url_query = require('url-query');
@@ -80,11 +80,29 @@ function science (response){
 }});
 }
 
-function sciencelocal (response, postData){
+function sciencelocal (response){
   console.log("Request handler 'sciencelocal' was called.");
 
-  response.writeHead(200, {"Content-Type": "text/plain"});
-  response.end("Sciencelocal's list!!");
+  db.blogs.find({type: "science", scope: "local"}, function(err, slposts) {
+    if( err || !slposts) console.log("No issues found");
+    else {
+      var issuesList = "";
+      slposts.forEach( function(issue) {
+      var currentIssue = createIssueListHTML(issue);
+      console.log("Currently processing this issue: " + currentIssue, typeof currentIssue);
+      console.log("Type of currentIssue return: " + typeof currentIssue);
+      issuesList = issuesList + currentIssue;
+      console.log("So issuesList should now be: " + issuesList)
+      console.log("Issue: " + issue.title + "added to issues list");
+    } );
+      console.log("Finished 'forEach' method");
+      console.log("issueList is of type: " + typeof issuesList);
+      console.log("issueList is: " + issuesList);
+      response.writeHead(200, {"Content-Type": "text/html"});
+      response.write(issuesList);
+      response.end();
+    }
+  });
 }
 
 function scienceglobal (response, postData){
@@ -92,6 +110,17 @@ function scienceglobal (response, postData){
 
   response.writeHead(200, {"Content-Type": "text/plain"});
   response.end("Scienceglobal's list!!");
+}
+
+function createIssueListHTML(issue){
+    var thing = "";
+    thing += propToElement(issue, "title", "h2");
+    thing += propToElement(issue, "text", "p");
+    return thing;
+}
+
+function propToElement(obj, prop, element){
+    return "<" + element + ">" + obj[prop] + "</" + element + ">";
 }
 //exports
 exports.start = start;
