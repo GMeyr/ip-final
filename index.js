@@ -14,8 +14,6 @@ handle["/upload"] = requestHandlers.upload;
 handle["/upload/"] = requestHandlers.upload;
 handle["/show"] = requestHandlers.show;
 handle["/show/"] = requestHandlers.show;
-//handle["/call"] = requestHandlers.call;
-//handle["/call/"] = requestHandlers.call;
 handle["/addissue"] = requestHandlers.addissue;
 handle["/addissue/"] = requestHandlers.addissue;
 handle["/submit"] = requestHandlers.submit;
@@ -28,6 +26,12 @@ handle["/science"] = requestHandlers.science;
 handle["/science/"] = requestHandlers.science;
 handle["science"] = requestHandlers.science;
 
+handle["/sciencelocal"] = requestHandlers.sciencelocal;
+handle["/sciencelocal/"] = requestHandlers.sciencelocal;
+handle["sciencelocal"] = requestHandlers.sciencelocal;
+handle["/scienceglobal"] = requestHandlers.scienceglobal;
+handle["/scienceglobal/"] = requestHandlers.scienceglobal;
+handle["scienceglobal"] = requestHandlers.scienceglobal;
 //db.dbstart();
 
 server.start(router.route, handle);

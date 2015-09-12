@@ -18,7 +18,7 @@
 
     <!--handlebars content-->
     <div id="contentplaceholder"></div>
-    <div id="dataplaceholder"></div>
+    <div id="issuelist"></div>
     <script id="Handlebars-Template" type="text/x-handlebars-template">
       <p>Title should be here: {{title}}</p>
       <p>Text should be here: {{text}}</p>
@@ -27,33 +27,61 @@
       /*failed attempt to use a regex to handle parameters
         from the form on the previous page to decide which
         posts to show*/
+
+      function parseURL
       var str = $("#Handlebars-Template").html();
       var template = Handlebars.compile(str);
 
       var pathArray = window.location.search;
+
       var re = new RegExp (/(type=science)/);
 
       console.log(re.test(pathArray));
-      console.log(pathArray);
+      console.log("pathArray is: " + pathArray);
       </script>
-      <!--HELP! Trying to use http to get posts about science.
-      Not worried about handling posts about other topics yet,
-      just trying to figure out how to do it at all.-->
+
+      <div class="content">
+      </div>
       <script>
-      var req = new XMLHttpRequest();
-      req.open("GET", "/call", true);
-      req.send(null);
+      var pathArray = window.location.search;
 
-      var answer = req.responseText;
-      console.log("got a response:", typeof answer);
-      console.log(answer);
-      $(document).ready(function(){
-        $("#contentplaceholder").html(answer);
-      })
+      check(pathArray, selectionsToObj);
 
-      //When the above http request works, I'll replace this example data.
-      var data = {title: "Example Title", text: "Example Text"};
-      $("#dataplaceholder").html(template(data));
+
+      //helper funtions
+      function check(url, callback){
+          var reType = new RegExp(/type/);
+          var reScope = new RegExp(/scope/);
+          if ( (reType.test(url)) && (reScope.test(url)) ){
+            console.log("function 'check' successful");
+            return callback(url);
+          } else return "Type and Scope are not specified";
+      }
+
+      function selectionsToObj (url) {
+        var results = {};
+        var andIndex = url.indexOf('&')
+        var newType = url.slice(6, andIndex);
+        var newScope = url.slice(andIndex + 7)
+        results.type = newType;
+        results.scope = newScope;
+        console.log("function 'selectionsToObj' successful");
+        return requestIssues(results);
+      }
+
+      function requestIssues(selectionsObj){
+          var viewThis = selectionsObj.type + selectionsObj.scope;
+          console.log("requesting isues for " + viewThis)
+          var req = new XMLHttpRequest();
+          req.open("GET", viewThis, false);
+          req.send(null);
+          console.log("Got back: " + req.responseText);
+          $(document).ready(function(){
+            $('#issuelist').html(req.responseText);
+          })
+
+      }
+
       </script>
 
   </body>

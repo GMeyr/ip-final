@@ -25,26 +25,19 @@
           <input type="radio" name="type" value="other">other<br>
         </p>
       </div>
+      <div class="headerdash">
+        <p>Select a Type<br>
+          <input type="radio" name="scope" value="local">Local
+          <input type="radio" name="scope" value="regional">Regional
+          <input type="radio" name="scope" value="national">National
+          <input type="radio" name="scope" value="global">Global<br>
+        </p>
+      </div>
 
         <div id="addIssue">
         </div>
       </div>
       <p><input type="submit" value="View Issues" /></p>
     </form>
-<!--This section has no purpose other than figuring out how to
-use http requests.-->
-    <div class="content">
-    </div>
-    <script>
-      var req = new XMLHttpRequest();
-      req.open("GET", "science", false);
-      req.send(null);
-
-      console.log(req.responseText);
-
-      $(document).ready(function(){
-        $('.content').html(req.responseText);
-      })
-    </script>
   </body>
 </html>

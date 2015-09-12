@@ -5,6 +5,11 @@ var fs = require('fs');
 var MongoClient = require('mongodb').MongoClient;
 var mongoose = require('mongoose');
 var mongooseLookups = require('./mongooseLookups');
+var databaseUrl = "ip";
+var collections = ["blogs"]
+var mongoapp = require('mongojs');
+var db = mongoapp(databaseUrl, collections);
+var url_query = require('url-query');
 
 //file references
 var homeHTML = fs.readFileSync('views/home.html');
@@ -65,11 +70,6 @@ function view(response, postData){
 function science (response){
   console.log("Request handler 'science' was called.");
 
-  var databaseUrl = "ip"; // "username:password@example.com/mydb"
-  var collections = ["blogs"]
-  var mongoapp = require('mongojs');
-  var db = mongoapp(databaseUrl, collections);
-
   db.blogs.findOne( function(err, found) {
     if( err || !found) console.log("No science found");
     else {
@@ -80,12 +80,25 @@ function science (response){
 }});
 }
 
+function sciencelocal (response, postData){
+  console.log("Request handler 'sciencelocal' was called.");
 
+  response.writeHead(200, {"Content-Type": "text/plain"});
+  response.end("Sciencelocal's list!!");
+}
+
+function scienceglobal (response, postData){
+  console.log("Request handler 'scienceglobal' was called.");
+
+  response.writeHead(200, {"Content-Type": "text/plain"});
+  response.end("Scienceglobal's list!!");
+}
 //exports
 exports.start = start;
-//exports.call = call;
 exports.addissue = addissue;
 exports.submit = submit;
 exports.view = view;
 exports.template = template;
 exports.science = science;
+exports.sciencelocal = sciencelocal;
+exports.scienceglobal = scienceglobal;
