@@ -89,55 +89,50 @@ function sciencelocal (response){
   console.log("Request handler 'sciencelocal' was called.");
 
   db.blogs.find({type: "science", scope: "local"}, function(err, slposts) {
-    if( err || !slposts) console.log("No science/local issues found");
-    else {
+    if( err || !slposts) {
+      console.log("No issues found");
+    } else {
       var issuesList = "";
       slposts.forEach( function(issue) {
       var currentIssue = createIssueListHTML(issue);
       issuesList = issuesList + currentIssue;
     } );
+      if (issuesList.length > 1){
       response.writeHead(200, {"Content-Type": "text/html"});
       response.write(issuesList);
       response.end();
+    } else {
+      var tooBad = "<p>No issues found. Why not add one yourself?</p>"
+      response.writeHead(200, {"Content-Type": "text/html"});
+      response.write(tooBad);
+      response.end();
+    }
     }
   });
 }
 
-function scienceglobal (response, postData){
-  console.log("Request handler 'scienceglobal' was called.");
-  db.blogs.find({type: "science", scope: "global"}, function(err, slposts) {
-    if( err || !slposts) console.log("No science/global issues found");
-    else {
-      var issuesList = "";
-      console.log("length of slposts: " + slposts.length);
-      slposts.forEach( function(issue) {
-        var currentIssue = createIssueListHTML(issue);
-        issuesList = issuesList + currentIssue;
-        console.log("Issue: " + issue.title + "added to issues list");
-        }
-      );
-      console.log("issueList is: " + issuesList);
-      response.writeHead(200, {"Content-Type": "text/html"});
-      response.write(issuesList);
-      response.end();
-    }
-  });
-}
-
-function scienceregional (response){
+function scienceregional (response, postData){
   console.log("Request handler 'scienceregional' was called.");
 
   db.blogs.find({type: "science", scope: "regional"}, function(err, slposts) {
-    if( err || !slposts) console.log("No science/regional issues found");
-    else {
+    if( err || !slposts) {
+      console.log("No issues found");
+    } else {
       var issuesList = "";
       slposts.forEach( function(issue) {
       var currentIssue = createIssueListHTML(issue);
       issuesList = issuesList + currentIssue;
     } );
+      if (issuesList.length > 1){
       response.writeHead(200, {"Content-Type": "text/html"});
       response.write(issuesList);
       response.end();
+    } else {
+      var tooBad = "<p>No issues found. Why not add one yourself?</p>"
+      response.writeHead(200, {"Content-Type": "text/html"});
+      response.write(tooBad);
+      response.end();
+    }
     }
   });
 }
@@ -146,16 +141,50 @@ function sciencenational (response){
   console.log("Request handler 'sciencenational' was called.");
 
   db.blogs.find({type: "science", scope: "national"}, function(err, slposts) {
-    if( err || !slposts) console.log("No science/national issues found");
-    else {
+    if( err || !slposts) {
+      console.log("No issues found");
+    } else {
       var issuesList = "";
       slposts.forEach( function(issue) {
       var currentIssue = createIssueListHTML(issue);
       issuesList = issuesList + currentIssue;
     } );
+      if (issuesList.length > 1){
       response.writeHead(200, {"Content-Type": "text/html"});
       response.write(issuesList);
       response.end();
+    } else {
+      var tooBad = "<p>No issues found. Why not add one yourself?</p>"
+      response.writeHead(200, {"Content-Type": "text/html"});
+      response.write(tooBad);
+      response.end();
+    }
+    }
+  });
+}
+
+function scienceglobal (response){
+  console.log("Request handler 'scienceglobal' was called.");
+
+  db.blogs.find({type: "science", scope: "global"}, function(err, slposts) {
+    if( err || !slposts) {
+      console.log("No issues found");
+    } else {
+      var issuesList = "";
+      slposts.forEach( function(issue) {
+      var currentIssue = createIssueListHTML(issue);
+      issuesList = issuesList + currentIssue;
+    } );
+      if (issuesList.length > 1){
+      response.writeHead(200, {"Content-Type": "text/html"});
+      response.write(issuesList);
+      response.end();
+    } else {
+      var tooBad = "<p>No issues found. Why not add one yourself?</p>"
+      response.writeHead(200, {"Content-Type": "text/html"});
+      response.write(tooBad);
+      response.end();
+    }
     }
   });
 }
@@ -164,16 +193,24 @@ function politicslocal (response){
   console.log("Request handler 'politicslocal' was called.");
 
   db.blogs.find({type: "politics", scope: "local"}, function(err, slposts) {
-    if( err || !slposts) console.log("No politics/local issues found");
-    else {
+    if( err || !slposts) {
+      console.log("No issues found");
+    } else {
       var issuesList = "";
       slposts.forEach( function(issue) {
       var currentIssue = createIssueListHTML(issue);
       issuesList = issuesList + currentIssue;
     } );
+      if (issuesList.length > 1){
       response.writeHead(200, {"Content-Type": "text/html"});
       response.write(issuesList);
       response.end();
+    } else {
+      var tooBad = "<p>No issues found. Why not add one yourself?</p>"
+      response.writeHead(200, {"Content-Type": "text/html"});
+      response.write(tooBad);
+      response.end();
+    }
     }
   });
 }
@@ -182,16 +219,24 @@ function politicsregional (response){
   console.log("Request handler 'politicsregional' was called.");
 
   db.blogs.find({type: "politics", scope: "regional"}, function(err, slposts) {
-    if( err || !slposts) console.log("No politics/regional issues found");
-    else {
+    if( err || !slposts) {
+      console.log("No issues found");
+    } else {
       var issuesList = "";
       slposts.forEach( function(issue) {
       var currentIssue = createIssueListHTML(issue);
       issuesList = issuesList + currentIssue;
     } );
+      if (issuesList.length > 1){
       response.writeHead(200, {"Content-Type": "text/html"});
       response.write(issuesList);
       response.end();
+    } else {
+      var tooBad = "<p>No issues found. Why not add one yourself?</p>"
+      response.writeHead(200, {"Content-Type": "text/html"});
+      response.write(tooBad);
+      response.end();
+    }
     }
   });
 }
@@ -200,16 +245,24 @@ function politicsnational (response){
   console.log("Request handler 'politicsnational' was called.");
 
   db.blogs.find({type: "politics", scope: "national"}, function(err, slposts) {
-    if( err || !slposts) console.log("No politics/national issues found");
-    else {
+    if( err || !slposts) {
+      console.log("No issues found");
+    } else {
       var issuesList = "";
       slposts.forEach( function(issue) {
       var currentIssue = createIssueListHTML(issue);
       issuesList = issuesList + currentIssue;
     } );
+      if (issuesList.length > 1){
       response.writeHead(200, {"Content-Type": "text/html"});
       response.write(issuesList);
       response.end();
+    } else {
+      var tooBad = "<p>No issues found. Why not add one yourself?</p>"
+      response.writeHead(200, {"Content-Type": "text/html"});
+      response.write(tooBad);
+      response.end();
+    }
     }
   });
 }
@@ -218,16 +271,24 @@ function politicsglobal (response){
   console.log("Request handler 'politicsglobal' was called.");
 
   db.blogs.find({type: "politics", scope: "global"}, function(err, slposts) {
-    if( err || !slposts) console.log("No politics/global issues found");
-    else {
+    if( err || !slposts) {
+      console.log("No issues found");
+    } else {
       var issuesList = "";
       slposts.forEach( function(issue) {
       var currentIssue = createIssueListHTML(issue);
       issuesList = issuesList + currentIssue;
     } );
+      if (issuesList.length > 1){
       response.writeHead(200, {"Content-Type": "text/html"});
       response.write(issuesList);
       response.end();
+    } else {
+      var tooBad = "<p>No issues found. Why not add one yourself?</p>"
+      response.writeHead(200, {"Content-Type": "text/html"});
+      response.write(tooBad);
+      response.end();
+    }
     }
   });
 }
@@ -236,16 +297,24 @@ function lifelocal (response){
   console.log("Request handler 'lifelocal' was called.");
 
   db.blogs.find({type: "life", scope: "local"}, function(err, slposts) {
-    if( err || !slposts) console.log("No life/local issues found");
-    else {
+    if( err || !slposts) {
+      console.log("No issues found");
+    } else {
       var issuesList = "";
       slposts.forEach( function(issue) {
       var currentIssue = createIssueListHTML(issue);
       issuesList = issuesList + currentIssue;
     } );
+      if (issuesList.length > 1){
       response.writeHead(200, {"Content-Type": "text/html"});
       response.write(issuesList);
       response.end();
+    } else {
+      var tooBad = "<p>No issues found. Why not add one yourself?</p>"
+      response.writeHead(200, {"Content-Type": "text/html"});
+      response.write(tooBad);
+      response.end();
+    }
     }
   });
 }
@@ -255,38 +324,23 @@ function liferegional (response){
 
   db.blogs.find({type: "life", scope: "regional"}, function(err, slposts) {
     if( err || !slposts) {
-      console.log("No life/regional issues found");
-      var tooBad = "<p>No issues found. Why not ask about one of your own?</p>"
-      response.writeHead(200, {"Content-Type": "text/plain"});
-      response.write(tooBad);
-      response.end();
+      console.log("No issues found");
     } else {
       var issuesList = "";
       slposts.forEach( function(issue) {
       var currentIssue = createIssueListHTML(issue);
       issuesList = issuesList + currentIssue;
     } );
+      if (issuesList.length > 1){
       response.writeHead(200, {"Content-Type": "text/html"});
       response.write(issuesList);
+      response.end();
+    } else {
+      var tooBad = "<p>No issues found. Why not add one yourself?</p>"
+      response.writeHead(200, {"Content-Type": "text/html"});
+      response.write(tooBad);
       response.end();
     }
-  });
-}
-
-function lifeglobal (response){
-  console.log("Request handler 'lifeglobal' was called.");
-
-  db.blogs.find({type: "life", scope: "global"}, function(err, slposts) {
-    if( err || !slposts) console.log("No life/global issues found");
-    else {
-      var issuesList = "";
-      slposts.forEach( function(issue) {
-      var currentIssue = createIssueListHTML(issue);
-      issuesList = issuesList + currentIssue;
-    } );
-      response.writeHead(200, {"Content-Type": "text/html"});
-      response.write(issuesList);
-      response.end();
     }
   });
 }
@@ -295,16 +349,50 @@ function lifenational (response){
   console.log("Request handler 'lifenational' was called.");
 
   db.blogs.find({type: "life", scope: "national"}, function(err, slposts) {
-    if( err || !slposts) console.log("No life/national issues found");
-    else {
+    if( err || !slposts) {
+      console.log("No issues found");
+    } else {
       var issuesList = "";
       slposts.forEach( function(issue) {
       var currentIssue = createIssueListHTML(issue);
       issuesList = issuesList + currentIssue;
     } );
+      if (issuesList.length > 1){
       response.writeHead(200, {"Content-Type": "text/html"});
       response.write(issuesList);
       response.end();
+    } else {
+      var tooBad = "<p>No issues found. Why not add one yourself?</p>"
+      response.writeHead(200, {"Content-Type": "text/html"});
+      response.write(tooBad);
+      response.end();
+    }
+    }
+  });
+}
+
+function lifeglobal (response){
+  console.log("Request handler 'lifeglobal' was called.");
+
+  db.blogs.find({type: "life", scope: "global"}, function(err, slposts) {
+    if( err || !slposts) {
+      console.log("No issues found");
+    } else {
+      var issuesList = "";
+      slposts.forEach( function(issue) {
+      var currentIssue = createIssueListHTML(issue);
+      issuesList = issuesList + currentIssue;
+    } );
+      if (issuesList.length > 1){
+      response.writeHead(200, {"Content-Type": "text/html"});
+      response.write(issuesList);
+      response.end();
+    } else {
+      var tooBad = "<p>No issues found. Why not add one yourself?</p>"
+      response.writeHead(200, {"Content-Type": "text/html"});
+      response.write(tooBad);
+      response.end();
+    }
     }
   });
 }
@@ -313,16 +401,24 @@ function otherlocal (response){
   console.log("Request handler 'otherlocal' was called.");
 
   db.blogs.find({type: "other", scope: "local"}, function(err, slposts) {
-    if( err || !slposts) console.log("No other/local issues found");
-    else {
+    if( err || !slposts) {
+      console.log("No issues found");
+    } else {
       var issuesList = "";
       slposts.forEach( function(issue) {
       var currentIssue = createIssueListHTML(issue);
       issuesList = issuesList + currentIssue;
     } );
+      if (issuesList.length > 1){
       response.writeHead(200, {"Content-Type": "text/html"});
       response.write(issuesList);
       response.end();
+    } else {
+      var tooBad = "<p>No issues found. Why not add one yourself?</p>"
+      response.writeHead(200, {"Content-Type": "text/html"});
+      response.write(tooBad);
+      response.end();
+    }
     }
   });
 }
@@ -331,16 +427,24 @@ function otherregional (response){
   console.log("Request handler 'otherregional' was called.");
 
   db.blogs.find({type: "other", scope: "regional"}, function(err, slposts) {
-    if( err || !slposts) console.log("No other/regional issues found");
-    else {
+    if( err || !slposts) {
+      console.log("No issues found");
+    } else {
       var issuesList = "";
       slposts.forEach( function(issue) {
       var currentIssue = createIssueListHTML(issue);
       issuesList = issuesList + currentIssue;
     } );
+      if (issuesList.length > 1){
       response.writeHead(200, {"Content-Type": "text/html"});
       response.write(issuesList);
       response.end();
+    } else {
+      var tooBad = "<p>No issues found. Why not add one yourself?</p>"
+      response.writeHead(200, {"Content-Type": "text/html"});
+      response.write(tooBad);
+      response.end();
+    }
     }
   });
 }
@@ -349,16 +453,24 @@ function othernational (response){
   console.log("Request handler 'othernational' was called.");
 
   db.blogs.find({type: "other", scope: "national"}, function(err, slposts) {
-    if( err || !slposts) console.log("No other/national issues found");
-    else {
+    if( err || !slposts) {
+      console.log("No issues found");
+    } else {
       var issuesList = "";
       slposts.forEach( function(issue) {
       var currentIssue = createIssueListHTML(issue);
       issuesList = issuesList + currentIssue;
     } );
+      if (issuesList.length > 1){
       response.writeHead(200, {"Content-Type": "text/html"});
       response.write(issuesList);
       response.end();
+    } else {
+      var tooBad = "<p>No issues found. Why not add one yourself?</p>"
+      response.writeHead(200, {"Content-Type": "text/html"});
+      response.write(tooBad);
+      response.end();
+    }
     }
   });
 }
@@ -367,20 +479,27 @@ function otherglobal (response){
   console.log("Request handler 'otherglobal' was called.");
 
   db.blogs.find({type: "other", scope: "global"}, function(err, slposts) {
-    if( err || !slposts) console.log("No other/global issues found");
-    else {
+    if( err || !slposts) {
+      console.log("No issues found");
+    } else {
       var issuesList = "";
       slposts.forEach( function(issue) {
       var currentIssue = createIssueListHTML(issue);
       issuesList = issuesList + currentIssue;
     } );
+      if (issuesList.length > 1){
       response.writeHead(200, {"Content-Type": "text/html"});
       response.write(issuesList);
       response.end();
+    } else {
+      var tooBad = "<p>No issues found. Why not add one yourself?</p>"
+      response.writeHead(200, {"Content-Type": "text/html"});
+      response.write(tooBad);
+      response.end();
+    }
     }
   });
 }
-
 
 
 

@@ -18,7 +18,9 @@
 
     <!--handlebars content-->
     <div id="contentplaceholder"></div>
-    <div id="issuelist"></div>
+    <div id="issuelist">
+
+    </div>
     <script id="Handlebars-Template" type="text/x-handlebars-template">
       <p>Title should be here: {{title}}</p>
       <p>Text should be here: {{text}}</p>
@@ -75,8 +77,7 @@
           var req = new XMLHttpRequest();
           req.open("GET", viewThis, false);
           req.send(null);
-          console.log("Got back: " + req.response);
-          console.log("Which is of type: " + typeof responseText)
+          console.log("Got back: " + req.response, typeof req.response);
           $(document).ready(function(){
             $('#issuelist').html(req.responseText);
           })
@@ -84,6 +85,5 @@
       }
 
       </script>
-
   </body>
 </html>
