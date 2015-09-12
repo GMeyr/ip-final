@@ -3,8 +3,6 @@ var exec = require('child_process').exec;
 var querystring = require('querystring');
 var fs = require('fs');
 var MongoClient = require('mongodb').MongoClient;
-var mongoose = require('mongoose');
-var mongooseLookups = require('./mongooseLookups');
 var databaseUrl = "ip";
 var collections = ["blogs"];
 var mongoapp = require('mongojs');
@@ -45,7 +43,14 @@ function submit(response, postData) {
   var v3 = querystring.parse(postData).type;
   var v4 = querystring.parse(postData).scope;
 
-  mongooseLookups.savedb(v1, v2, v3, v4);
+  db.blogs.save({ title: v1, text: v2, type: v3, scope: v4 },
+                  function(err, saved){
+                    if(err || !saved) console.log("Post not saved");
+                    else {
+                      console.log("Post saved!");
+                    }
+                  })
+
 
   response.writeHead(200, {"Content-Type": "text/html"});
   response.end(submitHTML);
@@ -84,7 +89,7 @@ function sciencelocal (response){
   console.log("Request handler 'sciencelocal' was called.");
 
   db.blogs.find({type: "science", scope: "local"}, function(err, slposts) {
-    if( err || !slposts) console.log("No issues found");
+    if( err || !slposts) console.log("No science/local issues found");
     else {
       var issuesList = "";
       slposts.forEach( function(issue) {
@@ -107,9 +112,23 @@ function sciencelocal (response){
 
 function scienceglobal (response, postData){
   console.log("Request handler 'scienceglobal' was called.");
-
-  response.writeHead(200, {"Content-Type": "text/plain"});
-  response.end("Scienceglobal's list!!");
+  db.blogs.find({type: "science", scope: "global"}, function(err, slposts) {
+    if( err || !slposts) console.log("No science/global issues found");
+    else {
+      var issuesList = "";
+      console.log("length of slposts: " + slposts.length);
+      slposts.forEach( function(issue) {
+        var currentIssue = createIssueListHTML(issue);
+        issuesList = issuesList + currentIssue;
+        console.log("Issue: " + issue.title + "added to issues list");
+        }
+      );
+      console.log("issueList is: " + issuesList);
+      response.writeHead(200, {"Content-Type": "text/html"});
+      response.write(issuesList);
+      response.end();
+    }
+  });
 }
 
 function createIssueListHTML(issue){
