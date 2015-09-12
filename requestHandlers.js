@@ -84,7 +84,7 @@ function science (response){
   response.end(result);
 }});
 }
-
+//science
 function sciencelocal (response){
   console.log("Request handler 'sciencelocal' was called.");
 
@@ -94,15 +94,8 @@ function sciencelocal (response){
       var issuesList = "";
       slposts.forEach( function(issue) {
       var currentIssue = createIssueListHTML(issue);
-      console.log("Currently processing this issue: " + currentIssue, typeof currentIssue);
-      console.log("Type of currentIssue return: " + typeof currentIssue);
       issuesList = issuesList + currentIssue;
-      console.log("So issuesList should now be: " + issuesList)
-      console.log("Issue: " + issue.title + "added to issues list");
     } );
-      console.log("Finished 'forEach' method");
-      console.log("issueList is of type: " + typeof issuesList);
-      console.log("issueList is: " + issuesList);
       response.writeHead(200, {"Content-Type": "text/html"});
       response.write(issuesList);
       response.end();
@@ -131,6 +124,266 @@ function scienceglobal (response, postData){
   });
 }
 
+function scienceregional (response){
+  console.log("Request handler 'scienceregional' was called.");
+
+  db.blogs.find({type: "science", scope: "regional"}, function(err, slposts) {
+    if( err || !slposts) console.log("No science/regional issues found");
+    else {
+      var issuesList = "";
+      slposts.forEach( function(issue) {
+      var currentIssue = createIssueListHTML(issue);
+      issuesList = issuesList + currentIssue;
+    } );
+      response.writeHead(200, {"Content-Type": "text/html"});
+      response.write(issuesList);
+      response.end();
+    }
+  });
+}
+
+function sciencenational (response){
+  console.log("Request handler 'sciencenational' was called.");
+
+  db.blogs.find({type: "science", scope: "national"}, function(err, slposts) {
+    if( err || !slposts) console.log("No science/national issues found");
+    else {
+      var issuesList = "";
+      slposts.forEach( function(issue) {
+      var currentIssue = createIssueListHTML(issue);
+      issuesList = issuesList + currentIssue;
+    } );
+      response.writeHead(200, {"Content-Type": "text/html"});
+      response.write(issuesList);
+      response.end();
+    }
+  });
+}
+//politics
+function politicslocal (response){
+  console.log("Request handler 'politicslocal' was called.");
+
+  db.blogs.find({type: "politics", scope: "local"}, function(err, slposts) {
+    if( err || !slposts) console.log("No politics/local issues found");
+    else {
+      var issuesList = "";
+      slposts.forEach( function(issue) {
+      var currentIssue = createIssueListHTML(issue);
+      issuesList = issuesList + currentIssue;
+    } );
+      response.writeHead(200, {"Content-Type": "text/html"});
+      response.write(issuesList);
+      response.end();
+    }
+  });
+}
+
+function politicsregional (response){
+  console.log("Request handler 'politicsregional' was called.");
+
+  db.blogs.find({type: "politics", scope: "regional"}, function(err, slposts) {
+    if( err || !slposts) console.log("No politics/regional issues found");
+    else {
+      var issuesList = "";
+      slposts.forEach( function(issue) {
+      var currentIssue = createIssueListHTML(issue);
+      issuesList = issuesList + currentIssue;
+    } );
+      response.writeHead(200, {"Content-Type": "text/html"});
+      response.write(issuesList);
+      response.end();
+    }
+  });
+}
+
+function politicsnational (response){
+  console.log("Request handler 'politicsnational' was called.");
+
+  db.blogs.find({type: "politics", scope: "national"}, function(err, slposts) {
+    if( err || !slposts) console.log("No politics/national issues found");
+    else {
+      var issuesList = "";
+      slposts.forEach( function(issue) {
+      var currentIssue = createIssueListHTML(issue);
+      issuesList = issuesList + currentIssue;
+    } );
+      response.writeHead(200, {"Content-Type": "text/html"});
+      response.write(issuesList);
+      response.end();
+    }
+  });
+}
+
+function politicsglobal (response){
+  console.log("Request handler 'politicsglobal' was called.");
+
+  db.blogs.find({type: "politics", scope: "global"}, function(err, slposts) {
+    if( err || !slposts) console.log("No politics/global issues found");
+    else {
+      var issuesList = "";
+      slposts.forEach( function(issue) {
+      var currentIssue = createIssueListHTML(issue);
+      issuesList = issuesList + currentIssue;
+    } );
+      response.writeHead(200, {"Content-Type": "text/html"});
+      response.write(issuesList);
+      response.end();
+    }
+  });
+}
+//life
+function lifelocal (response){
+  console.log("Request handler 'lifelocal' was called.");
+
+  db.blogs.find({type: "life", scope: "local"}, function(err, slposts) {
+    if( err || !slposts) console.log("No life/local issues found");
+    else {
+      var issuesList = "";
+      slposts.forEach( function(issue) {
+      var currentIssue = createIssueListHTML(issue);
+      issuesList = issuesList + currentIssue;
+    } );
+      response.writeHead(200, {"Content-Type": "text/html"});
+      response.write(issuesList);
+      response.end();
+    }
+  });
+}
+
+function liferegional (response){
+  console.log("Request handler 'liferegional' was called.");
+
+  db.blogs.find({type: "life", scope: "regional"}, function(err, slposts) {
+    if( err || !slposts) {
+      console.log("No life/regional issues found");
+      var tooBad = "<p>No issues found. Why not ask about one of your own?</p>"
+      response.writeHead(200, {"Content-Type": "text/plain"});
+      response.write(tooBad);
+      response.end();
+    } else {
+      var issuesList = "";
+      slposts.forEach( function(issue) {
+      var currentIssue = createIssueListHTML(issue);
+      issuesList = issuesList + currentIssue;
+    } );
+      response.writeHead(200, {"Content-Type": "text/html"});
+      response.write(issuesList);
+      response.end();
+    }
+  });
+}
+
+function lifeglobal (response){
+  console.log("Request handler 'lifeglobal' was called.");
+
+  db.blogs.find({type: "life", scope: "global"}, function(err, slposts) {
+    if( err || !slposts) console.log("No life/global issues found");
+    else {
+      var issuesList = "";
+      slposts.forEach( function(issue) {
+      var currentIssue = createIssueListHTML(issue);
+      issuesList = issuesList + currentIssue;
+    } );
+      response.writeHead(200, {"Content-Type": "text/html"});
+      response.write(issuesList);
+      response.end();
+    }
+  });
+}
+
+function lifenational (response){
+  console.log("Request handler 'lifenational' was called.");
+
+  db.blogs.find({type: "life", scope: "national"}, function(err, slposts) {
+    if( err || !slposts) console.log("No life/national issues found");
+    else {
+      var issuesList = "";
+      slposts.forEach( function(issue) {
+      var currentIssue = createIssueListHTML(issue);
+      issuesList = issuesList + currentIssue;
+    } );
+      response.writeHead(200, {"Content-Type": "text/html"});
+      response.write(issuesList);
+      response.end();
+    }
+  });
+}
+//other
+function otherlocal (response){
+  console.log("Request handler 'otherlocal' was called.");
+
+  db.blogs.find({type: "other", scope: "local"}, function(err, slposts) {
+    if( err || !slposts) console.log("No other/local issues found");
+    else {
+      var issuesList = "";
+      slposts.forEach( function(issue) {
+      var currentIssue = createIssueListHTML(issue);
+      issuesList = issuesList + currentIssue;
+    } );
+      response.writeHead(200, {"Content-Type": "text/html"});
+      response.write(issuesList);
+      response.end();
+    }
+  });
+}
+
+function otherregional (response){
+  console.log("Request handler 'otherregional' was called.");
+
+  db.blogs.find({type: "other", scope: "regional"}, function(err, slposts) {
+    if( err || !slposts) console.log("No other/regional issues found");
+    else {
+      var issuesList = "";
+      slposts.forEach( function(issue) {
+      var currentIssue = createIssueListHTML(issue);
+      issuesList = issuesList + currentIssue;
+    } );
+      response.writeHead(200, {"Content-Type": "text/html"});
+      response.write(issuesList);
+      response.end();
+    }
+  });
+}
+
+function othernational (response){
+  console.log("Request handler 'othernational' was called.");
+
+  db.blogs.find({type: "other", scope: "national"}, function(err, slposts) {
+    if( err || !slposts) console.log("No other/national issues found");
+    else {
+      var issuesList = "";
+      slposts.forEach( function(issue) {
+      var currentIssue = createIssueListHTML(issue);
+      issuesList = issuesList + currentIssue;
+    } );
+      response.writeHead(200, {"Content-Type": "text/html"});
+      response.write(issuesList);
+      response.end();
+    }
+  });
+}
+
+function otherglobal (response){
+  console.log("Request handler 'otherglobal' was called.");
+
+  db.blogs.find({type: "other", scope: "global"}, function(err, slposts) {
+    if( err || !slposts) console.log("No other/global issues found");
+    else {
+      var issuesList = "";
+      slposts.forEach( function(issue) {
+      var currentIssue = createIssueListHTML(issue);
+      issuesList = issuesList + currentIssue;
+    } );
+      response.writeHead(200, {"Content-Type": "text/html"});
+      response.write(issuesList);
+      response.end();
+    }
+  });
+}
+
+
+
+
 function createIssueListHTML(issue){
     var thing = "";
     thing += propToElement(issue, "title", "h2");
@@ -148,5 +401,20 @@ exports.submit = submit;
 exports.view = view;
 exports.template = template;
 exports.science = science;
+
 exports.sciencelocal = sciencelocal;
+exports.scienceregional = scienceregional;
+exports.sciencenational = sciencenational;
 exports.scienceglobal = scienceglobal;
+exports.politicslocal = politicslocal;
+exports.politicsregional = politicsregional;
+exports.politicsnational = politicsregional;
+exports.politicsglobal = politicsglobal;
+exports.lifelocal = lifelocal;
+exports.liferegional = liferegional;
+exports.lifenational = lifenational;
+exports.lifeglobal = lifeglobal;
+exports.otherlocal = otherlocal;
+exports.otherregional = otherregional;
+exports.othernational = othernational;
+exports.otherglobal = otherglobal;
