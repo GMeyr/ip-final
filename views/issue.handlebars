@@ -39,7 +39,7 @@
       var re = new RegExp (/(type=science)/);
 
       console.log(re.test(pathArray));
-      console.log("pathArray is: " + pathArray);
+      console.log("pathArray is: " + pathArray, typeof pathArray);
       </script>
 
       <div class="content">
@@ -47,41 +47,17 @@
       <script>
       var pathArray = window.location.search;
 
-      check(pathArray, selectionsToObj);
+      requestIssue(pathArray);
 
 
       //helper funtions
-      function check(url, callback){
-          var reType = new RegExp(/type/);
-          var reScope = new RegExp(/scope/);
-          if ( (reType.test(url)) && (reScope.test(url)) ){
-            console.log("function 'check' successful");
-            return callback(url);
-          } else return "Type and Scope are not specified";
-      }
 
-      function selectionsToObj (url) {
-        var results = {};
-        var andIndex = url.indexOf('&')
-        var newType = url.slice(6, andIndex);
-        var newScope = url.slice(andIndex + 7)
-        results.type = newType;
-        results.scope = newScope;
-        console.log("function 'selectionsToObj' successful");
-        return requestIssues(results);
-      }
-
-      function requestIssues(selectionsObj){
-          var event = document.createEvent('Event');
-          event.initEvent('gotIssues', true, true);
-
-
-
-          var viewThis = selectionsObj.type + selectionsObj.scope;
-          console.log("requesting isues for " + viewThis)
+      function requestIssue(sendData){
+          console.log("requesting issue #" + pathArray)
           var req = new XMLHttpRequest();
-          req.open("GET", viewThis, false);
-          req.send(null);
+          req.open("GET", "/id", false);
+          req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8");
+          req.send(sendData);
           console.log("Got back: " + req.response, typeof req.response);
           $(document).ready(function(){
             $('#issuelist').html(req.responseText);

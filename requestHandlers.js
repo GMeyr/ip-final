@@ -8,6 +8,8 @@ var collections = ["blogs"];
 var mongoapp = require('mongojs');
 var db = mongoapp(databaseUrl, collections);
 var url_query = require('url-query');
+var inspect = require('object-inspect');
+
 
 //file references
 var homeHTML = fs.readFileSync('views/home.html');
@@ -15,6 +17,8 @@ var newhomeHTML = fs.readFileSync('views/newhome.html');
 var addissueHTML = fs.readFileSync('views/addissue.html');
 var submitHTML = fs.readFileSync('views/submit.html');
 var templateHTML = fs.readFileSync('views/template.handlebars');
+var issueHTML = fs.readFileSync('views/issue.handlebars');
+var animalHTML = fs.readFileSync('views/animals.handlebars');
 
 //request handlers
 function start(response, postData) {
@@ -34,6 +38,58 @@ function template(response, postData) {
   response.writeHead(200, {"Content-Type": "text/html"});
   response.end(templateHTML);
 }
+
+function issue (response, postData, query){
+  console.log("Request handler 'issue' was called.");
+  console.log("'issue' request handler thinks the query is: " + query);
+
+
+
+
+  response.writeHead(200, {"Content-Type": "text/html"});
+  response.end(animalHTML);
+}
+
+function hb (response) {
+  $(document).ready(function(){
+
+    var source = $('#first-template').html();
+    var template = Handlebars.compile(source);
+
+    var context = {
+      title: "All about Handlebars",
+      body: "This is a post about other things though."
+    }
+    var el_html = template(context);
+
+    $("#first_place_holder").html(el_html);
+  })
+
+}
+
+function id (response, postData){
+/*  db.blogs.find({_id: postData, scope: "local"}, function(err, slposts) {
+    if( err || !slposts) {
+      console.log("No issues found");
+    } else {
+      var issueinfo = "";
+      console.log("slposts = " + slposts);
+      issueinfo = slposts.text;
+    }
+      if (issueinfo.length > 1){
+      response.writeHead(200, {"Content-Type": "text/html"});
+      response.write(issueinfo);
+      response.end();
+    } else {
+      var tooBad = "<p>No issue found. Why not add it yourself?</p>"
+      response.writeHead(200, {"Content-Type": "text/html"});
+      response.write(tooBad);
+      response.end();
+    }
+    }
+  );*/
+}
+
 
 function submit(response, postData) {
   console.log("Request handler 'submit' was called.");
@@ -55,35 +111,9 @@ function submit(response, postData) {
   response.writeHead(200, {"Content-Type": "text/html"});
   response.end(submitHTML);
 }
-/*
-function call(response){
-  console.log("Request handler 'call' was called.");
-  response.writeHead(200, {"Content-Type": "text/plain"});
-  response.write("It's your echo!");
-  response.end();
-}*/
 
-function view(response, postData){
-  console.log("Request handler 'view' was called.");
-  var newType = querystring.parse(postData).type;
-  localStorage.setItem("viewType", newType)
-  response.writeHead(200, {"Content-Type": "text/plain"});
-  response.write(newType, localStorage.getItem("viewType"));
-  response.end();
-}
 
-function science (response){
-  console.log("Request handler 'science' was called.");
 
-  db.blogs.findOne( function(err, found) {
-    if( err || !found) console.log("No science found");
-    else {
-  console.log(found);
-  var result = JSON.stringify(found.title);
-  response.writeHead(200, {"Content-Type": "text/plain"});
-  response.end(result);
-}});
-}
 //science
 function sciencelocal (response){
   console.log("Request handler 'sciencelocal' was called.");
@@ -110,6 +140,7 @@ function sciencelocal (response){
     }
   });
 }
+
 
 function scienceregional (response, postData){
   console.log("Request handler 'scienceregional' was called.");
@@ -505,21 +536,24 @@ function otherglobal (response){
 
 function createIssueListHTML(issue){
     var thing = "";
-    thing += propToElement(issue, "title", "h2");
+    thing += propToElement(issue, "title", "h2", true);
     thing += propToElement(issue, "text", "p");
     return thing;
 }
 
-function propToElement(obj, prop, element){
-    return "<" + element + ">" + obj[prop] + "</" + element + ">";
+function propToElement(obj, prop, element, boolean){
+    if (arguments.length > 3)
+    return "<" + element + " class='issuelink'" + "><a href='/issue/?_id=" + obj._id + "'>"
+     + obj[prop] + "</a></" + element + ">";
+    else return "<" + element + ">" + obj[prop] + "</" + element + ">";
 }
 //exports
 exports.start = start;
 exports.addissue = addissue;
 exports.submit = submit;
-exports.view = view;
 exports.template = template;
-exports.science = science;
+exports.issue = issue;
+exports.id = id;
 
 exports.sciencelocal = sciencelocal;
 exports.scienceregional = scienceregional;

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Handlebars.js Tutorial</title>
+</head>
+<body>
+<ul class="tweets">
+  <script id="hbtemplate" type="text/x-handlebars-template">
+    <li>
+      <h2>{{author}}</h2>
+      <p>{{tweet}}</p>
+    </li>
+  </script>
+</ul>
+
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script type="text/javascript" src="https://github.com/downloads/wycats/handlebars.js/handlebars-1.0.rc.1.min.js"></script>
+
+  <script>
+  //self invoking function
+(function () {
+  var data = {
+    author: "Jeffrey Way",
+    tweet: "30 days to learn jQUery"
+  };
+//bind the data to the template higher up
+  var template = Handlebars.compile($('#hbtemplate').html());
+  var temp = template(data);
+console.log(temp);
+  $("ul.tweets").append(temp)
+})();
+
+
+  </script>
+
+</body>
+</html>

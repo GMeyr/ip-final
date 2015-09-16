@@ -16,13 +16,15 @@ handle["/addissue"] = requestHandlers.addissue;
 handle["/addissue/"] = requestHandlers.addissue;
 handle["/submit"] = requestHandlers.submit;
 handle["/submit/"] = requestHandlers.submit;
-handle["/view"] = requestHandlers.view;
-handle["/view/"] = requestHandlers.view;
 handle["/template"] = requestHandlers.template;
 handle["/template/"] = requestHandlers.template;
-handle["/science"] = requestHandlers.science;
-handle["/science/"] = requestHandlers.science;
-handle["science"] = requestHandlers.science;
+handle["/issue"] = requestHandlers.issue;
+handle["/issue/"] = requestHandlers.issue;
+handle["/id"] = requestHandlers.id;
+handle["/id/"] = requestHandlers.id;
+handle["/hb"] = requestHandlers.hb;
+handle["/hb/"] = requestHandlers.hb;
+
 
 handle["/sciencelocal"] = requestHandlers.sciencelocal;
 handle["/sciencelocal/"] = requestHandlers.sciencelocal;
