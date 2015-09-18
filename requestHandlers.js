@@ -78,10 +78,10 @@ function id (response, postData, query){
       console.log("No issues found");
     } else {
 
-      var result = JSON.stringify(slposts);
+      var result = " " + JSON.stringify(slposts);
       console.log("found: " + result)
       response.writeHead(200, {"Content-Type": "application/json"});
-      response.write(slposts + "");
+      response.write(result);
       response.end();
         }}
 )}

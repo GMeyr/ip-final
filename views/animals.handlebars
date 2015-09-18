@@ -5,15 +5,20 @@
   <title>Handlebars.js Tutorial</title>
 </head>
 <body>
-<ul class="tweets">
-  <script id="hbtemplate" type="text/x-handlebars-template">
-    <li>
-      <h2>{{author}}</h2>
-      <p>{{tweet}}</p>
-    </li>
-  </script>
-</ul>
-
+  <h1 class="logo">issueprism</h1>
+  <div class="navbar">
+    <p><a href="/">Home</a> &nbsp; <a href="/addissue">Add Issue</a></p>
+  </div>
+  <div class="issuecontent">
+    <ul class="tweets">
+      <script id="hbtemplate" type="text/x-handlebars-template">
+        <li>
+          <h2>{{author}}</h2>
+          <p>{{tweet}}</p>
+        </li>
+      </script>
+    </ul>
+  </div>
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
   <script type="text/javascript" src="https://github.com/downloads/wycats/handlebars.js/handlebars-1.0.rc.1.min.js"></script>
@@ -30,7 +35,8 @@
           type: "GET",
           url: idPath,
           success: function(data) {
-            console.log("success, retrieved " + data)
+            console.log("success, retrieved " + JSON.stringify(data));
+          $('.issuecontent').html(JSON.stringify(data));
           }
         });
       });
