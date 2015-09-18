@@ -20,17 +20,26 @@
 
   <script>
   //self invoking function
-(function () {
-  var data = {
+
+
+
+      $(function (){
+        var pathArray = window.location.search;
+        var idPath = "/id/" + pathArray;
+        $.ajax({
+          type: "GET",
+          url: idPath,
+          success: function(data) {
+            console.log("success, retrieved " + data)
+          }
+        });
+      });
+
+  var data2 = {
     author: "Jeffrey Way",
     tweet: "30 days to learn jQUery"
   };
 //bind the data to the template higher up
-  var template = Handlebars.compile($('#hbtemplate').html());
-  var temp = template(data);
-console.log(temp);
-  $("ul.tweets").append(temp)
-})();
 
 
   </script>

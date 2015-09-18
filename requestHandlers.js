@@ -9,6 +9,8 @@ var mongoapp = require('mongojs');
 var db = mongoapp(databaseUrl, collections);
 var url_query = require('url-query');
 var inspect = require('object-inspect');
+var mongojs = require('mongojs');
+var ObjectId = mongojs.ObjectId;
 
 
 //file references
@@ -66,29 +68,23 @@ function hb (response) {
   })
 
 }
-
-function id (response, postData){
-/*  db.blogs.find({_id: postData, scope: "local"}, function(err, slposts) {
-    if( err || !slposts) {
+//seems like the trouble is mongo is not finding anything so it's returning null,
+//which is not a str or a buffer
+function id (response, postData, query){
+      var param = '' + query.slice(4) + '';
+      console.log("now searching mongoDB for _id: " + param);
+        db.blogs.find({_id: ObjectId(param) }, function(err, slposts) {
+        if( err || !slposts) {
       console.log("No issues found");
     } else {
-      var issueinfo = "";
-      console.log("slposts = " + slposts);
-      issueinfo = slposts.text;
-    }
-      if (issueinfo.length > 1){
-      response.writeHead(200, {"Content-Type": "text/html"});
-      response.write(issueinfo);
+
+      var result = JSON.stringify(slposts);
+      console.log("found: " + result)
+      response.writeHead(200, {"Content-Type": "application/json"});
+      response.write(slposts + "");
       response.end();
-    } else {
-      var tooBad = "<p>No issue found. Why not add it yourself?</p>"
-      response.writeHead(200, {"Content-Type": "text/html"});
-      response.write(tooBad);
-      response.end();
-    }
-    }
-  );*/
-}
+        }}
+)}
 
 
 function submit(response, postData) {
