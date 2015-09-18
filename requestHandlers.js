@@ -73,14 +73,17 @@ function hb (response) {
 function id (response, postData, query){
       var param = '' + query.slice(4) + '';
       console.log("now searching mongoDB for _id: " + param);
-        db.blogs.find({_id: ObjectId(param) }, function(err, slposts) {
+        db.blogs.findOne({_id: ObjectId(param) }, function(err, slposts) {
         if( err || !slposts) {
       console.log("No issues found");
     } else {
+      var result =  slposts.title.toString();
+      console.log("found: " + result);
 
-      var result = " " + JSON.stringify(slposts);
-      console.log("found: " + result)
-      response.writeHead(200, {"Content-Type": "application/json"});
+
+
+
+      response.writeHead(200, {"Content-Type": "text/plain"});
       response.write(result);
       response.end();
         }}
