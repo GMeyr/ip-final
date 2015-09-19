@@ -97,19 +97,44 @@ function submit(response, postData) {
   var v2 = querystring.parse(postData).text;
   var v3 = querystring.parse(postData).type;
   var v4 = querystring.parse(postData).scope;
-  var v5 = querystring.parse(postData).commtype;
-  var v6 = querystring.parse(postData).commtext;
-  var v7 = querystring.parse(postData).commref;
+  var v5 = querystring.parse(postData).commside;
+  var v6 = querystring.parse(postData).commtype;
+  var v7 = querystring.parse(postData).commtext;
+  var v8 = querystring.parse(postData).commref;
 
-  db.blogs.save({ title: v1, text: v2, type: v3, scope: v4,
-                  procomms: [{commtype: v5, commtext: v6, commref: v7}],
-                  comcomms: [] },
-                  function(err, saved){
-                    if(err || !saved) console.log("Post not saved");
-                    else {
-                      console.log("Post saved!");
-                    }
-                  })
+  if (v5 === "pro" && v7 != ""){
+    db.blogs.save({ title: v1, text: v2, type: v3, scope: v4,
+                    procomms: [{commissue: v1, commside: v5, commtype: v6, commtext: v7, commref: v8}],
+                    comcomms: [] },
+                    function(err, saved){
+                      if(err || !saved) console.log("Post not saved");
+                      else {
+                        console.log("Post saved!");
+                      }
+                    })
+  } else if (v5 === "con") {
+    db.blogs.save({ title: v1, text: v2, type: v3, scope: v4,
+                    procomms: [],
+                    comcomms: [{commissue: v1, commside: v5, commtype: v6, commtext: v7, commref: v8}] },
+                    function(err, saved){
+                      if(err || !saved) console.log("Post not saved");
+                      else {
+                        console.log("Post saved!");
+                      }
+                    })
+  } else {
+    db.blogs.save({ title: v1, text: v2, type: v3, scope: v4,
+                    procomms: [],
+                    comcomms: [] },
+                    function(err, saved){
+                      if(err || !saved) console.log("Post not saved");
+                      else {
+                        console.log("Post saved!");
+                      }
+                    })
+  }
+
+
 
 
   response.writeHead(200, {"Content-Type": "text/html"});

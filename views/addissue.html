@@ -18,13 +18,13 @@
 
       <p>Description:<br><textarea name="text" rows="4" cols="50"></textarea></p>
       <p>Type:<br>
-         <input type="radio" name="type" value="science">Science
+         <input type="radio" name="type" value="science" checked>Science
          <input type="radio" name="type" value="politics">Politics
          <input type="radio" name="type" value="life">Life
-         <input type="radio" name="type" value="other">other<br>
+         <input type="radio" name="type" value="other">Other<br>
       </p>
       <p>Scope:<br>
-         <input type="radio" name="scope" value="local">Local
+         <input type="radio" name="scope" value="local" checked>Local
          <input type="radio" name="scope" value="regional">Regional
          <input type="radio" name="scope" value="national">National
          <input type="radio" name="scope" value="global">Global
@@ -47,6 +47,9 @@
              <input type="radio" value="moral" name="commtype"> Moral
              <input type="radio" value="anecdotal" name="commtype"> Anecdotal
           </p>
+          <p>Pro or con?</p>
+          <input type="radio" name="commside" value="pro" checked>Pro
+          <input type="radio" name="commside" value="con">Con
           <p>Comment<p>
           <p><textarea name="commtext" rows="10" cols="60"></textarea></p>
           <p>Reference Link - optional<p>
