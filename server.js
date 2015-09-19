@@ -19,7 +19,6 @@ function start(route, handle) {
     request.addListener("end", function() {
       var pathname = url.parse(request.url).pathname;
       var query = url.parse(request.url).query;
-      console.log("Really, request for query " + query + " recieved.");
       route(handle, pathname, response, postData, query);
     })
   }

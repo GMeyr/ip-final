@@ -9,25 +9,16 @@
   <div class="navbar">
     <p><a href="/">Home</a> &nbsp; <a href="/addissue">Add Issue</a></p>
   </div>
-  <div class="issuecontent">
-    <ul class="tweets">
-      <script id="hbtemplate" type="text/x-handlebars-template">
-        <li>
-          <h2>{{author}}</h2>
-          <p>{{tweet}}</p>
-        </li>
-      </script>
-    </ul>
+  <div class="issueContent">
+    <div class="issueTypeScope"></div>
+    <div class="issueTitle"></div>
+    <div class="issueText"></div>
+
   </div>
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-  <script type="text/javascript" src="https://github.com/downloads/wycats/handlebars.js/handlebars-1.0.rc.1.min.js"></script>
-
   <script>
   //self invoking function
-
-
-
       $(function (){
         var pathArray = window.location.search;
         var idPath = "/id/" + pathArray;
@@ -35,17 +26,19 @@
           type: "GET",
           url: idPath,
           success: function(data) {
-            console.log("success, retrieved " + JSON.stringify(data));
-          $('.issuecontent').html(JSON.stringify(data));
+            var dataObj = {
+          title: JSON.stringify(data.title).replace(/\"/g, ""),
+          text: JSON.stringify(data.text).replace(/\"/g, ""),
+          type: JSON.stringify(data.type).replace(/\"/g, ""),
+          scope: JSON.stringify(data.scope).replace(/\"/g, "")
+  };
+          $('.issueTypeScope').html("<p>" + dataObj.type + " : " + dataObj.scope + "</p>");
+          $('.issueTitle').html("<h2>" + dataObj.title + "</h2>");
+          $('.issueText').html("<p>" + dataObj.text + "</p>");
           }
         });
       });
 
-  var data2 = {
-    author: "Jeffrey Way",
-    tweet: "30 days to learn jQUery"
-  };
-//bind the data to the template higher up
 
 
   </script>

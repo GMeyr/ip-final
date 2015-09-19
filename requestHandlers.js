@@ -77,13 +77,13 @@ function id (response, postData, query){
         if( err || !slposts) {
       console.log("No issues found");
     } else {
-      var result =  slposts.title.toString();
+      var result =  JSON.stringify(slposts);
       console.log("found: " + result);
 
 
 
 
-      response.writeHead(200, {"Content-Type": "text/plain"});
+      response.writeHead(200, {"Content-Type": "application/json"});
       response.write(result);
       response.end();
         }}
