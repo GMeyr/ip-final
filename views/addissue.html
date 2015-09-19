@@ -3,6 +3,8 @@
 <head>
   <title>Add An Issue</title>
   <meta http-equiv="Content-type" content="text/html" charset="UTF-8" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
   <style></style>
 </head>
 <body>
@@ -33,12 +35,29 @@
       <input type="checkbox" id="alsocomment">
         <label for="alsocomment">Add your own comment</label>
         <script>
+
           var checkbox = document.querySelector("#alsocomment");
           checkbox.addEventListener("change", function() {
-          document.body.style.background =
-          checkbox.checked ? "mediumpurple" : "";
-          });
+            $(".commentForm").toggle();
+          }
+          );
         </script>
+        <div class="commentForm">
+          <p>What type of comment is it?</p>
+          <p><input type="radio" value="statistical" name="commtype"> Statistical
+             <input type="radio" value="rational" name="commtype" checked> Rational
+             <input type="radio" value="moral" name="commtype"> Moral
+             <input type="radio" value="anecdotal" name="commtype"> Anecdotal
+          </p>
+          <p>Comment<p>
+          <p><textarea name="commtext" rows="10" cols="60"></textarea></p>
+          <p>Reference Link - optional<p>
+          <p><textarea name="commref" rows="1" cols="60"></textarea></p>
+          </div>
+          <script>
+            $(".commentForm").hide();
+          </script>
+          </form>
 
       <p><input type="submit" value="Ask " /> (Submit)</p>
     </form>
