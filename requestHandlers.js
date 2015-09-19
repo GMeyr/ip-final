@@ -97,8 +97,13 @@ function submit(response, postData) {
   var v2 = querystring.parse(postData).text;
   var v3 = querystring.parse(postData).type;
   var v4 = querystring.parse(postData).scope;
+  var v5 = querystring.parse(postData).commtype;
+  var v6 = querystring.parse(postData).commtext;
+  var v7 = querystring.parse(postData).commref;
 
-  db.blogs.save({ title: v1, text: v2, type: v3, scope: v4 },
+  db.blogs.save({ title: v1, text: v2, type: v3, scope: v4,
+                  procomms: [{commtype: v5, commtext: v6, commref: v7}],
+                  comcomms: [] },
                   function(err, saved){
                     if(err || !saved) console.log("Post not saved");
                     else {
