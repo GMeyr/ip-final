@@ -19,20 +19,20 @@ var templateHTML = fs.readFileSync('views/template.handlebars');
 
 //request handlers
 function addissue(response, postData) {
-  console.log("Request handler 'postissue' was called.");
+  console.log("Handling /addissue/");
   response.writeHead(200, {"Content-Type": "text/html"});
   response.end(addissueHTML);
 }
 
 function id (response, postData, query){
       var param = '' + query.slice(4) + '';
-      console.log("now searching mongoDB for _id: " + param);
-        db.blogs.findOne({_id: ObjectId(param) }, function(err, slposts) {
-        if( err || !slposts) {
+      console.log("Handling /id/ and searching mongoDB for _id: " + param);
+        db.blogs.findOne({_id: ObjectId(param) }, function(err, doc) {
+        if( err || !doc) {
       console.log("No issues found");
     } else {
-      var result =  JSON.stringify(slposts);
-      console.log("found: " + result);
+      var result =  JSON.stringify(doc);
+      console.log("--found: " + result);
 
       response.writeHead(200, {"Content-Type": "application/json"});
       response.write(result);
@@ -40,60 +40,58 @@ function id (response, postData, query){
         }}
 )}
 
-
 function issue (response, postData, query){
-  console.log("Request handler 'issue' was called.");
-  console.log("'issue' request handler thinks the query is: " + query);
+  console.log("Handling /issue/ with query " + query);
   response.writeHead(200, {"Content-Type": "text/html"});
-  response.end(animalHTML);
+  response.end(listHTML);
 }
 
 function start(response, postData) {
-  console.log("Request handler 'start' was called.");
+  console.log("Handling /start/");
   response.writeHead(200, {"Content-Type": "text/html"});
-  response.end(newhomeHTML);
+  response.end(homeHTML);
 }
 
 function submit(response, postData) {
-  console.log("Request handler 'submit' was called.");
+  console.log("Handling /submit/");
 
-  var v1 = querystring.parse(postData).title;
-  var v2 = querystring.parse(postData).text;
-  var v3 = querystring.parse(postData).type;
-  var v4 = querystring.parse(postData).scope;
-  var v5 = querystring.parse(postData).commside;
-  var v6 = querystring.parse(postData).commtype;
-  var v7 = querystring.parse(postData).commtext;
-  var v8 = querystring.parse(postData).commref;
+  var postTitle = querystring.parse(postData).title;
+  var postText = querystring.parse(postData).text;
+  var postType = querystring.parse(postData).type;
+  var postScope = querystring.parse(postData).scope;
+  var postCommSide = querystring.parse(postData).commside;
+  var postCommType = querystring.parse(postData).commtype;
+  var postCommText = querystring.parse(postData).commtext;
+  var postCommRef = querystring.parse(postData).commref;
 
-  if (v5 === "pro" && v7 != ""){
-    db.blogs.save({ title: v1, text: v2, type: v3, scope: v4,
-                    procomms: [{commissue: v1, commside: v5, commtype: v6, commtext: v7, commref: v8}],
+  if (postCommSide === "pro" && v7 != ""){
+    db.blogs.save({ title: postTitle, text: postText, type: postType, scope: postScope,
+                    procomms: [{commissue: postTitle, commside: postCommSide, commtype: postCommType, commtext: postCommText, commref: postCommRef}],
                     comcomms: [] },
                     function(err, saved){
-                      if(err || !saved) console.log("Post not saved");
+                      if(err || !saved) console.log("--Post not saved");
                       else {
-                        console.log("Post saved!");
+                        console.log("--Post saved!");
                       }
                     })
-  } else if (v5 === "con") {
-    db.blogs.save({ title: v1, text: v2, type: v3, scope: v4,
+  } else if (postCommSide === "con") {
+    db.blogs.save({ title: postTitle, text: postText, type: postType, scope: postScope,
                     procomms: [],
-                    comcomms: [{commissue: v1, commside: v5, commtype: v6, commtext: v7, commref: v8}] },
+                    comcomms: [{commissue: postTitle, commside: postCommSide, commtype: postCommType, commtext: postCommText, commref: postCommRef}] },
                     function(err, saved){
-                      if(err || !saved) console.log("Post not saved");
+                      if(err || !saved) console.log("--Post not saved");
                       else {
-                        console.log("Post saved!");
+                        console.log("--Post saved!");
                       }
                     })
   } else {
-    db.blogs.save({ title: v1, text: v2, type: v3, scope: v4,
+    db.blogs.save({ title: postTitle, text: postText, type: postType, scope: postScope,
                     procomms: [],
                     comcomms: [] },
                     function(err, saved){
-                      if(err || !saved) console.log("Post not saved");
+                      if(err || !saved) console.log("--Post not saved");
                       else {
-                        console.log("Post saved!");
+                        console.log("--Post saved!");
                       }
                     })
   }
@@ -123,7 +121,7 @@ function propToElement(obj, prop, element, boolean){
     else return "<" + element + ">" + obj[prop] + "</" + element + ">";
 }
 
-//template views
+//Template Views
 //science
 function sciencelocal (response){
   console.log("Request handler 'sciencelocal' was called.");
