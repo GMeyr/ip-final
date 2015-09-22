@@ -5,25 +5,24 @@ var requestHandlers = require("./requestHandlers");
 
 
 var handle = {};
+// requests
 handle["/"] = requestHandlers.start;
-handle["/start"] = requestHandlers.start;
-handle["/start/"] = requestHandlers.start;
-handle["/upload"] = requestHandlers.upload;
-handle["/upload/"] = requestHandlers.upload;
 handle["/addissue"] = requestHandlers.addissue;
 handle["/addissue/"] = requestHandlers.addissue;
-handle["/submit"] = requestHandlers.submit;
-handle["/submit/"] = requestHandlers.submit;
-handle["/template"] = requestHandlers.template;
-handle["/template/"] = requestHandlers.template;
-handle["/issue"] = requestHandlers.issue;
-handle["/issue/"] = requestHandlers.issue;
-handle["/id"] = requestHandlers.id;
-handle["/id/"] = requestHandlers.id;
 handle["/comment"] = requestHandlers.comment;
 handle["/comment/"] = requestHandlers.comment;
+handle["/id"] = requestHandlers.id;
+handle["/id/"] = requestHandlers.id;
+handle["/issue"] = requestHandlers.issue;
+handle["/issue/"] = requestHandlers.issue;
+handle["/list"] = requestHandlers.template;
+handle["/list/"] = requestHandlers.template;
+handle["/start"] = requestHandlers.start;
+handle["/start/"] = requestHandlers.start;
+handle["/submit"] = requestHandlers.submit;
+handle["/submit/"] = requestHandlers.submit;
 
-
+//view requests
 handle["/sciencelocal"] = requestHandlers.sciencelocal;
 handle["/sciencelocal/"] = requestHandlers.sciencelocal;
 handle["/scienceregional"] = requestHandlers.scienceregional;
