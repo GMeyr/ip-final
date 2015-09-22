@@ -1,5 +1,5 @@
 //schema used by mongooseLookups.js
-
+//delete folder
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
