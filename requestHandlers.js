@@ -1,75 +1,29 @@
 //dependencies
+var collections = ["blogs"];
+var databaseUrl = "ip";
+var db = mongojs(databaseUrl, collections);
 var exec = require('child_process').exec;
-var querystring = require('querystring');
 var fs = require('fs');
 var MongoClient = require('mongodb').MongoClient;
-var databaseUrl = "ip";
-var collections = ["blogs"];
-var mongoapp = require('mongojs');
-var db = mongoapp(databaseUrl, collections);
-var url_query = require('url-query');
-var inspect = require('object-inspect');
 var mongojs = require('mongojs');
 var ObjectId = mongojs.ObjectId;
-
+var querystring = require('querystring');
 
 //file references
-var homeHTML = fs.readFileSync('views/home.html');
-var newhomeHTML = fs.readFileSync('views/newhome.html');
 var addissueHTML = fs.readFileSync('views/addissue.html');
+var homeHTML = fs.readFileSync('views/home.html');
+var issueHTML = fs.readFileSync('views/issue.handlebars');
+var listHTML = fs.readFileSync('views/list.handlebars');
 var submitHTML = fs.readFileSync('views/submit.html');
 var templateHTML = fs.readFileSync('views/template.handlebars');
-var issueHTML = fs.readFileSync('views/issue.handlebars');
-var animalHTML = fs.readFileSync('views/animals.handlebars');
 
 //request handlers
-function start(response, postData) {
-  console.log("Request handler 'start' was called.");
-  response.writeHead(200, {"Content-Type": "text/html"});
-  response.end(newhomeHTML);
-}
-
 function addissue(response, postData) {
   console.log("Request handler 'postissue' was called.");
   response.writeHead(200, {"Content-Type": "text/html"});
   response.end(addissueHTML);
 }
 
-function template(response, postData) {
-  console.log("Request handler 'template' was called.");
-  response.writeHead(200, {"Content-Type": "text/html"});
-  response.end(templateHTML);
-}
-
-function issue (response, postData, query){
-  console.log("Request handler 'issue' was called.");
-  console.log("'issue' request handler thinks the query is: " + query);
-
-
-
-
-  response.writeHead(200, {"Content-Type": "text/html"});
-  response.end(animalHTML);
-}
-
-function hb (response) {
-  $(document).ready(function(){
-
-    var source = $('#first-template').html();
-    var template = Handlebars.compile(source);
-
-    var context = {
-      title: "All about Handlebars",
-      body: "This is a post about other things though."
-    }
-    var el_html = template(context);
-
-    $("#first_place_holder").html(el_html);
-  })
-
-}
-//seems like the trouble is mongo is not finding anything so it's returning null,
-//which is not a str or a buffer
 function id (response, postData, query){
       var param = '' + query.slice(4) + '';
       console.log("now searching mongoDB for _id: " + param);
@@ -80,15 +34,25 @@ function id (response, postData, query){
       var result =  JSON.stringify(slposts);
       console.log("found: " + result);
 
-
-
-
       response.writeHead(200, {"Content-Type": "application/json"});
       response.write(result);
       response.end();
         }}
 )}
 
+
+function issue (response, postData, query){
+  console.log("Request handler 'issue' was called.");
+  console.log("'issue' request handler thinks the query is: " + query);
+  response.writeHead(200, {"Content-Type": "text/html"});
+  response.end(animalHTML);
+}
+
+function start(response, postData) {
+  console.log("Request handler 'start' was called.");
+  response.writeHead(200, {"Content-Type": "text/html"});
+  response.end(newhomeHTML);
+}
 
 function submit(response, postData) {
   console.log("Request handler 'submit' was called.");
@@ -134,15 +98,32 @@ function submit(response, postData) {
                     })
   }
 
-
-
-
   response.writeHead(200, {"Content-Type": "text/html"});
   response.end(submitHTML);
 }
 
+function template(response, postData) {
+  console.log("Request handler 'template' was called.");
+  response.writeHead(200, {"Content-Type": "text/html"});
+  response.end(templateHTML);
+}
 
+//helper functions
+function createIssueListHTML(issue){
+    var thing = "";
+    thing += propToElement(issue, "title", "h2", true);
+    thing += propToElement(issue, "text", "p");
+    return thing;
+}
 
+function propToElement(obj, prop, element, boolean){
+    if (arguments.length > 3)
+    return "<" + element + " class='issuelink'" + "><a href='/issue/?_id=" + obj._id + "'>"
+     + obj[prop] + "</a></" + element + ">";
+    else return "<" + element + ">" + obj[prop] + "</" + element + ">";
+}
+
+//template views
 //science
 function sciencelocal (response){
   console.log("Request handler 'sciencelocal' was called.");
@@ -561,21 +542,6 @@ function otherglobal (response){
   });
 }
 
-
-
-function createIssueListHTML(issue){
-    var thing = "";
-    thing += propToElement(issue, "title", "h2", true);
-    thing += propToElement(issue, "text", "p");
-    return thing;
-}
-
-function propToElement(obj, prop, element, boolean){
-    if (arguments.length > 3)
-    return "<" + element + " class='issuelink'" + "><a href='/issue/?_id=" + obj._id + "'>"
-     + obj[prop] + "</a></" + element + ">";
-    else return "<" + element + ">" + obj[prop] + "</" + element + ">";
-}
 //exports
 exports.start = start;
 exports.addissue = addissue;
