@@ -1,16 +1,12 @@
 {
-  "name": "14",
+  "name": "Issue Prism",
   "version": "1.0.0",
   "description": "A site for examining current events",
   "main": "index.js",
   "dependencies": {
-    "formidable": "^1.0.17",
     "handlebars": "^4.0.2",
     "mongodb": "^1.4.7",
-    "mongojs": "^1.3.0",
-    "mongoose": "^4.1.3",
-    "object-inspect": "^1.0.2",
-    "url-query": "^1.0.3"
+    "mongojs": "^1.3.0"
   },
   "devDependencies": {},
   "scripts": {
