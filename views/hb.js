@@ -1,3 +1,4 @@
+//delete file
 $(document).ready(function(){
 
   var source = $('#first-template').html();
