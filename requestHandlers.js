@@ -12,10 +12,10 @@ var querystring = require('querystring');
 //file references
 var addissueHTML = fs.readFileSync('views/addissue.html');
 var homeHTML = fs.readFileSync('views/home.html');
-var issueHTML = fs.readFileSync('views/issue.handlebars');
-var listHTML = fs.readFileSync('views/list.handlebars');
+var issueHTML = fs.readFileSync('views/issue.html');
+var listHTML = fs.readFileSync('views/list.html');
 var submitHTML = fs.readFileSync('views/submit.html');
-var templateHTML = fs.readFileSync('views/template.handlebars');
+var templateHTML = fs.readFileSync('views/template.html');
 
 //request handlers
 function addissue(response, postData) {
