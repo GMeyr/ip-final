@@ -1,27 +1,27 @@
-<!--Page used for saving posts to mongoDB-->
+<!--Page used for creating new issues, saving to mongoDB-->
 <!DOCTYPE html>
-<head>
-  <title>Add An Issue</title>
-  <meta http-equiv="Content-type" content="text/html" charset="UTF-8" />
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-
-  <style></style>
-</head>
-<body>
+  <head>
+    <title>Add An Issue</title>
+    <meta http-equiv="Content-type" content="text/html" charset="UTF-8" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  </head>
+  <body>
     <h1 class="logo">issueprism</h1>
-  <div class="navbar">
-    <p><a href="/">Home</a>  &nbsp; <a href="/addissue">Add Issue</a></p>
-  </div>
+    
+    <div class="navbar">
+      <p><a href="/">Home</a>  &nbsp; <a href="/addissue">Add Issue</a></p>
+    </div>
+    
     <h2>Create An Issue</h2>
+    
     <form action="/submit" method="post">
       <p>Title:<br><input type="text" name="title" ><br><span class="helpertext">Make sure it's a question</span></p>
-
       <p>Description:<br><textarea name="text" rows="4" cols="50"></textarea></p>
       <p>Type:<br>
          <input type="radio" name="type" value="science" checked>Science
          <input type="radio" name="type" value="politics">Politics
          <input type="radio" name="type" value="life">Life
-         <input type="radio" name="type" value="other">Other<br>
+         <input type="radio" name="type" value="other">Other
       </p>
       <p>Scope:<br>
          <input type="radio" name="scope" value="local" checked>Local
@@ -29,17 +29,16 @@
          <input type="radio" name="scope" value="national">National
          <input type="radio" name="scope" value="global">Global
       </p>
-
       <input type="checkbox" id="alsocomment">
         <label for="alsocomment">Add your own comment</label>
-        <script>
-
+        
+      <script>
           var checkbox = document.querySelector("#alsocomment");
           checkbox.addEventListener("change", function() {
             $(".commentForm").toggle();
-          }
-          );
-        </script>
+          });
+      </script>
+      
         <div class="commentForm">
           <p>What type of comment is it?</p>
           <p><input type="radio" value="statistical" name="commtype"> Statistical
@@ -47,20 +46,21 @@
              <input type="radio" value="moral" name="commtype"> Moral
              <input type="radio" value="anecdotal" name="commtype"> Anecdotal
           </p>
-          <p>Pro or con?</p>
-          <input type="radio" name="commside" value="pro" checked>Pro
-          <input type="radio" name="commside" value="con">Con
-          <p>Comment<p>
-          <p><textarea name="commtext" rows="10" cols="60"></textarea></p>
-          <p>Reference Link - optional<p>
-          <p><textarea name="commref" rows="1" cols="60"></textarea></p>
-          </div>
+          <p>Pro or con?<br>
+            <input type="radio" name="commside" value="pro" checked>Pro
+            <input type="radio" name="commside" value="con">Con
+          </p>
+          <p>Comment<br>
+            <textarea name="commtext" rows="10" cols="60"></textarea></p>
+          <p>Reference Link<br>
+            <textarea name="commref" rows="1" cols="60"></textarea></p>
+        </div>
+        
           <script>
             $(".commentForm").hide();
           </script>
 
-
       <p><input type="submit" value="Ask " /> (Submit)</p>
     </form>
-</body>
+  </body>
 </html>
