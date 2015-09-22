@@ -1,24 +1,24 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <meta charset="UTF-8">
-  <title>Handlebars.js Tutorial</title>
-</head>
-<body>
-  <h1 class="logo">issueprism</h1>
-  <div class="navbar">
-    <p><a href="/">Home</a> &nbsp; <a href="/addissue">Add Issue</a></p>
-  </div>
-  <div class="issueContent">
-    <div class="issueTypeScope"></div>
-    <div class="issueTitle"></div>
-    <div class="issueText"></div>
+  <head>
+   <meta charset="UTF-8">
+    <title>Issue Prism</title>
+  </head>
+  
+  <body>
+    <h1 class="logo">issueprism</h1>
+    <div class="navbar">
+      <p><a href="/">Home</a> &nbsp; <a href="/addissue">Add Issue</a></p>
+    </div>
+    <div class="issueContent">
+      <div class="issueTypeScope"></div>
+      <div class="issueTitle"></div>
+      <div class="issueText"></div>
+    </div>
 
-  </div>
-
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-  <script>
-  //self invoking function
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script>
+      //self invoking function
       $(function (){
         var pathArray = window.location.search;
         var idPath = "/id/" + pathArray;
@@ -27,21 +27,19 @@
           url: idPath,
           success: function(data) {
             var dataObj = {
-          title: JSON.stringify(data.title).replace(/\"/g, ""),
-          text: JSON.stringify(data.text).replace(/\"/g, ""),
-          type: JSON.stringify(data.type).replace(/\"/g, ""),
-          scope: JSON.stringify(data.scope).replace(/\"/g, "")
-  };
+                            title: JSON.stringify(data.title).replace(/\"/g, ""),
+                            text: JSON.stringify(data.text).replace(/\"/g, ""),
+                            type: JSON.stringify(data.type).replace(/\"/g, ""),
+                            scope: JSON.stringify(data.scope).replace(/\"/g, "")
+                          };
+                          
           $('.issueTypeScope').html("<p>" + dataObj.type + " : " + dataObj.scope + "</p>");
           $('.issueTitle').html("<h2>" + dataObj.title + "</h2>");
           $('.issueText').html("<p>" + dataObj.text + "</p>");
           }
         });
       });
-
-
-
-  </script>
-
-</body>
+    </script>
+    
+  </body>
 </html>
