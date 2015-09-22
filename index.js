@@ -10,8 +10,6 @@ handle["/start"] = requestHandlers.start;
 handle["/start/"] = requestHandlers.start;
 handle["/upload"] = requestHandlers.upload;
 handle["/upload/"] = requestHandlers.upload;
-handle["/show"] = requestHandlers.show;
-handle["/show/"] = requestHandlers.show;
 handle["/addissue"] = requestHandlers.addissue;
 handle["/addissue/"] = requestHandlers.addissue;
 handle["/submit"] = requestHandlers.submit;
@@ -22,8 +20,8 @@ handle["/issue"] = requestHandlers.issue;
 handle["/issue/"] = requestHandlers.issue;
 handle["/id"] = requestHandlers.id;
 handle["/id/"] = requestHandlers.id;
-handle["/hb"] = requestHandlers.hb;
-handle["/hb/"] = requestHandlers.hb;
+handle["/comment"] = requestHandlers.comment;
+handle["/comment/"] = requestHandlers.comment;
 
 
 handle["/sciencelocal"] = requestHandlers.sciencelocal;
