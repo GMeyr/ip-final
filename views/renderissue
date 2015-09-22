@@ -1,9 +1,0 @@
-var Handlebars = require('Handlebars');
-
-
-
-
-
-
-
-exports.render = render;
