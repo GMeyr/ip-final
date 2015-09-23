@@ -25,13 +25,32 @@
     <input type="button" id="commentButton" value="click">
 
     <div class="addCommentForm">
-      <form action="/submit" method="post">
+      <form id="newCommentForm" action="/comment/" method="post">
+        <p>Side:<br>
+          <input type="radio" name="commside" value="pro" checked>Pro
+          <input type="radio" name="commside" value="con">Con
+        </p>
+        <p>Comment:<br>
+          <input type="text" name="commtext" ><br>
+          <span class="helpertext">Make sure it's a question</span>
+        </p>
+        <p>Reference Link:<br>
+          <textarea name="commlink" rows="1" cols="30"></textarea>
+        </p>
+        <p>Comment Type:<br>
+          <input type="radio" name="commtype" value="statistical" checked>Statistical
+          <input type="radio" name="commtype" value="rational">Rational
+          <input type="radio" name="commtype" value="moral">Moral
+          <input type="radio" name="commtype" value="anecdotal">Anecdotal
+        </p>
+        <p><input type="submit" value="Submit Comment" /></p>
+      </form>
     </div>
 
     <script>
-      $(document).ready(function(){
         $('.addCommentForm').hide();
-      })
+        var hiddenID = '<input type="hidden" name="commissue_id" value="' + window.location.query.slice(5); + '" />'
+        $('#newCommentForm').append();
     </script>
     <script>
       //self invoking function
