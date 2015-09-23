@@ -13,7 +13,6 @@ var querystring = require('querystring');
 var addissueHTML = fs.readFileSync('views/addissue.html');
 var homeHTML = fs.readFileSync('views/home.html');
 var issueHTML = fs.readFileSync('views/issue.html');
-var listHTML = fs.readFileSync('views/list.html');
 var submitHTML = fs.readFileSync('views/submit.html');
 var templateHTML = fs.readFileSync('views/template.html');
 
@@ -43,7 +42,7 @@ function id (response, postData, query){
 function issue (response, postData, query){
   console.log("Handling /issue/ with query " + query);
   response.writeHead(200, {"Content-Type": "text/html"});
-  response.end(listHTML);
+  response.end(issueHTML );
 }
 
 function start(response, postData) {
