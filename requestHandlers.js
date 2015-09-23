@@ -23,6 +23,54 @@ function addissue(response, postData) {
   response.end(addissueHTML);
 }
 
+function comment(response, postData) {
+  console.log("Handling /submit/");
+
+  var postTitle = querystring.parse(postData).title;
+  var postText = querystring.parse(postData).text;
+  var postType = querystring.parse(postData).type;
+  var postScope = querystring.parse(postData).scope;
+  var postCommSide = querystring.parse(postData).commside;
+  var postCommType = querystring.parse(postData).commtype;
+  var postCommText = querystring.parse(postData).commtext;
+  var postCommRef = querystring.parse(postData).commref;
+
+  if (postCommSide === "pro" && v7 != ""){
+    db.blogs.save({ title: postTitle, text: postText, type: postType, scope: postScope,
+                    procomms: [{commissue: postTitle, commside: postCommSide, commtype: postCommType, commtext: postCommText, commref: postCommRef}],
+                    comcomms: [] },
+                    function(err, saved){
+                      if(err || !saved) console.log("--Post not saved");
+                      else {
+                        console.log("--Post saved!");
+                      }
+                    })
+  } else if (postCommSide === "con") {
+    db.blogs.save({ title: postTitle, text: postText, type: postType, scope: postScope,
+                    procomms: [],
+                    comcomms: [{commissue: postTitle, commside: postCommSide, commtype: postCommType, commtext: postCommText, commref: postCommRef}] },
+                    function(err, saved){
+                      if(err || !saved) console.log("--Post not saved");
+                      else {
+                        console.log("--Post saved!");
+                      }
+                    })
+  } else {
+    db.blogs.save({ title: postTitle, text: postText, type: postType, scope: postScope,
+                    procomms: [],
+                    comcomms: [] },
+                    function(err, saved){
+                      if(err || !saved) console.log("--Post not saved");
+                      else {
+                        console.log("--Post saved!");
+                      }
+                    })
+  }
+
+  response.writeHead(200, {"Content-Type": "text/html"});
+  response.end(submitHTML);
+}
+
 function id (response, postData, query){
       var param = '' + query.slice(4) + '';
       console.log("Handling /id/ and searching mongoDB for _id: " + param);
@@ -562,6 +610,7 @@ exports.submit = submit;
 exports.template = template;
 exports.issue = issue;
 exports.id = id;
+exports.comment = comment;
 
 exports.sciencelocal = sciencelocal;
 exports.scienceregional = scienceregional;
