@@ -25,17 +25,36 @@ function addissue(response, postData) {
 
 function comment(response, postData) {
   console.log("Handling /submit/");
-
-  var postTitle = querystring.parse(postData).title;
-  var postText = querystring.parse(postData).text;
-  var postType = querystring.parse(postData).type;
-  var postScope = querystring.parse(postData).scope;
+  
+  var postCommIssue_Id = querystring.parse(postData).commissue_id;
   var postCommSide = querystring.parse(postData).commside;
   var postCommType = querystring.parse(postData).commtype;
   var postCommText = querystring.parse(postData).commtext;
   var postCommRef = querystring.parse(postData).commref;
 
-  if (postCommSide === "pro" && v7 != ""){
+if (postCommSide === "pro"){  
+  db.users.update({_id: ObjectId(param) },
+                  {$push: {procomms: { commissue_id: postCommIssue_Id,                                                            commside: "pro",
+                                                     commtype: postCommType,
+                                                     commtext: postCommText,
+                                                     commref: postCommRef }},
+                  function(err, updated) {
+                    if( err || !updated ) console.log("--Comment not added");
+                  else console.log("--Comment added");
+                  });
+} else {
+    db.users.update({_id: ObjectId(param) },
+                  {$push: {concomms: { commissue_id: postCommIssue_Id,                                                            commside: "pro",
+                                                     commtype: postCommType,
+                                                     commtext: postCommText,
+                                                     commref: postCommRef }},
+                  function(err, updated) {
+                    if( err || !updated ) console.log("--Comment not added");
+                  else console.log("--Comment added");
+                  });
+}
+//the stuf here is not necessary
+  if (postCommSide === "pro"){
     db.blogs.save({ title: postTitle, text: postText, type: postType, scope: postScope,
                     procomms: [{commissue: postTitle, commside: postCommSide, commtype: postCommType, commtext: postCommText, commref: postCommRef}],
                     comcomms: [] },
