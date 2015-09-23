@@ -3,6 +3,12 @@
   <head>
    <meta charset="UTF-8">
     <title>Issue Prism</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script>
+      $('#commentButton').click(function(){
+          $('.addCommentForm').toggle();
+      });
+    </script>
   </head>
   
   <body>
@@ -16,7 +22,17 @@
       <div class="issueText"></div>
     </div>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <input type="button" id="commentButton" value="click">
+
+    <div class="addCommentForm">
+      <form action="/submit" method="post">
+    </div>
+
+    <script>
+      $(document).ready(function(){
+        $('.addCommentForm').hide();
+      })
+    </script>
     <script>
       //self invoking function
       $(function (){
