@@ -105,6 +105,14 @@ function template(response, postData) {
   response.end(templateHTML);
 }
 
+
+
+
+
+
+
+
+
 //helper functions
 function createIssueListHTML(issue){
     var thing = "";
@@ -119,6 +127,14 @@ function propToElement(obj, prop, element, boolean){
      + obj[prop] + "</a></" + element + ">";
     else return "<" + element + ">" + obj[prop] + "</" + element + ">";
 }
+
+
+
+
+
+
+
+
 
 //Template Views
 //science
