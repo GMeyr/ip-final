@@ -61,6 +61,7 @@
           url: idPath,
           success: function(data) {
             var dataObj = {
+                            _id: JSON.stringify(data._id).replace(/\"/g, "")
                             title: JSON.stringify(data.title).replace(/\"/g, ""),
                             text: JSON.stringify(data.text).replace(/\"/g, ""),
                             type: JSON.stringify(data.type).replace(/\"/g, ""),
@@ -70,6 +71,14 @@
           $('.issueTypeScope').html("<p>" + dataObj.type + " : " + dataObj.scope + "</p>");
           $('.issueTitle').html("<h2>" + dataObj.title + "</h2>");
           $('.issueText').html("<p>" + dataObj.text + "</p>");
+          
+          comments_url = "getcomments/?" + dataObj._id; 
+          $.ajax({
+          type: "GET",
+          url: comments_url,
+          success: function(data) {
+            console.log(data);
+          }
           }
         });
       });
