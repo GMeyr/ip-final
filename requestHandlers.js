@@ -47,8 +47,11 @@ function comment(response, postData) {
     switch (postCommType) {
       case 'statistical':
         db.comments.update({_id: generated__comment_id}, {$set: {statvotes: 3}}, function(err, updated) {
-          if( err || !updated ) console.log("--statvotes not updated");
-          else console.log("--statvotes updated");
+          if( err || !updated ) {
+              console.log("--statvotes not updated");
+              response.writeHead(200, {"Content-Type": "text/html"});
+              response.end("<p>Comment submission failed!</p>");
+          } else console.log("--statvotes updated");
         });
       break;
             case 'rational':
@@ -74,7 +77,7 @@ function comment(response, postData) {
     }
     
   response.writeHead(200, {"Content-Type": "text/html"});
-  response.end(submitHTML);
+  response.end("<p>Comment sumbmitted!</p>");
 }
 
 function id (response, postData, query){
@@ -83,6 +86,9 @@ function id (response, postData, query){
         db.blogs.findOne({_id: ObjectId(param) }, function(err, doc) {
         if( err || !doc) {
       console.log("No issues found");
+      response.writeHead(200, {"Content-Type": "text/html"});
+      response.write("<p>No issues found.</p>");
+      response.end();
     } else {
       var result =  JSON.stringify(doc);
       console.log("--found: " + result);
