@@ -19,6 +19,8 @@ handle["/start"] = requestHandlers.start;
 handle["/start/"] = requestHandlers.start;
 handle["/submit"] = requestHandlers.submit;
 handle["/submit/"] = requestHandlers.submit;
+handle["/template"] = requestHandlers.template;
+handle["/template/"] = requestHandlers.template;
 
 //view requests
 handle["/sciencelocal"] = requestHandlers.sciencelocal;

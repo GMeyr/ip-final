@@ -4,13 +4,9 @@
    <meta charset="UTF-8">
     <title>Issue Prism</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-    <script>
-      $('#commentButton').click(function(){
-          $('.addCommentForm').toggle();
-      });
-    </script>
+
   </head>
-  
+
   <body>
     <h1 class="logo">issueprism</h1>
     <div class="navbar">
@@ -22,7 +18,7 @@
       <div class="issueText"></div>
     </div>
 
-    <input type="button" id="commentButton" value="click">
+    <input type="button" id="commentButton" value="Add Comment">
 
     <div class="addCommentForm">
       <form id="newCommentForm" action="/comment/" method="post">
@@ -49,8 +45,11 @@
 
     <script>
         $('.addCommentForm').hide();
-        var hiddenID = '<input type="hidden" name="commissue_id" value="' + window.location.query.slice(5); + '" />'
-        $('#newCommentForm').append();
+    </script>
+    <script>
+      $('#commentButton').click(function(){
+          $('.addCommentForm').toggle();
+      });
     </script>
     <script>
       //self invoking function
@@ -67,7 +66,7 @@
                             type: JSON.stringify(data.type).replace(/\"/g, ""),
                             scope: JSON.stringify(data.scope).replace(/\"/g, "")
                           };
-                          
+
           $('.issueTypeScope').html("<p>" + dataObj.type + " : " + dataObj.scope + "</p>");
           $('.issueTitle').html("<h2>" + dataObj.title + "</h2>");
           $('.issueText').html("<p>" + dataObj.text + "</p>");
@@ -75,6 +74,6 @@
         });
       });
     </script>
-    
+
   </body>
 </html>

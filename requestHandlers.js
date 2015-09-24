@@ -1,11 +1,10 @@
 //dependencies
 var collections = ["blogs"];
 var databaseUrl = "ip";
+var mongojs = require('mongojs');
 var db = mongojs(databaseUrl, collections);
 var exec = require('child_process').exec;
 var fs = require('fs');
-var MongoClient = require('mongodb').MongoClient;
-var mongojs = require('mongojs');
 var ObjectId = mongojs.ObjectId;
 var querystring = require('querystring');
 
@@ -25,14 +24,18 @@ function addissue(response, postData) {
 
 function comment(response, postData) {
   console.log("Handling /submit/");
-  
+
   var postCommIssue_Id = querystring.parse(postData).commissue_id;
   var postCommSide = querystring.parse(postData).commside;
   var postCommType = querystring.parse(postData).commtype;
   var postCommText = querystring.parse(postData).commtext;
   var postCommRef = querystring.parse(postData).commref;
 
-if (postCommSide === "pro"){  
+  response.writeHead(200, {"Content-Type": "text/html"});
+  response.end(addissueHTML);
+}
+/*
+if (postCommSide === "pro"){
   db.users.update({_id: ObjectId(param) },
                   {$push: {procomms: { commissue_id: postCommIssue_Id,                                                            commside: "pro",
                                                      commtype: postCommType,
@@ -41,7 +44,7 @@ if (postCommSide === "pro"){
                   function(err, updated) {
                     if( err || !updated ) console.log("--Comment not added");
                   else console.log("--Comment added");
-                  });
+                  }});
 } else {
     db.users.update({_id: ObjectId(param) },
                   {$push: {concomms: { commissue_id: postCommIssue_Id,                                                            commside: "pro",
@@ -51,8 +54,8 @@ if (postCommSide === "pro"){
                   function(err, updated) {
                     if( err || !updated ) console.log("--Comment not added");
                   else console.log("--Comment added");
-                  });
-}
+                  }});
+}}
 //the stuf here is not necessary
   if (postCommSide === "pro"){
     db.blogs.save({ title: postTitle, text: postText, type: postType, scope: postScope,
@@ -89,7 +92,7 @@ if (postCommSide === "pro"){
   response.writeHead(200, {"Content-Type": "text/html"});
   response.end(submitHTML);
 }
-
+*/
 function id (response, postData, query){
       var param = '' + query.slice(4) + '';
       console.log("Handling /id/ and searching mongoDB for _id: " + param);
@@ -104,7 +107,7 @@ function id (response, postData, query){
       response.write(result);
       response.end();
         }}
-)}
+);}
 
 function issue (response, postData, query){
   console.log("Handling /issue/ with query " + query);
@@ -130,7 +133,7 @@ function submit(response, postData) {
   var postCommText = querystring.parse(postData).commtext;
   var postCommRef = querystring.parse(postData).commref;
 
-  if (postCommSide === "pro" && v7 != ""){
+  if (postCommSide === "pro"){
     db.blogs.save({ title: postTitle, text: postText, type: postType, scope: postScope,
                     procomms: [{commissue: postTitle, commside: postCommSide, commtype: postCommType, commtext: postCommText, commref: postCommRef}],
                     comcomms: [] },
@@ -139,7 +142,7 @@ function submit(response, postData) {
                       else {
                         console.log("--Post saved!");
                       }
-                    })
+                    });
   } else if (postCommSide === "con") {
     db.blogs.save({ title: postTitle, text: postText, type: postType, scope: postScope,
                     procomms: [],
@@ -149,7 +152,7 @@ function submit(response, postData) {
                       else {
                         console.log("--Post saved!");
                       }
-                    })
+                    });
   } else {
     db.blogs.save({ title: postTitle, text: postText, type: postType, scope: postScope,
                     procomms: [],
@@ -159,7 +162,7 @@ function submit(response, postData) {
                       else {
                         console.log("--Post saved!");
                       }
-                    })
+                    });
   }
 
   response.writeHead(200, {"Content-Type": "text/html"});
@@ -190,8 +193,7 @@ function createIssueListHTML(issue){
 
 function propToElement(obj, prop, element, boolean){
     if (arguments.length > 3)
-    return "<" + element + " class='issuelink'" + "><a href='/issue/?_id=" + obj._id + "'>"
-     + obj[prop] + "</a></" + element + ">";
+    return "<" + element + " class='issuelink'" + "><a href='/issue/?_id=" + obj._id + "'>" + obj[prop] + "</a></" + element + ">";
     else return "<" + element + ">" + obj[prop] + "</" + element + ">";
 }
 
@@ -222,7 +224,7 @@ function sciencelocal (response){
       response.write(issuesList);
       response.end();
     } else {
-      var tooBad = "<p>No issues found. Why not add one yourself?</p>"
+      var tooBad = "<p>No issues found. Why not add one yourself?</p>";
       response.writeHead(200, {"Content-Type": "text/html"});
       response.write(tooBad);
       response.end();
@@ -249,7 +251,7 @@ function scienceregional (response, postData){
       response.write(issuesList);
       response.end();
     } else {
-      var tooBad = "<p>No issues found. Why not add one yourself?</p>"
+      var tooBad = "<p>No issues found. Why not add one yourself?</p>";
       response.writeHead(200, {"Content-Type": "text/html"});
       response.write(tooBad);
       response.end();
@@ -275,7 +277,7 @@ function sciencenational (response){
       response.write(issuesList);
       response.end();
     } else {
-      var tooBad = "<p>No issues found. Why not add one yourself?</p>"
+      var tooBad = "<p>No issues found. Why not add one yourself?</p>";
       response.writeHead(200, {"Content-Type": "text/html"});
       response.write(tooBad);
       response.end();
@@ -301,7 +303,7 @@ function scienceglobal (response){
       response.write(issuesList);
       response.end();
     } else {
-      var tooBad = "<p>No issues found. Why not add one yourself?</p>"
+      var tooBad = "<p>No issues found. Why not add one yourself?</p>";
       response.writeHead(200, {"Content-Type": "text/html"});
       response.write(tooBad);
       response.end();
@@ -327,7 +329,7 @@ function politicslocal (response){
       response.write(issuesList);
       response.end();
     } else {
-      var tooBad = "<p>No issues found. Why not add one yourself?</p>"
+      var tooBad = "<p>No issues found. Why not add one yourself?</p>";
       response.writeHead(200, {"Content-Type": "text/html"});
       response.write(tooBad);
       response.end();
@@ -353,7 +355,7 @@ function politicsregional (response){
       response.write(issuesList);
       response.end();
     } else {
-      var tooBad = "<p>No issues found. Why not add one yourself?</p>"
+      var tooBad = "<p>No issues found. Why not add one yourself?</p>";
       response.writeHead(200, {"Content-Type": "text/html"});
       response.write(tooBad);
       response.end();
@@ -379,7 +381,7 @@ function politicsnational (response){
       response.write(issuesList);
       response.end();
     } else {
-      var tooBad = "<p>No issues found. Why not add one yourself?</p>"
+      var tooBad = "<p>No issues found. Why not add one yourself?</p>";
       response.writeHead(200, {"Content-Type": "text/html"});
       response.write(tooBad);
       response.end();
@@ -405,7 +407,7 @@ function politicsglobal (response){
       response.write(issuesList);
       response.end();
     } else {
-      var tooBad = "<p>No issues found. Why not add one yourself?</p>"
+      var tooBad = "<p>No issues found. Why not add one yourself?</p>";
       response.writeHead(200, {"Content-Type": "text/html"});
       response.write(tooBad);
       response.end();
@@ -431,7 +433,7 @@ function lifelocal (response){
       response.write(issuesList);
       response.end();
     } else {
-      var tooBad = "<p>No issues found. Why not add one yourself?</p>"
+      var tooBad = "<p>No issues found. Why not add one yourself?</p>";
       response.writeHead(200, {"Content-Type": "text/html"});
       response.write(tooBad);
       response.end();
@@ -457,7 +459,7 @@ function liferegional (response){
       response.write(issuesList);
       response.end();
     } else {
-      var tooBad = "<p>No issues found. Why not add one yourself?</p>"
+      var tooBad = "<p>No issues found. Why not add one yourself?</p>";
       response.writeHead(200, {"Content-Type": "text/html"});
       response.write(tooBad);
       response.end();
@@ -483,7 +485,7 @@ function lifenational (response){
       response.write(issuesList);
       response.end();
     } else {
-      var tooBad = "<p>No issues found. Why not add one yourself?</p>"
+      var tooBad = "<p>No issues found. Why not add one yourself?</p>";
       response.writeHead(200, {"Content-Type": "text/html"});
       response.write(tooBad);
       response.end();
@@ -509,7 +511,7 @@ function lifeglobal (response){
       response.write(issuesList);
       response.end();
     } else {
-      var tooBad = "<p>No issues found. Why not add one yourself?</p>"
+      var tooBad = "<p>No issues found. Why not add one yourself?</p>";
       response.writeHead(200, {"Content-Type": "text/html"});
       response.write(tooBad);
       response.end();
@@ -535,7 +537,7 @@ function otherlocal (response){
       response.write(issuesList);
       response.end();
     } else {
-      var tooBad = "<p>No issues found. Why not add one yourself?</p>"
+      var tooBad = "<p>No issues found. Why not add one yourself?</p>";
       response.writeHead(200, {"Content-Type": "text/html"});
       response.write(tooBad);
       response.end();
@@ -561,7 +563,7 @@ function otherregional (response){
       response.write(issuesList);
       response.end();
     } else {
-      var tooBad = "<p>No issues found. Why not add one yourself?</p>"
+      var tooBad = "<p>No issues found. Why not add one yourself?</p>";
       response.writeHead(200, {"Content-Type": "text/html"});
       response.write(tooBad);
       response.end();
@@ -587,7 +589,7 @@ function othernational (response){
       response.write(issuesList);
       response.end();
     } else {
-      var tooBad = "<p>No issues found. Why not add one yourself?</p>"
+      var tooBad = "<p>No issues found. Why not add one yourself?</p>";
       response.writeHead(200, {"Content-Type": "text/html"});
       response.write(tooBad);
       response.end();
@@ -613,7 +615,7 @@ function otherglobal (response){
       response.write(issuesList);
       response.end();
     } else {
-      var tooBad = "<p>No issues found. Why not add one yourself?</p>"
+      var tooBad = "<p>No issues found. Why not add one yourself?</p>";
       response.writeHead(200, {"Content-Type": "text/html"});
       response.write(tooBad);
       response.end();
