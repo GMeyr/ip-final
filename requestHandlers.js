@@ -24,113 +24,59 @@ function addissue(response, postData) {
 
 function comment(response, postData) {
   console.log("Handling /comment/");
-//change to  http://docs.mongodb.org/ecosystem/use-cases/storing-comments/
+  
   var postCommIssue_Id = querystring.parse(postData).commissue_id;
   var postCommSide = querystring.parse(postData).commside;
   var postCommType = querystring.parse(postData).commtype;
   var postCommText = querystring.parse(postData).commtext;
   var postCommRef = querystring.parse(postData).commref;
 
-if (postCommSide === "pro"){
-  db.blogs.update(
-    {$push: {
-           "procomms":{ "name":"cubs-killeen","location":"some other Place" }
-         }
-}
-);
-/*
-      {_id: ObjectId(postCommIssue_Id) },
-      {
-          $push:
-          {
-              procomms:
-              { 'thing': "New Comment Added!" }
-          }
-      },
-      function(err,doc){
-          console.log("Err: " + err);
-        console.log("Doc: " + JSON.stringify(doc));
-      }
-  );*/
-} else {
-  db.blogs.update(
+  ObjectId generated__comment_id = new ObjectId();
 
-      {_id: ObjectId(postCommIssue_Id) },
-      {
-          $push:
-          {
-              concomms:
-              { commissue_id: postCommIssue_Id,                                                            commside: "pro",
-                      commtype: postCommType,
-                      commtext: postCommText,
-                      commref: postCommRef }
-          }
-      },
-      function(err,doc){
-        console.log("Err: " + err);
-        console.log("Doc: " + JSON.stringify(doc));
-      }
-  );}}
+  newslug = leftPad(randomInt(100, 10000), 5);
+  db.comments.save({_id: generated__comment_id, issue_id: generated_issue_id, slug: newslug, posted: new Date(),
+                    side: postCommSide, type: postCommType, text: postCommText, ref: postCommRef,
+                    statvotes: 0, ratvotes: 0, moralvotes: 0, anecvotes: 0, badvotes: 0, none: 0 },
+                    function(err, saved){
+                      if(err || !saved) console.log("--comment not saved");
+                      else {
+                        console.log("--comment saved!");
+                      }
+                    });
 
-/*
-if (postCommSide === "pro"){
-  db.users.update({_id: ObjectId(param) },
-                  {$push: {procomms: { commissue_id: postCommIssue_Id,                                                            commside: "pro",
-                                                     commtype: postCommType,
-                                                     commtext: postCommText,
-                                                     commref: postCommRef }},
-                  function(err, updated) {
-                    if( err || !updated ) console.log("--Comment not added");
-                  else console.log("--Comment added");
-                  }});
-} else {
-    db.users.update({_id: ObjectId(param) },
-                  {$push: {concomms: { commissue_id: postCommIssue_Id,                                                            commside: "pro",
-                                                     commtype: postCommType,
-                                                     commtext: postCommText,
-                                                     commref: postCommRef }},
-                  function(err, updated) {
-                    if( err || !updated ) console.log("--Comment not added");
-                  else console.log("--Comment added");
-                  }});
-}}
-//the stuf here is not necessary
-  if (postCommSide === "pro"){
-    db.blogs.save({ title: postTitle, text: postText, type: postType, scope: postScope,
-                    procomms: [{commissue: postTitle, commside: postCommSide, commtype: postCommType, commtext: postCommText, commref: postCommRef}],
-                    comcomms: [] },
-                    function(err, saved){
-                      if(err || !saved) console.log("--Post not saved");
-                      else {
-                        console.log("--Post saved!");
-                      }
-                    })
-  } else if (postCommSide === "con") {
-    db.blogs.save({ title: postTitle, text: postText, type: postType, scope: postScope,
-                    procomms: [],
-                    comcomms: [{commissue: postTitle, commside: postCommSide, commtype: postCommType, commtext: postCommText, commref: postCommRef}] },
-                    function(err, saved){
-                      if(err || !saved) console.log("--Post not saved");
-                      else {
-                        console.log("--Post saved!");
-                      }
-                    })
-  } else {
-    db.blogs.save({ title: postTitle, text: postText, type: postType, scope: postScope,
-                    procomms: [],
-                    comcomms: [] },
-                    function(err, saved){
-                      if(err || !saved) console.log("--Post not saved");
-                      else {
-                        console.log("--Post saved!");
-                      }
-                    })
-  }
-
+    switch (postCommType) {
+      case 'statistical':
+        db.comments.update({_id: generated__comment_id}, {$set: {statvotes: 3}}, function(err, updated) {
+          if( err || !updated ) console.log("--statvotes not updated");
+          else console.log("--statvotes updated");
+        });
+      break;
+            case 'rational':
+        db.comments.update({_id: generated__comment_id}, {$set: {ratvotes: 3}}, function(err, updated) {
+          if( err || !updated ) console.log("--ratvotes not updated");
+          else console.log("--ratvotes updated");
+        });
+      break;
+            case 'moral':
+        db.comments.update({_id: generated__comment_id}, {$set: {moralvotes: 3}}, function(err, updated) {
+          if( err || !updated ) console.log("--moralvotes not updated");
+          else console.log("--moralvotes updated");
+        });
+      break;
+            case 'anecdotal':
+        db.comments.update({_id: generated__comment_id}, {$set: {anecvotes: 3}}, function(err, updated) {
+          if( err || !updated ) console.log("--anecvotes not updated");
+          else console.log("--anecvotes updated");
+        });
+      break;
+    default: 
+      console.log("--did not find postCommType", postCommType, typeof postCommType);
+    }
+    
   response.writeHead(200, {"Content-Type": "text/html"});
   response.end(submitHTML);
 }
-*/
+
 function id (response, postData, query){
       var param = '' + query.slice(4) + '';
       console.log("Handling /id/ and searching mongoDB for _id: " + param);
@@ -183,7 +129,8 @@ function submit(response, postData) {
   if (postCommSide === "pro" || "con"){
   //find comment just saved to retrieve _id
     newslug = leftPad(randomInt(100, 10000), 5);
-    db.comments.save({_id: generated__comment_id, issue_id: generated_issue_id, slug: newslug, posted: new Date(), side: postCommSide, type: postCommType, text: postCommText, ref: postCommRef,
+    db.comments.save({_id: generated__comment_id, issue_id: generated_issue_id, slug: newslug, posted: new Date(),
+                      side: postCommSide, type: postCommType, text: postCommText, ref: postCommRef,
                       statvotes: 0, ratvotes: 0, moralvotes: 0, anecvotes: 0, badvotes: 0, none: 0 },
                     function(err, saved){
                       if(err || !saved) console.log("--comment not saved");
@@ -191,7 +138,7 @@ function submit(response, postData) {
                         console.log("--comment saved!");
                       }
                     });
-    var typeproperty = "";
+
     switch (postCommType) {
       case 'statistical':
         db.comments.update({_id: generated__comment_id}, {$set: {statvotes: 3}}, function(err, updated) {
