@@ -23,17 +23,55 @@ function addissue(response, postData) {
 }
 
 function comment(response, postData) {
-  console.log("Handling /submit/");
-
+  console.log("Handling /comment/");
+//change to  http://docs.mongodb.org/ecosystem/use-cases/storing-comments/
   var postCommIssue_Id = querystring.parse(postData).commissue_id;
   var postCommSide = querystring.parse(postData).commside;
   var postCommType = querystring.parse(postData).commtype;
   var postCommText = querystring.parse(postData).commtext;
   var postCommRef = querystring.parse(postData).commref;
 
-  response.writeHead(200, {"Content-Type": "text/html"});
-  response.end(addissueHTML);
+if (postCommSide === "pro"){
+  db.blogs.update(
+    {$push: {
+           "procomms":{ "name":"cubs-killeen","location":"some other Place" }
+         }
 }
+);
+/*
+      {_id: ObjectId(postCommIssue_Id) },
+      {
+          $push:
+          {
+              procomms:
+              { 'thing': "New Comment Added!" }
+          }
+      },
+      function(err,doc){
+          console.log("Err: " + err);
+        console.log("Doc: " + JSON.stringify(doc));
+      }
+  );*/
+} else {
+  db.blogs.update(
+
+      {_id: ObjectId(postCommIssue_Id) },
+      {
+          $push:
+          {
+              concomms:
+              { commissue_id: postCommIssue_Id,                                                            commside: "pro",
+                      commtype: postCommType,
+                      commtext: postCommText,
+                      commref: postCommRef }
+          }
+      },
+      function(err,doc){
+        console.log("Err: " + err);
+        console.log("Doc: " + JSON.stringify(doc));
+      }
+  );}}
+
 /*
 if (postCommSide === "pro"){
   db.users.update({_id: ObjectId(param) },
