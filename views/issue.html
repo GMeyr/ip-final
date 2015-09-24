@@ -72,7 +72,7 @@
           $('.issueTitle').html("<h2>" + dataObj.title + "</h2>");
           $('.issueText').html("<p>" + dataObj.text + "</p>");
           
-          comments_url = "getcomments/?" + dataObj._id; 
+          comments_url = "/getcomments/?" + dataObj._id; 
           $.ajax({
           type: "GET",
           url: comments_url,
