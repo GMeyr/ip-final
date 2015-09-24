@@ -105,6 +105,20 @@ function issue (response, postData, query){
   response.end(issueHTML );
 }
 
+function getcomments (response, postData, query){
+  console.log('Handling /getcomments/ with query ' + query);
+  db.comments.find({issue_id: query}, function(err, comms) {
+  if( err || !comms) {
+    console.log("No comments found");
+    response.writeHead(200, {"Content-Type": "text/html"});
+    response.end("<p>Failed to find comments</p>");
+  } else users.forEach( function(comm) {
+    console.log(comm);
+  } );
+});
+
+}
+
 function start(response, postData) {
   console.log("Handling /start/");
   response.writeHead(200, {"Content-Type": "text/html"});
@@ -649,13 +663,15 @@ function otherglobal (response){
 }
 
 //exports
-exports.start = start;
+
 exports.addissue = addissue;
+exports.comment = comment;
+exports.id = id;
+exports.issue = issue;
+exports.getcomments = getcomments;
+exports.start = start;
 exports.submit = submit;
 exports.template = template;
-exports.issue = issue;
-exports.id = id;
-exports.comment = comment;
 
 exports.sciencelocal = sciencelocal;
 exports.scienceregional = scienceregional;
