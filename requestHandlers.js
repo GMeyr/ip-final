@@ -108,7 +108,12 @@ function issue (response, postData, query){
 
 function getcomments (response, postData, query){
   console.log('Handling /getcomments/ with query ' + query);
-  db.comments.find({issue_id: query}, function(err, comms) {
+  var andIndex = query.indexOf("&"),
+      query_id = query.slice(4, andIndex),
+      query_side = query.slice(andIndex + 6);
+      
+  console.log('breaking query into _id: ' + query_id + " and side: " + query_side)
+  db.comments.find({issue_id: query_id, side: query_side}, function(err, comms) {
   if( err || !comms) {
     console.log("No comments found");
     response.writeHead(200, {"Content-Type": "text/html"});
