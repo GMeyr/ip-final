@@ -108,7 +108,8 @@
               type: "GET",
               url: comments_url,
               success: function(data) {
-                data.forEach(function (){
+                var con_arrays_obj = data;
+                con_arrays_obj.allCommentArr.forEach(function (){
                   console.log(x);
                   var dataArrObj = {
                             title: JSON.stringify(x.title).replace(/\"/g, ""),
