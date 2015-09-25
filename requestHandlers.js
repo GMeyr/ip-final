@@ -37,7 +37,7 @@ function comment(response, postData) {
   newslug = randomInt(100, 10000);
   db.comments.save({_id: generated__comment_id, issue_id: generated_issue_id, slug: newslug, posted: new Date(),
                     side: postCommSide, type: postCommType, text: postCommText, ref: postCommRef,
-                    statvotes: 0, ratvotes: 0, moralvotes: 0, anecvotes: 0, badvotes: 0, none: 0 },
+                    statvotes: 0, ratvotes: 0, moralvotes: 0, anecvotes: 0, badvotes: 0, votes: 0, none: 0 },
                     function(err, saved){
                       if(err || !saved) console.log("--comment not saved");
                       else {
@@ -157,7 +157,7 @@ function submit(response, postData) {
     newslug = randomInt(100, 10000);
     db.comments.save({_id: generated__comment_id, issue_id: generated_issue_id, slug: newslug, posted: new Date(),
                       side: postCommSide, type: postCommType, text: postCommText, ref: postCommRef,
-                      statvotes: 0, ratvotes: 0, moralvotes: 0, anecvotes: 0, badvotes: 0, none: 0 },
+                      statvotes: 0, ratvotes: 0, moralvotes: 0, anecvotes: 0, badvotes: 0, votes: 0, none: 0 },
                     function(err, saved){
                       if(err || !saved) console.log("--comment not saved");
                       else {
