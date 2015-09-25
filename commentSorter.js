@@ -1,5 +1,7 @@
 sortBy = require('sort-by');
 
+
+
 function commentSort (arr) {
   arr.forEach(function () {
     var current_type = calcCommType (obj);
@@ -34,6 +36,15 @@ function commentSort (arr) {
   moralcomms.sort(sortBy('votes', 'posted'));
   aneccomms.sort(sortBy('votes', 'posted'));
   
+  var commArrays = {
+    allCommentArr: arr,
+    statCommentArrs: statcomms,
+    ratCommentArr: ratcomms,
+    moralCommentArr: moralcomms,
+    anecCommentArr: anecomms
+  };
+  
+  return commArrays;
 }
 
 
@@ -57,15 +68,14 @@ function calcCommType (obj){
         console.log(x.num + " is being compared to " + winner.num);
         if(x.num > exdata[winner]){
            console.log(x.name + "is greater than" + obj.winner);
-           winner = x.name
+           winner = x.name;
         }
-    })
+    });
         //badvote threshold
         if(obj.badvotes < 3)
           return winner;
         else return "badvotes";
 }
-
 
 
 exports.commentSort = commentSort;
