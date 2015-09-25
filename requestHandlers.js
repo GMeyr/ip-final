@@ -128,7 +128,7 @@ function getcomments (response, postData, query){
   }
   } 
 
-}
+);}
 
 function start(response, postData) {
   console.log("Handling /start/");
