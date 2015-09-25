@@ -52,7 +52,6 @@
       });
     </script>
     <script>
-      //self invoking function
       $(function (){
         var pathArray = window.location.search;
         var idPath = "/id/" + pathArray;
@@ -78,7 +77,7 @@
       });
       
       $(function (){
-                      var comments_url = "/getcomments/?" + dataObj._id; 
+                      var comments_url = "/getcomments/?_id=" + dataObj._id + "&side=pro"; 
             $.ajax({
               type: "GET",
               url: comments_url,
@@ -87,6 +86,7 @@
               }
             });
       });
+
     </script>
 
   </body>
