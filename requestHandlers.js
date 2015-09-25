@@ -1,5 +1,6 @@
 //dependencies
 var collections = ["blogs"];
+var commentSort = require('commentSorter.js').commentSort;
 var databaseUrl = "ip";
 var mongojs = require('mongojs');
 var db = mongojs(databaseUrl, collections);
@@ -118,8 +119,13 @@ function getcomments (response, postData, query){
     console.log("No comments found");
     response.writeHead(200, {"Content-Type": "text/html"});
     response.end("<p>Failed to find comments</p>");
-  } else users.forEach( function(comm) {
-    console.log(comm);
+  } else {
+    var result = commentSort(comms);
+    console.log("--responding with sorted comments obj");
+    response.writeHead(200, {"Content-Type": "application/json"});
+    response.write(result);
+    response.end();
+  }
   } );
 });
 
