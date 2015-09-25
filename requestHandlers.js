@@ -149,7 +149,7 @@ function submit(response, postData) {
                   });
   if (postCommSide === "pro" || "con"){
   //find comment just saved to retrieve _id
-    newslug = leftPad(randomInt(100, 10000), 5);
+    newslug = randomInt(100, 10000);
     db.comments.save({_id: generated__comment_id, issue_id: generated_issue_id, slug: newslug, posted: new Date(),
                       side: postCommSide, type: postCommType, text: postCommText, ref: postCommRef,
                       statvotes: 0, ratvotes: 0, moralvotes: 0, anecvotes: 0, badvotes: 0, none: 0 },
@@ -221,19 +221,7 @@ function propToElement(obj, prop, element, boolean){
     else return "<" + element + ">" + obj[prop] + "</" + element + ">";
 }
 
-function leftPad (str, length) {
-    str = str == null ? '' : String(str);
-    length = ~~length;
-    pad = '';
-    padLength = length - str.length;
 
-    while(padLength--) {
-      pad += '0';
-    }
-
-      return pad + str;
-}
-    
 function randomInt (low, high) {
     return Math.floor(Math.random() * (high - low) + low);
 }
