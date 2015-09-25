@@ -126,8 +126,7 @@ function getcomments (response, postData, query){
     response.write(result);
     response.end();
   }
-  } );
-}
+  } 
 
 }
 
