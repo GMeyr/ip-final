@@ -1,3 +1,4 @@
+sortBy = require('sort-by');
 
 function commentSort (arr) {
   arr.forEach(function () {
@@ -26,7 +27,16 @@ function commentSort (arr) {
         console.log("--commentSort failed to identify obj.type");
     }
   });
+  
+  arr.sort(sortBy('votes', 'posted'));
+  statcomms.sort(sortBy('votes', 'posted')); //don't forget to combine upvotes and downvotes to votes
+  ratcomms.sort(sortBy('votes', 'posted'));
+  moralcomms.sort(sortBy('votes', 'posted'));
+  aneccomms.sort(sortBy('votes', 'posted'));
+  
 }
+
+
 
 function calcCommType (obj){
     var winner = "none";
@@ -55,6 +65,7 @@ function calcCommType (obj){
           return winner;
         else return "badvotes";
 }
+
 
 
 exports.commentSort = commentSort;
