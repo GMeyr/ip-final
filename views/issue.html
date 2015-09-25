@@ -20,6 +20,9 @@
     <div class="allprocomments">
       Pro Comments
     </div>
+    <div class="allconcomments">
+      Con Comments
+    </div>
     <input type="button" id="commentButton" value="Add Comment">
 
     <div class="addCommentForm">
@@ -84,18 +87,38 @@
               type: "GET",
               url: comments_url,
               success: function(data) {
-                data.forEach(
+                data.forEach(function (){
                   console.log(x);
                   var dataArrObj = {
-                            title: JSON.stringify(data.title).replace(/\"/g, ""),
-                            text: JSON.stringify(data.text).replace(/\"/g, ""),
-                            ref: JSON.stringify(data.ref).replace(/\"/g, ""),
-                            posted: JSON.stringify(data.posted).replace(/\"/g, ""),
+                            title: JSON.stringify(x.title).replace(/\"/g, ""),
+                            text: JSON.stringify(x.text).replace(/\"/g, ""),
+                            ref: JSON.stringify(x.ref).replace(/\"/g, ""),
+                            posted: JSON.stringify(x.posted).replace(/\"/g, ""),
                           };
-                 $('.allprocomments').append("<p class="posted_date>" + dataArrObj.posted + </p> + <p class='comment_text>" + dataArrObj.text + "</p><p class='ref'><a href='" + dataArrObj.ref + "'>" + dataArrObj.ref + "</a></p>");
-                );
-              }
-            });
+                 $('.allprocomments').append("<p class='posted_date'>" + dataArrObj.posted + "</p><p class='comment_text'>" + dataArrObj.text + "</p><p class='ref'><a href='" + dataArrObj.ref + "'>" + dataArrObj.ref + "</a></p>");
+                            }
+               )}
+            })
+      });
+      
+            $(function (){
+                      var comments_url = "/getcomments/?_id=" + dataObj._id + "&side=con"; 
+            $.ajax({
+              type: "GET",
+              url: comments_url,
+              success: function(data) {
+                data.forEach(function (){
+                  console.log(x);
+                  var dataArrObj = {
+                            title: JSON.stringify(x.title).replace(/\"/g, ""),
+                            text: JSON.stringify(x.text).replace(/\"/g, ""),
+                            ref: JSON.stringify(x.ref).replace(/\"/g, ""),
+                            posted: JSON.stringify(x.posted).replace(/\"/g, ""),
+                          };
+                 $('.allconcomments').append("<p class='posted_date'>" + dataArrObj.posted + "</p><p class='comment_text'>" + dataArrObj.text + "</p><p class='ref'><a href='" + dataArrObj.ref + "'>" + dataArrObj.ref + "</a></p>");
+                            }
+               )}
+            })
       });
 
     </script>
