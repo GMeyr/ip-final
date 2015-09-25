@@ -113,7 +113,7 @@ function getcomments (response, postData, query){
       query_id = query.slice(4, andIndex),
       query_side = query.slice(andIndex + 6);
       
-  console.log('breaking query into _id: ' + query_id + " and side: " + query_side)
+  console.log('breaking query into _id: ' + query_id + " and side: " + query_side);
   db.comments.find({issue_id: query_id, side: query_side}, function(err, comms) {
   if( err || !comms) {
     console.log("No comments found");
@@ -127,7 +127,7 @@ function getcomments (response, postData, query){
     response.end();
   }
   } );
-});
+}
 
 }
 
