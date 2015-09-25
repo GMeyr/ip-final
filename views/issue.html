@@ -17,7 +17,9 @@
       <div class="issueTitle"></div>
       <div class="issueText"></div>
     </div>
-
+    <div class="allprocomments">
+      Pro Comments
+    </div>
     <input type="button" id="commentButton" value="Add Comment">
 
     <div class="addCommentForm">
@@ -67,7 +69,7 @@
                             scope: JSON.stringify(data.scope).replace(/\"/g, "")
                           };
 
-            $('.issueTypeScope').html("<p>" + dataObj.type + " : " + dataObj.scope + "</p>");
+            $('.allprocomments').html("<p>" + dataObj.type + " : " + dataObj.scope + "</p>");
             $('.issueTitle').html("<h2>" + dataObj.title + "</h2>");
             $('.issueText').html("<p>" + dataObj.text + "</p>");
           
@@ -82,7 +84,16 @@
               type: "GET",
               url: comments_url,
               success: function(data) {
-                console.log(data);
+                data.forEach(
+                  console.log(x);
+                  var dataArrObj = {
+                            title: JSON.stringify(data.title).replace(/\"/g, ""),
+                            text: JSON.stringify(data.text).replace(/\"/g, ""),
+                            ref: JSON.stringify(data.ref).replace(/\"/g, ""),
+                            posted: JSON.stringify(data.posted).replace(/\"/g, ""),
+                          };
+                 $('.allprocomments').append("<p class="posted_date>" + dataArrObj.posted + </p> + <p class='comment_text>" + dataArrObj.text + "</p><p class='ref'><a href='" + dataArrObj.ref + "'>" + dataArrObj.ref + "</a></p>");
+                );
               }
             });
       });
