@@ -22,6 +22,7 @@ function addissue(response, postData) {
   response.end(addissueHTML);
 }
 
+
 function comment(response, postData) {
   console.log("Handling /comment/");
   
@@ -31,9 +32,9 @@ function comment(response, postData) {
   var postCommText = querystring.parse(postData).commtext;
   var postCommRef = querystring.parse(postData).commref;
 
-  ObjectId generated__comment_id = new ObjectId();
+  var generated__comment_id = new ObjectId();
 
-  newslug = leftPad(randomInt(100, 10000), 5);
+  newslug = randomInt(100, 10000);
   db.comments.save({_id: generated__comment_id, issue_id: generated_issue_id, slug: newslug, posted: new Date(),
                     side: postCommSide, type: postCommType, text: postCommText, ref: postCommRef,
                     statvotes: 0, ratvotes: 0, moralvotes: 0, anecvotes: 0, badvotes: 0, none: 0 },
@@ -137,8 +138,8 @@ function submit(response, postData) {
   var postCommText = querystring.parse(postData).commtext;
   var postCommRef = querystring.parse(postData).commref;
 
-  ObjectId generated_issue_id = new ObjectId();
-  ObjectId generated__comment_id = new ObjectId();
+  var generated_issue_id = new ObjectId();
+  var generated__comment_id = new ObjectId();
   db.issues.save({ _id: generated_issue_id, title: postTitle, text: postText, type: postType, scope: postScope},
                   function(err, saved){
                     if(err || !saved) console.log("--Post not saved");
@@ -190,7 +191,7 @@ function submit(response, postData) {
     
   response.writeHead(200, {"Content-Type": "text/html"});
   response.end(submitHTML);
-}
+  }}
 
 function template(response, postData) {
   console.log("Request handler 'template' was called.");
