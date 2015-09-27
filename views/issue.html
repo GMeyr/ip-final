@@ -50,6 +50,8 @@
 
     <script>
         $('.addCommentForm').hide();
+        var pathArray = window.location.search;
+        $('#form').append('<input type="hidden" name="commissue_id" value="' + pathArray + '" />');
     </script>
     <script>
       $('#commentButton').click(function(){
@@ -58,7 +60,7 @@
     </script>
     <script>
       $(function (){
-        var pathArray = window.location.search;
+        // var pathArray = window.location.search;
         var idPath = "/id/" + pathArray;
         $.ajax({
           type: "GET",
@@ -75,14 +77,14 @@
             $('.allprocomments').html("<p>" + dataObj.type + " : " + dataObj.scope + "</p>");
             $('.issueTitle').html("<h2>" + dataObj.title + "</h2>");
             $('.issueText').html("<p>" + dataObj.text + "</p>");
-          
+
 
           }
         });
       });
-      
+
       $(function (){
-                      var comments_url = "/getcomments/?_id=" + dataObj._id + "&side=pro"; 
+                      var comments_url = "/getcomments/?_id=" + dataObj._id + "&side=pro";
             $.ajax({
               type: "GET",
               url: comments_url,
@@ -101,9 +103,9 @@
                )}
             })
       });
-      
+
             $(function (){
-                      var comments_url = "/getcomments/?_id=" + dataObj._id + "&side=con"; 
+                      var comments_url = "/getcomments/?_id=" + dataObj._id + "&side=con";
             $.ajax({
               type: "GET",
               url: comments_url,

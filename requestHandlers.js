@@ -1,9 +1,13 @@
 //dependencies
 var collections = ["blogs"];
-var commentSort = require('commentSorter.js').commentSort;
+var collectionsI = ["issues"];
+var collectionsC = ["comments"];
+var commentSort = require('./commentSorter.js').commentSort;
 var databaseUrl = "ip";
 var mongojs = require('mongojs');
 var db = mongojs(databaseUrl, collections);
+var dbi = mongojs(databaseUrl, collectionsI);
+var dbc = mongojs(databaseUrl, collectionsC);
 var exec = require('child_process').exec;
 var fs = require('fs');
 var ObjectId = mongojs.ObjectId;
@@ -24,19 +28,22 @@ function addissue(response, postData) {
 }
 
 
-function comment(response, postData) {
+function comment(response, postData, query) {
   console.log("Handling /comment/");
-  
+
   var postCommIssue_Id = querystring.parse(postData).commissue_id;
   var postCommSide = querystring.parse(postData).commside;
   var postCommType = querystring.parse(postData).commtype;
+  console.log("--When recieved, postcommtype was: " + postCommType)
   var postCommText = querystring.parse(postData).commtext;
   var postCommRef = querystring.parse(postData).commref;
 
   var generated__comment_id = new ObjectId();
 
-  newslug = randomInt(100, 10000);
-  db.comments.save({_id: generated__comment_id, issue_id: generated_issue_id, slug: newslug, posted: new Date(),
+  var newslug = randomInt(100, 10000);
+  console.log("generated__comment_id: " + generated__comment_id, "newslug: " + newslug, "postCommIssue_Id: " + postCommIssue_Id);
+
+  dbc.comments.save({_id: generated__comment_id, issue_id: postCommIssue_Id, slug: newslug, posted: new Date(),
                     side: postCommSide, type: postCommType, text: postCommText, ref: postCommRef,
                     statvotes: 0, ratvotes: 0, moralvotes: 0, anecvotes: 0, badvotes: 0, votes: 0, none: 0 },
                     function(err, saved){
@@ -48,7 +55,7 @@ function comment(response, postData) {
 
     switch (postCommType) {
       case 'statistical':
-        db.comments.update({_id: generated__comment_id}, {$set: {statvotes: 3}}, function(err, updated) {
+        dbc.comments.update({_id: generated__comment_id}, {$set: {statvotes: 3}}, function(err, updated) {
           if( err || !updated ) {
               console.log("--statvotes not updated");
               response.writeHead(200, {"Content-Type": "text/html"});
@@ -57,27 +64,27 @@ function comment(response, postData) {
         });
       break;
             case 'rational':
-        db.comments.update({_id: generated__comment_id}, {$set: {ratvotes: 3}}, function(err, updated) {
+        dbc.comments.update({_id: generated__comment_id}, {$set: {ratvotes: 3}}, function(err, updated) {
           if( err || !updated ) console.log("--ratvotes not updated");
           else console.log("--ratvotes updated");
         });
       break;
             case 'moral':
-        db.comments.update({_id: generated__comment_id}, {$set: {moralvotes: 3}}, function(err, updated) {
+        dbc.comments.update({_id: generated__comment_id}, {$set: {moralvotes: 3}}, function(err, updated) {
           if( err || !updated ) console.log("--moralvotes not updated");
           else console.log("--moralvotes updated");
         });
       break;
             case 'anecdotal':
-        db.comments.update({_id: generated__comment_id}, {$set: {anecvotes: 3}}, function(err, updated) {
+        dbc.comments.update({_id: generated__comment_id}, {$set: {anecvotes: 3}}, function(err, updated) {
           if( err || !updated ) console.log("--anecvotes not updated");
           else console.log("--anecvotes updated");
         });
       break;
-    default: 
+    default:
       console.log("--did not find postCommType", postCommType, typeof postCommType);
     }
-    
+
   response.writeHead(200, {"Content-Type": "text/html"});
   response.end("<p>Comment sumbmitted!</p>");
 }
@@ -112,7 +119,7 @@ function getcomments (response, postData, query){
   var andIndex = query.indexOf("&"),
       query_id = query.slice(4, andIndex),
       query_side = query.slice(andIndex + 6);
-      
+
   console.log('breaking query into _id: ' + query_id + " and side: " + query_side);
   db.comments.find({issue_id: query_id, side: query_side}, function(err, comms) {
   if( err || !comms) {
@@ -126,7 +133,7 @@ function getcomments (response, postData, query){
     response.write(result);
     response.end();
   }
-  } 
+  }
 
 );}
 
@@ -172,33 +179,33 @@ function submit(response, postData) {
 
     switch (postCommType) {
       case 'statistical':
-        db.comments.update({_id: generated__comment_id}, {$set: {statvotes: 3}}, function(err, updated) {
+        dbc.comments.update({_id: generated__comment_id}, {$set: {statvotes: 3}}, function(err, updated) {
           if( err || !updated ) console.log("--statvotes not updated");
           else console.log("--statvotes updated");
         });
       break;
             case 'rational':
-        db.comments.update({_id: generated__comment_id}, {$set: {ratvotes: 3}}, function(err, updated) {
+        dbc.comments.update({_id: generated__comment_id}, {$set: {ratvotes: 3}}, function(err, updated) {
           if( err || !updated ) console.log("--ratvotes not updated");
           else console.log("--ratvotes updated");
         });
       break;
             case 'moral':
-        db.comments.update({_id: generated__comment_id}, {$set: {moralvotes: 3}}, function(err, updated) {
+        dbc.comments.update({_id: generated__comment_id}, {$set: {moralvotes: 3}}, function(err, updated) {
           if( err || !updated ) console.log("--moralvotes not updated");
           else console.log("--moralvotes updated");
         });
       break;
             case 'anecdotal':
-        db.comments.update({_id: generated__comment_id}, {$set: {anecvotes: 3}}, function(err, updated) {
+        dbc.comments.update({_id: generated__comment_id}, {$set: {anecvotes: 3}}, function(err, updated) {
           if( err || !updated ) console.log("--anecvotes not updated");
           else console.log("--anecvotes updated");
         });
       break;
-    default: 
+    default:
       console.log("--did not find postCommType", postCommType, typeof postCommType);
     }
-    
+
   response.writeHead(200, {"Content-Type": "text/html"});
   response.end(submitHTML);
   }}
