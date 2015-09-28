@@ -97,10 +97,22 @@
       type: "GET",
       url: comments_url,
       success: function(data) {
-        console.log(JSON.stringify(data.allCommentArr));
-        /*var con_arrays_obj = data;
-        con_arrays_obj.allCommentArr.forEach(function (x){
-          console.log(x);
+
+        var con_arrays_obj = data.allCommentArr;
+
+        console.log("allCommentArr: " + typeof con_arrays_obj + con_arrays_obj);
+
+        var length = con_arrays_obj.length;
+        console.log("--length: " + length);
+        console.log("--array one: " + con_arrays_obj[0]);
+$.each(con_arrays_obj, function (index,value) {
+  console.log(value.text);
+});
+
+      /*      element = null;
+        for (var i = 0; i < length; i++) {
+          element = con_arrays_obj.allCommentArr[i];
+
           var dataArrObj = {
                     title: JSON.stringify(x.title).replace(/\"/g, ""),
                     text: JSON.stringify(x.text).replace(/\"/g, ""),
@@ -108,10 +120,10 @@
                     posted: JSON.stringify(x.posted).replace(/\"/g, ""),
                   };
          $('.allprocomments').append("<p class='posted_date'>" + dataArrObj.posted + "</p><p class='comment_text'>" + dataArrObj.text + "</p><p class='ref'><a href='" + dataArrObj.ref + "'>" + dataArrObj.ref + "</a></p>");
-                    }
-       );*/}
-    });
-});
+       }*/ }
+     });
+     }
+    );
 
     // GET con comments
                 $(function (){
