@@ -3,15 +3,15 @@ sortBy = require('sort-by');
 
 
 function commentSort (arr) {
-  arr.forEach(function () {
+  var statcomms = [],
+      ratcomms = [],
+      moralcomms = [],
+      aneccomms = [];
+
+  arr.forEach(function (obj) {
     var current_type = calcCommType (obj);
     obj.type = current_type;
-    
-    var statcomms = [],
-        ratcomms = [],
-        moralcomms = [],
-        aneccomms = [];
-        
+
     switch (obj.type) {
       case "statistical":
         statcomms.push(obj);
@@ -29,21 +29,21 @@ function commentSort (arr) {
         console.log("--commentSort failed to identify obj.type");
     }
   });
-  
+
   arr.sort(sortBy('votes', 'posted'));
   statcomms.sort(sortBy('votes', 'posted')); //don't forget to combine upvotes and downvotes to votes
   ratcomms.sort(sortBy('votes', 'posted'));
   moralcomms.sort(sortBy('votes', 'posted'));
   aneccomms.sort(sortBy('votes', 'posted'));
-  
+
   var commArrays = {
     allCommentArr: arr,
     statCommentArrs: statcomms,
     ratCommentArr: ratcomms,
     moralCommentArr: moralcomms,
-    anecCommentArr: anecomms
+    anecCommentArr: aneccomms
   };
-  
+
   return commArrays;
 }
 
@@ -66,7 +66,7 @@ function calcCommType (obj){
     objArr.forEach(function(x){
         console.log(x.name + " is being compared to " + obj[winner]);
         console.log(x.num + " is being compared to " + winner.num);
-        if(x.num > exdata[winner]){
+        if(x.num > x[winner]){
            console.log(x.name + "is greater than" + obj.winner);
            winner = x.name;
         }

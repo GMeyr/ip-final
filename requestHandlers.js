@@ -34,14 +34,14 @@ function comment(response, postData, query) {
   var postCommIssue_Id = querystring.parse(postData).commissue_id;
   var postCommSide = querystring.parse(postData).commside;
   var postCommType = querystring.parse(postData).commtype;
-  console.log("--When recieved, postcommtype was: " + postCommType)
+  console.log("--When recieved, postCommIssue_Id was: " + postCommIssue_Id)
   var postCommText = querystring.parse(postData).commtext;
   var postCommRef = querystring.parse(postData).commref;
 
   var generated__comment_id = new ObjectId();
 
   var newslug = randomInt(100, 10000);
-  console.log("generated__comment_id: " + generated__comment_id, "newslug: " + newslug, "postCommIssue_Id: " + postCommIssue_Id);
+  console.log("--generated__comment_id: " + generated__comment_id, "newslug: " + newslug, "postCommIssue_Id: " + postCommIssue_Id);
 
   dbc.comments.save({_id: generated__comment_id, issue_id: postCommIssue_Id, slug: newslug, posted: new Date(),
                     side: postCommSide, type: postCommType, text: postCommText, ref: postCommRef,
@@ -86,7 +86,14 @@ function comment(response, postData, query) {
     }
 
   response.writeHead(200, {"Content-Type": "text/html"});
-  response.end("<p>Comment sumbmitted!</p>");
+  response.end(
+    "<!--header-->" +
+    "<h1 class='logo'>issueprism</h1>" +
+    '<div class="navbar">' +
+    '<p><a href="/">Home</a> &nbsp; <a href="/addissue">Add Issue</a></p>' +
+    '</div>' +
+    '<!--content-->' +
+    "<p>Comment sumbmitted!</p>");
 }
 
 function id (response, postData, query){
@@ -120,15 +127,15 @@ function getcomments (response, postData, query){
       query_id = query.slice(4, andIndex),
       query_side = query.slice(andIndex + 6);
 
-  console.log('breaking query into _id: ' + query_id + " and side: " + query_side);
-  db.comments.find({issue_id: query_id, side: query_side}, function(err, comms) {
+  console.log('--breaking query into _id: ' + query_id + " and side: " + query_side);
+  dbc.comments.find({issue_id: "" + query_id, side: query_side}, function(err, comms) {
   if( err || !comms) {
     console.log("No comments found");
     response.writeHead(200, {"Content-Type": "text/html"});
     response.end("<p>Failed to find comments</p>");
   } else {
-    var result = commentSort(comms);
-    console.log("--responding with sorted comments obj");
+    var result = JSON.stringify(commentSort(comms));
+    console.log("--responding with sorted " + query_side + " comments obj: " + result);
     response.writeHead(200, {"Content-Type": "application/json"});
     response.write(result);
     response.end();
