@@ -4,7 +4,26 @@
    <meta charset="UTF-8">
     <title>Issue Prism</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-
+    <style>
+      .allprocomments {
+        display: inline-block;
+        background-color: blue;
+        float: left;
+        position: absolute;
+      }
+      .allconcomments {
+        display: inline-block;
+        background-color: red;
+        float: right;
+        margin-left: 300px;
+        position: absolute;
+      }
+      #commentButton {
+        z-index: 1;
+        float: left;
+        position: absolute;
+      }
+    </style>
   </head>
 
   <body>
@@ -20,12 +39,14 @@
     <div>
       <span class="allprocomments">
         Pro Comments  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-                      &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+
       </span>
       <span class="allconcomments">
         Con Comments
       </span>
+
     </div>
+
      <input type="button" id="commentButton" value="Add Comment">
 
     <div class="addCommentForm">
@@ -97,56 +118,30 @@
       type: "GET",
       url: comments_url,
       success: function(data) {
+        for (var i = 0; i < data.allCommentArr.length; i++) {
+          console.log(data.allCommentArr[i]);
 
-        var con_arrays_obj = data.allCommentArr;
-
-        console.log("allCommentArr: " + typeof con_arrays_obj + con_arrays_obj);
-
-        var length = con_arrays_obj.length;
-        console.log("--length: " + length);
-        console.log("--array one: " + con_arrays_obj[0]);
-$.each(con_arrays_obj, function (index,value) {
-  console.log(value.text);
-});
-
-      /*      element = null;
-        for (var i = 0; i < length; i++) {
-          element = con_arrays_obj.allCommentArr[i];
-
-          var dataArrObj = {
-                    title: JSON.stringify(x.title).replace(/\"/g, ""),
-                    text: JSON.stringify(x.text).replace(/\"/g, ""),
-                    ref: JSON.stringify(x.ref).replace(/\"/g, ""),
-                    posted: JSON.stringify(x.posted).replace(/\"/g, ""),
-                  };
-         $('.allprocomments').append("<p class='posted_date'>" + dataArrObj.posted + "</p><p class='comment_text'>" + dataArrObj.text + "</p><p class='ref'><a href='" + dataArrObj.ref + "'>" + dataArrObj.ref + "</a></p>");
-       }*/ }
-     });
-     }
-    );
+          $('.allprocomments').append("<div class='comment'><p class='posted_date'>" + data.allCommentArr[i].posted + "</p><p class='comment_text'>" + data.allCommentArr[i].text + "</p><p class='ref'><a href='" + data.allCommentArr[i].ref + "'>" + data.allCommentArr[i].ref + "</a></p></div>")
+        }
+      }
+      });
+    });
 
     // GET con comments
-                $(function (){
+               $(function (){
                           var comments_url = "/getcomments/?_id=" + pathArray + "&side=con";
-                $.ajax({
-                  type: "GET",
-                  url: comments_url,
-                  success: function(data) {
-                    console.log(JSON.stringify(data.allCommentArr));
-                    /*var con_arrays_obj = data;
-                    con_arrays_obj.allCommentArr.forEach(function (x){
-                      console.log(x);
-                      var dataArrObj = {
-                                title: JSON.stringify(x.title).replace(/\"/g, ""),
-                                text: JSON.stringify(x.text).replace(/\"/g, ""),
-                                ref: JSON.stringify(x.ref).replace(/\"/g, ""),
-                                posted: JSON.stringify(x.posted).replace(/\"/g, ""),
-                              };
-                     $('.allconcomments').append("<p class='posted_date'>" + dataArrObj.posted + "</p><p class='comment_text'>" + dataArrObj.text + "</p><p class='ref'><a href='" + dataArrObj.ref + "'>" + dataArrObj.ref + "</a></p>");
-                                }
-                   );*/}
-                });
-          });
+                          $.ajax({
+                            type: "GET",
+                            url: comments_url,
+                            success: function(data) {
+                              for (var i = 0; i < data.allCommentArr.length; i++) {
+                                console.log(data.allCommentArr[i]);
+
+                                $('.allconcomments').append("<div class='comment'><p class='posted_date'>" + data.allCommentArr[i].posted + "</p><p class='comment_text'>" + data.allCommentArr[i].text + "</p><p class='ref'><a href='" + data.allCommentArr[i].ref + "'>" + data.allCommentArr[i].ref + "</a></p></div>")
+                              }
+                            }
+                            });
+                          });
     </script>
   </body>
 </html>
