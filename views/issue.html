@@ -7,21 +7,47 @@
     <style>
       .allprocomments {
         display: inline-block;
-        background-color: blue;
+        background-color: green;
         float: left;
         position: absolute;
+        margin-top: 30px;
       }
       .allconcomments {
         display: inline-block;
-        background-color: red;
         float: right;
+        background-color: red;
         margin-left: 300px;
         position: absolute;
+        margin-top: 30px;
       }
       #commentButton {
         z-index: 1;
         float: left;
         position: absolute;
+      }
+      .comment {
+        display: block;
+        background-color: gray;
+        position: relative;
+        margin: 5px;
+        border: 1px solid black;
+        border-radius: 10%;
+      }
+      .addCommentForm {
+        position: relative;
+        background-color: yellow;
+        float: left;
+        clear: both;
+        margin: 30px 0px;
+        padding: 5px;
+        border: 1px solid black;
+        border-radius: 10px;
+      }
+
+      button {
+        position: inherit;
+        float: left;
+
       }
     </style>
   </head>
@@ -36,57 +62,21 @@
       <div class="issueTitle"></div>
       <div class="issueText"></div>
     </div>
-    <div>
-      <span class="allprocomments">
-        Pro Comments  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
 
-      </span>
-      <span class="allconcomments">
-        Con Comments
-      </span>
 
-    </div>
 
-     <input type="button" id="commentButton" value="Add Comment">
+     <div>
+       <span class="allprocomments">
+         Pro Comments  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
 
-    <div class="addCommentForm">
-      <form id="newCommentForm" action="/comment/" method="post">
-        <p>Side:<br>
-          <input type="radio" name="commside" value="pro" checked>Pro
-          <input type="radio" name="commside" value="con">Con
-        </p>
-        <p>Comment:<br>
-          <input type="text" name="commtext" ><br>
-          <span class="helpertext">Make sure it's a question</span>
-        </p>
-        <p>Reference Link:<br>
-          <input type="text" name="commref" ><br>
-        </p>
-        <p>Comment Type:<br>
-          <input type="radio" name="commtype" value="statistical" checked>Statistical
-          <input type="radio" name="commtype" value="rational">Rational
-          <input type="radio" name="commtype" value="moral">Moral
-          <input type="radio" name="commtype" value="anecdotal">Anecdotal
-        </p>
-        <p><input type="submit" value="Submit Comment" /></p>
-      </form>
-    </span>
+       </span>
+       <span class="allconcomments">
+         Con Comments
+       </span>
 
-    <script>
+     </div>
 
-    // global variables
-          var pathArray = window.location.search.slice(5);
-
-    // Comment Form Functionality
-
-          $('#newCommentForm').append('<input type="hidden" name="commissue_id" value="' + pathArray + '" />');
-
-          $('.addCommentForm').hide();
-
-          $('#commentButton').click(function(){
-              $('.addCommentForm').toggle();
-          });
-
+<script>
     // GET issue
 
           $(function (){
@@ -119,9 +109,7 @@
       url: comments_url,
       success: function(data) {
         for (var i = 0; i < data.allCommentArr.length; i++) {
-          console.log(data.allCommentArr[i]);
-
-          $('.allprocomments').append("<div class='comment'><p class='posted_date'>" + data.allCommentArr[i].posted + "</p><p class='comment_text'>" + data.allCommentArr[i].text + "</p><p class='ref'><a href='" + data.allCommentArr[i].ref + "'>" + data.allCommentArr[i].ref + "</a></p></div>")
+          $('.allprocomments').append("<div class='comment'><p class='posted_date'>" + JSON.stringify(data.allCommentArr[i].posted).slice(1,11) + "</p><p class='comment_text'>" + data.allCommentArr[i].text + "</p><p class='ref'><a href='" + JSON.stringify(data.allCommentArr[i].ref) + "'>" + JSON.stringify(data.allCommentArr[i].ref) + "</a></p></div>")
         }
       }
       });
@@ -135,13 +123,52 @@
                             url: comments_url,
                             success: function(data) {
                               for (var i = 0; i < data.allCommentArr.length; i++) {
-                                console.log(data.allCommentArr[i]);
-
-                                $('.allconcomments').append("<div class='comment'><p class='posted_date'>" + data.allCommentArr[i].posted + "</p><p class='comment_text'>" + data.allCommentArr[i].text + "</p><p class='ref'><a href='" + data.allCommentArr[i].ref + "'>" + data.allCommentArr[i].ref + "</a></p></div>")
+                                $('.allconcomments').append("<div class='comment'><p class='posted_date'>" + JSON.stringify(data.allCommentArr[i].posted).slice(1,11) + "</p><p class='comment_text'>" + data.allCommentArr[i].text + "</p><p class='ref'><a href='" + data.allCommentArr[i].ref + "'>" + data.allCommentArr[i].ref + "</a></p></div>")
                               }
                             }
                             });
                           });
     </script>
+
+
+    <input type="button" id="commentButton" value="Add Comment">
+<div class="addCommentForm">
+<form id="newCommentForm" action="/comment/" method="post">
+  <p>Side:<br>
+    <input type="radio" name="commside" value="pro" checked>Pro
+    <input type="radio" name="commside" value="con">Con
+  </p>
+  <p>Comment:<br>
+    <input type="text" name="commtext" ><br>
+    <span class="helpertext">Make sure it's a question</span>
+  </p>
+  <p>Reference Link:<br>
+    <input type="text" name="commref" ><br>
+  </p>
+  <p>Comment Type:<br>
+    <input type="radio" name="commtype" value="statistical" checked>Statistical
+    <input type="radio" name="commtype" value="rational">Rational
+    <input type="radio" name="commtype" value="moral">Moral
+    <input type="radio" name="commtype" value="anecdotal">Anecdotal
+  </p>
+  <p><input type="submit" value="Submit Comment" /></p>
+</form>
+
+
+<script>
+
+// global variables
+    var pathArray = window.location.search.slice(5);
+
+// Comment Form Functionality
+
+    $('#newCommentForm').append('<input type="hidden" name="commissue_id" value="' + pathArray + '" />');
+
+    $('.addCommentForm').hide();
+
+    $('#commentButton').click(function(){
+        $('.addCommentForm').toggle();
+    });
+</script>
   </body>
 </html>
