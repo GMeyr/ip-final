@@ -107,7 +107,7 @@
       type: "GET",
       url: comments_url,
       success: function(data) {
-        window.data = data;
+        window.pro_data = data;
         for (var i = 0; i < data.allCommentArr.length; i++) {
           $('.allprocomments').append("<div class='comment'><p class='posted_date'>" + JSON.stringify(data.allCommentArr[i].posted).slice(1,11) + "</p><p class='comment_text'>" + data.allCommentArr[i].text + "</p><p class='ref'><a href='" + JSON.stringify(data.allCommentArr[i].ref) + "'>" + JSON.stringify(data.allCommentArr[i].ref) + "</a></p></div>")
         }
@@ -122,7 +122,7 @@
                             type: "GET",
                             url: comments_url,
                             success: function(data) {
-                              window.data = data;
+                              window.con_data = data;
                               for (var i = 0; i < data.allCommentArr.length; i++) {
                                 $('.allconcomments').append("<div class='comment'><p class='posted_date'>" + JSON.stringify(data.allCommentArr[i].posted).slice(1,11) + "</p><p class='comment_text'>" + data.allCommentArr[i].text + "</p><p class='ref'><a href='" + data.allCommentArr[i].ref + "'>" + data.allCommentArr[i].ref + "</a></p></div>")
                               }
@@ -177,12 +177,18 @@
         current_view = "statCommentArrs";
         $('.allprocomments').html(null);
         $('.allconcomments').html(null);
-        console.log(window.data, "length: " + window.data.allCommentArr.length);
-
+      //  console.log(window.data, "length: " + window.data.allCommentArr.length);
+        postProStats(window.pro_data);
+        postConStats(window.con_data);
     });
-    function postStats(data) {
-      for (var i = 0; i < data.allCommentArr.length; i++) {
-        $('.allconcomments').append("<div class='comment'><p class='posted_date'>" + JSON.stringify(data.allCommentArr[i].posted).slice(1,11) + "</p><p class='comment_text'>" + data.allCommentArr[i].text + "</p><p class='ref'><a href='" + data.allCommentArr[i].ref + "'>" + data.allCommentArr[i].ref + "</a></p></div>")
+    function postProStats(data) {
+      for (var i = 0; i < data.statCommentArrs.length; i++) {
+        $('.allprocomments').append("<div class='comment'><p class='posted_date'>" + JSON.stringify(data.statCommentArrs[i].posted).slice(1,11) + "</p><p class='comment_text'>" + data.statCommentArrs[i].text + "</p><p class='ref'><a href='" + data.statCommentArrs[i].ref + "'>" + data.statCommentArrs[i].ref + "</a></p></div>")
+      }
+    }
+    function postConStats(data) {
+      for (var i = 0; i < data.statCommentArrs.length; i++) {
+        $('.allconcomments').append("<div class='comment'><p class='posted_date'>" + JSON.stringify(data.statCommentArrs[i].posted).slice(1,11) + "</p><p class='comment_text'>" + data.statCommentArrs[i].text + "</p><p class='ref'><a href='" + data.statCommentArrs[i].ref + "'>" + data.statCommentArrs[i].ref + "</a></p></div>")
       }
     }
 </script>
