@@ -107,6 +107,7 @@
       type: "GET",
       url: comments_url,
       success: function(data) {
+        window.data = data;
         for (var i = 0; i < data.allCommentArr.length; i++) {
           $('.allprocomments').append("<div class='comment'><p class='posted_date'>" + JSON.stringify(data.allCommentArr[i].posted).slice(1,11) + "</p><p class='comment_text'>" + data.allCommentArr[i].text + "</p><p class='ref'><a href='" + JSON.stringify(data.allCommentArr[i].ref) + "'>" + JSON.stringify(data.allCommentArr[i].ref) + "</a></p></div>")
         }
@@ -121,6 +122,7 @@
                             type: "GET",
                             url: comments_url,
                             success: function(data) {
+                              window.data = data;
                               for (var i = 0; i < data.allCommentArr.length; i++) {
                                 $('.allconcomments').append("<div class='comment'><p class='posted_date'>" + JSON.stringify(data.allCommentArr[i].posted).slice(1,11) + "</p><p class='comment_text'>" + data.allCommentArr[i].text + "</p><p class='ref'><a href='" + data.allCommentArr[i].ref + "'>" + data.allCommentArr[i].ref + "</a></p></div>")
                               }
@@ -130,7 +132,8 @@
     </script>
 
 
-    <input type="button" id="commentButton" value="Add Comment">
+        <input type="button" id="statButton" value="Stat">
+        <input type="button" id="commentButton" value="Add Comment">
 <div class="addCommentForm">
 <form id="newCommentForm" action="/comment/" method="post">
   <p>Side:<br>
@@ -157,6 +160,8 @@
 <script>
 
 // global variables
+
+    var current_view = "allCommentArr";
     var pathArray = window.location.search.slice(5);
 
 // Comment Form Functionality
@@ -168,6 +173,18 @@
     $('#commentButton').click(function(){
         $('.addCommentForm').toggle();
     });
+    $('#statButton').click(function(){
+        current_view = "statCommentArrs";
+        $('.allprocomments').html(null);
+        $('.allconcomments').html(null);
+        console.log(window.data, "length: " + window.data.allCommentArr.length);
+
+    });
+    function postStats(data) {
+      for (var i = 0; i < data.allCommentArr.length; i++) {
+        $('.allconcomments').append("<div class='comment'><p class='posted_date'>" + JSON.stringify(data.allCommentArr[i].posted).slice(1,11) + "</p><p class='comment_text'>" + data.allCommentArr[i].text + "</p><p class='ref'><a href='" + data.allCommentArr[i].ref + "'>" + data.allCommentArr[i].ref + "</a></p></div>")
+      }
+    }
 </script>
   </body>
 </html>
