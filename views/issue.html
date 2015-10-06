@@ -132,8 +132,13 @@
     </script>
 
 
-        <input type="button" id="statButton" value="Stat">
-        <input type="button" id="commentButton" value="Add Comment">
+        <input type="button" id="allButton" value="All">
+        <input type="button" id="statButton" value="Statistical">
+        <input type="button" id="ratButton" value="Rational">
+        <input type="button" id="moralButton" value="Moral">
+        <input type="button" id="anecButton" value="Anecdotal">
+        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+        <input type="button" id="commentButton" value="Add New Comment">
 <div class="addCommentForm">
 <form id="newCommentForm" action="/comment/" method="post">
   <p>Side:<br>
@@ -181,6 +186,38 @@
         postProStats(window.pro_data);
         postConStats(window.con_data);
     });
+    $('#ratButton').click(function(){
+        current_view = "statCommentArrs";
+        $('.allprocomments').html(null);
+        $('.allconcomments').html(null);
+      //  console.log(window.data, "length: " + window.data.allCommentArr.length);
+        postProRats(window.pro_data);
+        postConRats(window.con_data);
+    });
+    $('#moralButton').click(function(){
+        current_view = "moralCommentArr";
+        $('.allprocomments').html(null);
+        $('.allconcomments').html(null);
+      //  console.log(window.data, "length: " + window.data.allCommentArr.length);
+        postProMoral(window.pro_data);
+        postConMoral(window.con_data);
+    });
+    $('#anecButton').click(function(){
+        current_view = "anecCommentArr";
+        $('.allprocomments').html(null);
+        $('.allconcomments').html(null);
+      //  console.log(window.data, "length: " + window.data.allCommentArr.length);
+        postProAnec(window.pro_data);
+        postConAnec(window.con_data);
+    });
+    $('#allButton').click(function(){
+        current_view = "allCommentArr";
+        $('.allprocomments').html(null);
+        $('.allconcomments').html(null);
+      //  console.log(window.data, "length: " + window.data.allCommentArr.length);
+        postProAll(window.pro_data);
+        postConAll(window.con_data);
+    });
     function postProStats(data) {
       for (var i = 0; i < data.statCommentArrs.length; i++) {
         $('.allprocomments').append("<div class='comment'><p class='posted_date'>" + JSON.stringify(data.statCommentArrs[i].posted).slice(1,11) + "</p><p class='comment_text'>" + data.statCommentArrs[i].text + "</p><p class='ref'><a href='" + data.statCommentArrs[i].ref + "'>" + data.statCommentArrs[i].ref + "</a></p></div>")
@@ -189,6 +226,47 @@
     function postConStats(data) {
       for (var i = 0; i < data.statCommentArrs.length; i++) {
         $('.allconcomments').append("<div class='comment'><p class='posted_date'>" + JSON.stringify(data.statCommentArrs[i].posted).slice(1,11) + "</p><p class='comment_text'>" + data.statCommentArrs[i].text + "</p><p class='ref'><a href='" + data.statCommentArrs[i].ref + "'>" + data.statCommentArrs[i].ref + "</a></p></div>")
+      }
+    }
+
+    function postProRats(data) {
+      for (var i = 0; i < data.ratCommentArr.length; i++) {
+        $('.allprocomments').append("<div class='comment'><p class='posted_date'>" + JSON.stringify(data.ratCommentArr[i].posted).slice(1,11) + "</p><p class='comment_text'>" + data.ratCommentArr[i].text + "</p><p class='ref'><a href='" + data.ratCommentArr[i].ref + "'>" + data.ratCommentArr[i].ref + "</a></p></div>")
+      }
+    }
+    function postConRats(data) {
+      for (var i = 0; i < data.ratCommentArr.length; i++) {
+        $('.allconcomments').append("<div class='comment'><p class='posted_date'>" + JSON.stringify(data.ratCommentArr[i].posted).slice(1,11) + "</p><p class='comment_text'>" + data.ratCommentArr[i].text + "</p><p class='ref'><a href='" + data.ratCommentArr[i].ref + "'>" + data.ratCommentArr[i].ref + "</a></p></div>")
+      }
+    }
+    function postProMoral(data) {
+      for (var i = 0; i < data.moralCommentArr.length; i++) {
+        $('.allprocomments').append("<div class='comment'><p class='posted_date'>" + JSON.stringify(data.moralCommentArr[i].posted).slice(1,11) + "</p><p class='comment_text'>" + data.moralCommentArr[i].text + "</p><p class='ref'><a href='" + data.moralCommentArr[i].ref + "'>" + data.moralCommentArr[i].ref + "</a></p></div>")
+      }
+    }
+    function postConMoral(data) {
+      for (var i = 0; i < data.moralCommentArr.length; i++) {
+        $('.allconcomments').append("<div class='comment'><p class='posted_date'>" + JSON.stringify(data.moralCommentArr[i].posted).slice(1,11) + "</p><p class='comment_text'>" + data.moralCommentArr[i].text + "</p><p class='ref'><a href='" + data.moralCommentArr[i].ref + "'>" + data.moralCommentArr[i].ref + "</a></p></div>")
+      }
+    }
+    function postProAnec(data) {
+      for (var i = 0; i < data.anecCommentArr.length; i++) {
+        $('.allprocomments').append("<div class='comment'><p class='posted_date'>" + JSON.stringify(data.anecCommentArr[i].posted).slice(1,11) + "</p><p class='comment_text'>" + data.anecCommentArr[i].text + "</p><p class='ref'><a href='" + data.anecCommentArr[i].ref + "'>" + data.anecCommentArr[i].ref + "</a></p></div>")
+      }
+    }
+    function postConAnec(data) {
+      for (var i = 0; i < data.anecCommentArr.length; i++) {
+        $('.allconcomments').append("<div class='comment'><p class='posted_date'>" + JSON.stringify(data.moralCommentArr[i].posted).slice(1,11) + "</p><p class='comment_text'>" + data.anecCommentArr[i].text + "</p><p class='ref'><a href='" + data.anecCommentArr[i].ref + "'>" + data.anecCommentArr[i].ref + "</a></p></div>")
+      }
+    }
+    function postProAll(data) {
+      for (var i = 0; i < data.allCommentArr.length; i++) {
+        $('.allprocomments').append("<div class='comment'><p class='posted_date'>" + JSON.stringify(data.allCommentArr[i].posted).slice(1,11) + "</p><p class='comment_text'>" + data.allCommentArr[i].text + "</p><p class='ref'><a href='" + data.allCommentArr[i].ref + "'>" + data.allCommentArr[i].ref + "</a></p></div>")
+      }
+    }
+    function postConAll(data) {
+      for (var i = 0; i < data.allCommentArr.length; i++) {
+        $('.allconcomments').append("<div class='comment'><p class='posted_date'>" + JSON.stringify(data.allCommentArr[i].posted).slice(1,11) + "</p><p class='comment_text'>" + data.allCommentArr[i].text + "</p><p class='ref'><a href='" + data.allCommentArr[i].ref + "'>" + data.allCommentArr[i].ref + "</a></p></div>")
       }
     }
 </script>
