@@ -223,6 +223,69 @@ function template(response, postData) {
   response.end(templateHTML);
 }
 
+function addvote (response, postData, query) {
+  console.log("Handling /addvote/");
+
+  var postCommIssue_Id = querystring.parse(postData).commissue_id;
+  console.log("--query is: " + query);
+
+  var generated__comment_id = new ObjectId();
+
+  var newslug = randomInt(100, 10000);
+  console.log("--generated__comment_id: " + generated__comment_id, "newslug: " + newslug, "postCommIssue_Id: " + postCommIssue_Id);
+
+  dbc.comments.save({_id: generated__comment_id, issue_id: postCommIssue_Id, slug: newslug, posted: new Date(),
+                    side: postCommSide, type: postCommType, text: postCommText, ref: postCommRef,
+                    statvotes: 0, ratvotes: 0, moralvotes: 0, anecvotes: 0, badvotes: 0, votes: 0, none: 0 },
+                    function(err, saved){
+                      if(err || !saved) console.log("--comment not saved");
+                      else {
+                        console.log("--comment saved!");
+                      }
+                    });
+
+    switch (postCommType) {
+      case 'statistical':
+        dbc.comments.update({_id: generated__comment_id}, {$set: {statvotes: 3}}, function(err, updated) {
+          if( err || !updated ) {
+              console.log("--statvotes not updated");
+              response.writeHead(200, {"Content-Type": "text/html"});
+              response.end("<p>Comment submission failed!</p>");
+          } else console.log("--statvotes updated");
+        });
+      break;
+            case 'rational':
+        dbc.comments.update({_id: generated__comment_id}, {$set: {ratvotes: 3}}, function(err, updated) {
+          if( err || !updated ) console.log("--ratvotes not updated");
+          else console.log("--ratvotes updated");
+        });
+      break;
+            case 'moral':
+        dbc.comments.update({_id: generated__comment_id}, {$set: {moralvotes: 3}}, function(err, updated) {
+          if( err || !updated ) console.log("--moralvotes not updated");
+          else console.log("--moralvotes updated");
+        });
+      break;
+            case 'anecdotal':
+        dbc.comments.update({_id: generated__comment_id}, {$set: {anecvotes: 3}}, function(err, updated) {
+          if( err || !updated ) console.log("--anecvotes not updated");
+          else console.log("--anecvotes updated");
+        });
+      break;
+    default:
+      console.log("--did not find postCommType", postCommType, typeof postCommType);
+    }
+
+  response.writeHead(200, {"Content-Type": "text/html"});
+  response.end(
+    "<!--header-->" +
+    "<h1 class='logo'>issueprism</h1>" +
+    '<div class="navbar">' +
+    '<p><a href="/">Home</a> &nbsp; <a href="/addissue">Add Issue</a></p>' +
+    '</div>' +
+    '<!--content-->' +
+    "<p>Comment sumbmitted!</p>");
+}
 
 
 
@@ -685,6 +748,7 @@ exports.getcomments = getcomments;
 exports.start = start;
 exports.submit = submit;
 exports.template = template;
+exports.addvote = addvote;
 
 exports.sciencelocal = sciencelocal;
 exports.scienceregional = scienceregional;

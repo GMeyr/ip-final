@@ -23,6 +23,8 @@ handle["/submit"] = requestHandlers.submit;
 handle["/submit/"] = requestHandlers.submit;
 handle["/template"] = requestHandlers.template;
 handle["/template/"] = requestHandlers.template;
+handle["/addvote"] = requestHandlers.addvote;
+handle["/addvote/"] = requestHandlers.addvote;
 
 //view requests
 handle["/sciencelocal"] = requestHandlers.sciencelocal;
