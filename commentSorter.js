@@ -43,7 +43,7 @@ function commentSort (arr) {
 
   var commArrays = {
     allCommentArr: arr,
-    statCommentArrs: statcomms,
+    statCommentArr: statcomms,
     ratCommentArr: ratcomms,
     moralCommentArr: moralcomms,
     anecCommentArr: aneccomms
