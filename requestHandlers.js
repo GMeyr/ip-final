@@ -230,48 +230,96 @@ function addvote (response, postData, query) {
   var vote_comm_id =  query.slice(4, ampIndex);
   var vote_comm_type = query.slice(ampIndex + 6);
   console.log("--vote_comm_id: " + vote_comm_id + "  and vote_comm_type: " + vote_comm_type);
+  
+  switch (vote_comm_type) {
+    case 'statistical':
 
-  dbc.comments.findOne({_id: ObjectId(vote_comm_id) }, function(err, doc) {
-    if( err || !doc) {
-      console.log("No issues found");
-    } else {
-      var stringresult =  JSON.stringify(doc);
-      console.log("--found, and has this many statvotes: " + doc['statvotes']);
-      var newvotes = doc['statvotes'] + 1;
+      dbc.comments.findOne({_id: ObjectId(vote_comm_id) }, function(err, doc) {
+        if( err || !doc) {
+          console.log("No issues found");
+        } else {
+          var stringresult =  JSON.stringify(doc);
+          console.log("--found, and has this many statvotes: " + doc['statvotes']);//switch statvotes on this and the next line to dot notation?
+          var newvotes = doc['statvotes'] + 1;
       
-    }});
-  /*  switch (postCommType) {
-      case 'statistical':
-        dbc.comments.update({_id: generated__comment_id}, {$set: {statvotes: 3}}, function(err, updated) {
-          if( err || !updated ) {
+          dbc.comments.update({_id: ObjectId(vote_comm_id) }, {$set: {statvotes: newvotes}}, function(err, updated) {
+            if( err || !updated ) {
               console.log("--statvotes not updated");
               response.writeHead(200, {"Content-Type": "text/html"});
-              response.end("<p>Comment submission failed!</p>");
-          } else console.log("--statvotes updated");
-        });
+              response.end("<p>vote failed!</p>");
+            } else console.log("--statvotes updated");
+          });
+        }
+      });
       break;
-            case 'rational':
-        dbc.comments.update({_id: generated__comment_id}, {$set: {ratvotes: 3}}, function(err, updated) {
-          if( err || !updated ) console.log("--ratvotes not updated");
-          else console.log("--ratvotes updated");
-        });
+    
+    case 'rational':
+      
+      dbc.comments.findOne({_id: ObjectId(vote_comm_id) }, function(err, doc) {
+        if( err || !doc) {
+          console.log("No issues found");
+        } else {
+          var stringresult =  JSON.stringify(doc);
+          console.log("--found, and has this many ratvotes: " + doc['ratvotes']);//switch statvotes on this and the next line to dot notation?
+          var newvotes = doc['ratvotes'] + 1;
+      
+          dbc.comments.update({_id: ObjectId(vote_comm_id) }, {$set: {ratvotes: newvotes}}, function(err, updated) {
+            if( err || !updated ) {
+              console.log("--ratvotes not updated");
+              response.writeHead(200, {"Content-Type": "text/html"});
+              response.end("<p>vote failed!</p>");
+            } else console.log("--ratvotes updated");
+          });
+        }
+      });
       break;
-            case 'moral':
-        dbc.comments.update({_id: generated__comment_id}, {$set: {moralvotes: 3}}, function(err, updated) {
-          if( err || !updated ) console.log("--moralvotes not updated");
-          else console.log("--moralvotes updated");
-        });
+      
+    case 'moral':
+      
+      dbc.comments.findOne({_id: ObjectId(vote_comm_id) }, function(err, doc) {
+        if( err || !doc) {
+          console.log("No issues found");
+        } else {
+          var stringresult =  JSON.stringify(doc);
+          console.log("--found, and has this many moralvotes: " + doc['moralvotes']);//switch moralvotes on this and the next line to dot notation?
+          var newvotes = doc['moralvotes'] + 1;
+      
+          dbc.comments.update({_id: ObjectId(vote_comm_id) }, {$set: {moralvotes: newvotes}}, function(err, updated) {
+            if( err || !updated ) {
+              console.log("--moralvotes not updated");
+              response.writeHead(200, {"Content-Type": "text/html"});
+              response.end("<p>vote failed!</p>");
+            } else console.log("--moralvotes updated");
+          });
+        }
+      });
       break;
-            case 'anecdotal':
-        dbc.comments.update({_id: generated__comment_id}, {$set: {anecvotes: 3}}, function(err, updated) {
-          if( err || !updated ) console.log("--anecvotes not updated");
-          else console.log("--anecvotes updated");
-        });
+    
+    case 'anecdotal':
+      
+      dbc.comments.findOne({_id: ObjectId(vote_comm_id) }, function(err, doc) {
+        if( err || !doc) {
+          console.log("No issues found");
+        } else {
+          var stringresult =  JSON.stringify(doc);
+          console.log("--found, and has this many anecvotes: " + doc['anecvotes']);//switch anecvotes on this and the next line to dot notation?
+          var newvotes = doc['anecvotes'] + 1;
+      
+          dbc.comments.update({_id: ObjectId(vote_comm_id) }, {$set: {anecvotes: newvotes}}, function(err, updated) {
+            if( err || !updated ) {
+              console.log("--anecvotes not updated");
+              response.writeHead(200, {"Content-Type": "text/html"});
+              response.end("<p>vote failed!</p>");
+            } else console.log("--anecvotes updated");
+          });
+        }
+      });
       break;
+
     default:
-      console.log("--did not find postCommType", postCommType, typeof postCommType);
+      console.log("--did not find vote_comm_type", vote_comm_type, typeof vote_comm_type);
     }
-*/
+
   response.writeHead(200, {"Content-Type": "text/html"});
   response.end(
     "<!--header-->" +
