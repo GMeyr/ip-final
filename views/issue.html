@@ -246,6 +246,9 @@ function comment_HTML (type){
     str += addButtons();
     str += "</div>";
     str += "</div>";
+    var re = new RegExp("\'", "g");
+    str = str.replace(re, "");
+    return str;
 }
 
 //added today
