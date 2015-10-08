@@ -328,7 +328,7 @@ function addvote (response, postData, query) {
     '<p><a href="/">Home</a> &nbsp; <a href="/addissue">Add Issue</a></p>' +
     '</div>' +
     '<!--content-->' +
-    "<p>Comment sumbmitted!</p>");
+    "<p>Vote sumbmitted!</p>");
 }
 
 
