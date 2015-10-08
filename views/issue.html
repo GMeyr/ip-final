@@ -222,11 +222,11 @@
 
     function postProStats(data) {
       for (var i = 0; i < data.statCommentArrs.length; i++) {
-        $('.allprocomments').append("<div class='comment'><p class='posted_date'>" + JSON.stringify(data.statCommentArrs[i].posted).slice(1,11) + "</p><p class='comment_text'>" + data.statCommentArrs[i].text + "</p><p class='ref'><a href='" + data.statCommentArrs[i].ref + "'>" + data.statCommentArrs[i].ref + "</a></p><div class='votediv'<p>vote on comment type:<br> <input type='button' class='stat_vote_button' value='Stat'></div></p></div>")
+        $('.allprocomments').append("<div class='comment'><p class='posted_date'>" + JSON.stringify(data.statCommentArrs[i].posted).slice(1,11) + "</p><p class='comment_text'>" + data.statCommentArrs[i].text + "</p><p class='ref'><a href='" + data.statCommentArrs[i].ref + "'>" + data.statCommentArrs[i].ref + "</a></p><div class='votediv'<p>vote on comment type:<br> <input type='button' class='stat_vote_button' id='" + data.statCommentArrs[i]._id +  "' value='Stat'></div></p></div>")
       }
       $('.stat_vote_button').click(function(){
-            console.log('clicked stat_vote_button')
-            var sv_url = "/addvote/?_id=" + pathArray + "&vote=stat"
+            console.log('clicked stat_vote_button with _id: ' + this.id); //attaching an id to the buttons I generated and using that to keep the comments straight was an intereseting problem I solved.
+            var sv_url = "/addvote/?_id=" + this.id + "&vote=statistical"
             $.ajax({
               type: "GET",
               url: sv_url,

@@ -226,25 +226,21 @@ function template(response, postData) {
 function addvote (response, postData, query) {
   console.log("Handling /addvote/");
 
-  var postCommIssue_Id = querystring.parse(postData).commissue_id;
-  console.log("--query is: " + query);
+  var ampIndex = query.indexOf("&");
+  var vote_comm_id =  query.slice(4, ampIndex);
+  var vote_comm_type = query.slice(ampIndex + 6);
+  console.log("--vote_comm_id: " + vote_comm_id + "  and vote_comm_type: " + vote_comm_type);
 
-  var generated__comment_id = new ObjectId();
-
-  var newslug = randomInt(100, 10000);
-  console.log("--generated__comment_id: " + generated__comment_id, "newslug: " + newslug, "postCommIssue_Id: " + postCommIssue_Id);
-
-  dbc.comments.save({_id: generated__comment_id, issue_id: postCommIssue_Id, slug: newslug, posted: new Date(),
-                    side: postCommSide, type: postCommType, text: postCommText, ref: postCommRef,
-                    statvotes: 0, ratvotes: 0, moralvotes: 0, anecvotes: 0, badvotes: 0, votes: 0, none: 0 },
-                    function(err, saved){
-                      if(err || !saved) console.log("--comment not saved");
-                      else {
-                        console.log("--comment saved!");
-                      }
-                    });
-
-    switch (postCommType) {
+  dbc.comments.findOne({_id: ObjectId(vote_comm_id) }, function(err, doc) {
+    if( err || !doc) {
+      console.log("No issues found");
+    } else {
+      var stringresult =  JSON.stringify(doc);
+      console.log("--found, and has this many statvotes: " + doc['statvotes']);
+      var newvotes = doc['statvotes'] + 1;
+      
+    }});
+  /*  switch (postCommType) {
       case 'statistical':
         dbc.comments.update({_id: generated__comment_id}, {$set: {statvotes: 3}}, function(err, updated) {
           if( err || !updated ) {
@@ -275,7 +271,7 @@ function addvote (response, postData, query) {
     default:
       console.log("--did not find postCommType", postCommType, typeof postCommType);
     }
-
+*/
   response.writeHead(200, {"Content-Type": "text/html"});
   response.end(
     "<!--header-->" +
