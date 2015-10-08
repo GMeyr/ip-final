@@ -219,6 +219,74 @@
         postConAll(window.con_data);
     });
 
+function button (btype, name) {
+  var str = "";
+  btype += "";
+  var arr = btype + "CommentArr";
+  
+  str += "<input type='button' class='" + btype + "_vote_button'";
+  str += " id='" + data.arr[i]._id +  "' value='" + name + "'>";
+  
+  return str;
+}
+
+function addButtons(){
+    var buttons =  button("stat", "Stat.") + button("rat", "Rat.") + button('moral', "Moral") + button('anec', "Anec.");
+    console.log(buttons);
+    return buttons;
+}
+
+function comment_HTML (type){
+    var arr = type + "CommentArr";
+    var str = "<div class='comment'>";
+    str += "<p class='comment_text'>" + data.arr[i].text + "</p>";
+    str += "<p class='ref'><a href='" + data.arr[i].ref + "'>" + data.arr[i].ref + "</a></p>";
+    str += "<div class='votediv'>";
+    str += "<p>vote on comment type:</p>";
+    str += addButtons();
+    str += "</div>";
+    str += "</div>";
+}
+
+//added today
+function renderComments (data, type){
+  var mainArr = type + "CommentArr";
+  var current_vote_button = "'." + type + "_vote_button'";
+  
+  for (var i = 0; i < data.mainArr.length; i++) {
+    $('.allprocomments').append(comment_HTML(type));
+  }
+  $(current_vote_button).click(function(){
+      console.log("clicked " + current_vote_button + " with id: " + this.id); //attaching id to buttons as a  way to keep comments straight was an interesting #problemtosolve
+      var fulltype = "";
+      switch (type) {
+          case 'stat':
+              fulltype = 'statistical';
+              break;
+          case 'rat':
+              fulltype = "rational";
+              break;
+          case 'moral':
+              fulltype = "moral";
+              break;
+          case 'anec':
+              fulltype = 'anecdotal';
+              break;
+          default:
+              fulltype = 'unknown';
+              console.log("-could not create fulltype");
+      }
+      var vote_url = "/addvote/?_id=" + this.id + "&vote=" + fulltype;
+            $.ajax({
+              type: "GET",
+              url: vote_url,
+              success: function(data) {
+                $('.votediv').html("Vote received!");
+              }
+            });
+  });
+}
+//end of added today
 
     function postProStats(data) {
       for (var i = 0; i < data.statCommentArr.length; i++) {
