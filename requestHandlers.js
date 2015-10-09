@@ -135,7 +135,7 @@ function getcomments (response, postData, query){
     response.end("<p>Failed to find comments</p>");
   } else {
     var result = JSON.stringify(commentSort(comms));
-    console.log("--responding with sorted " + query_side + " comments obj: " + result);
+    console.log("--responding with " + result.length + " " + query_side + " comments");
     response.writeHead(200, {"Content-Type": "application/json"});
     response.write(result);
     response.end();
@@ -230,7 +230,7 @@ function addvote (response, postData, query) {
   var vote_comm_id =  query.slice(4, ampIndex);
   var vote_comm_type = query.slice(ampIndex + 6);
   console.log("--vote_comm_id: " + vote_comm_id + "  and vote_comm_type: " + vote_comm_type);
-  
+
   switch (vote_comm_type) {
     case 'statistical':
 
@@ -241,7 +241,7 @@ function addvote (response, postData, query) {
           var stringresult =  JSON.stringify(doc);
           console.log("--found, and has this many statvotes: " + doc['statvotes']);//switch statvotes on this and the next line to dot notation?
           var newvotes = doc['statvotes'] + 1;
-      
+
           dbc.comments.update({_id: ObjectId(vote_comm_id) }, {$set: {statvotes: newvotes}}, function(err, updated) {
             if( err || !updated ) {
               console.log("--statvotes not updated");
@@ -252,9 +252,9 @@ function addvote (response, postData, query) {
         }
       });
       break;
-    
+
     case 'rational':
-      
+
       dbc.comments.findOne({_id: ObjectId(vote_comm_id) }, function(err, doc) {
         if( err || !doc) {
           console.log("No issues found");
@@ -262,7 +262,7 @@ function addvote (response, postData, query) {
           var stringresult =  JSON.stringify(doc);
           console.log("--found, and has this many ratvotes: " + doc['ratvotes']);//switch statvotes on this and the next line to dot notation?
           var newvotes = doc['ratvotes'] + 1;
-      
+
           dbc.comments.update({_id: ObjectId(vote_comm_id) }, {$set: {ratvotes: newvotes}}, function(err, updated) {
             if( err || !updated ) {
               console.log("--ratvotes not updated");
@@ -273,9 +273,9 @@ function addvote (response, postData, query) {
         }
       });
       break;
-      
+
     case 'moral':
-      
+
       dbc.comments.findOne({_id: ObjectId(vote_comm_id) }, function(err, doc) {
         if( err || !doc) {
           console.log("No issues found");
@@ -283,7 +283,7 @@ function addvote (response, postData, query) {
           var stringresult =  JSON.stringify(doc);
           console.log("--found, and has this many moralvotes: " + doc['moralvotes']);//switch moralvotes on this and the next line to dot notation?
           var newvotes = doc['moralvotes'] + 1;
-      
+
           dbc.comments.update({_id: ObjectId(vote_comm_id) }, {$set: {moralvotes: newvotes}}, function(err, updated) {
             if( err || !updated ) {
               console.log("--moralvotes not updated");
@@ -294,9 +294,9 @@ function addvote (response, postData, query) {
         }
       });
       break;
-    
+
     case 'anecdotal':
-      
+
       dbc.comments.findOne({_id: ObjectId(vote_comm_id) }, function(err, doc) {
         if( err || !doc) {
           console.log("No issues found");
@@ -304,7 +304,7 @@ function addvote (response, postData, query) {
           var stringresult =  JSON.stringify(doc);
           console.log("--found, and has this many anecvotes: " + doc['anecvotes']);//switch anecvotes on this and the next line to dot notation?
           var newvotes = doc['anecvotes'] + 1;
-      
+
           dbc.comments.update({_id: ObjectId(vote_comm_id) }, {$set: {anecvotes: newvotes}}, function(err, updated) {
             if( err || !updated ) {
               console.log("--anecvotes not updated");
