@@ -125,7 +125,7 @@
               var str = "<div class='comment'><p class='comment_text'>" + window.pro_data.allCommentArr[x].text + "</p>";
               str += "<p class='ref'><a href='" + window.pro_data.allCommentArr[x].ref + "'>" + window.pro_data.allCommentArr[x].ref + "</a></p>";
               str += "<div class='votediv'><p>vote on comment type:</p>" + addButtons(x) + </div></div>";
-              str = str.replace(re, "");
+              str = str.replace(re, '');
               return str;
             }
 
