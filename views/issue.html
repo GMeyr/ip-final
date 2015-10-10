@@ -75,365 +75,170 @@
 
      </div>
 
-    <script>
-    // GET issue
+<script>
+$(function (){
+  var idPath = "/id/?_id=" + pathArray;
+  $.ajax({
+    type: "GET",
+    url: idPath,
+    success: function(data) {
+     var dataObj = {
+                      _id: JSON.stringify(data._id).replace(/\"/g, ""),
+                      title: JSON.stringify(data.title).replace(/\"/g, ""),
+                      text: JSON.stringify(data.text).replace(/\"/g, ""),
+                      type: JSON.stringify(data.type).replace(/\"/g, ""),
+                      scope: JSON.stringify(data.scope).replace(/\"/g, "")
+                    };
+      console.log("The dataObj should have these props: " + dataObj.title + " " + dataObj.text);
+        $('.issueTypeScope').html("<p>" + dataObj.type + " : " + dataObj.scope + "</p>");
+        $('.issueTitle').html("<h2>" + dataObj.title + "</h2>");
+        $('.issueText').html("<p>" + dataObj.text + "</p>");
 
-      $(function (){
-        var idPath = "/id/?_id=" + pathArray;
-        $.ajax({
-          type: "GET",
-          url: idPath,
-          success: function(data) {
-            var dataObj = {
-              _id: JSON.stringify(data._id).replace(/\"/g, ""),
-              title: JSON.stringify(data.title).replace(/\"/g, ""),
-              text: JSON.stringify(data.text).replace(/\"/g, ""),
-              type: JSON.stringify(data.type).replace(/\"/g, ""),
-              scope: JSON.stringify(data.scope).replace(/\"/g, "")
-            };
-            console.log("The dataObj should have these props: " + dataObj.title + " " + dataObj.text);
-            $('.issueTypeScope').html("<p>" + dataObj.type + " : " + dataObj.scope + "</p>");
-            $('.issueTitle').html("<h2>" + dataObj.title + "</h2>");
-            $('.issueText').html("<p>" + dataObj.text + "</p>");
-          }
-        });
+    }
+  });
+});
+
+// GET pro and con comments
+
+// GET pro comments
+$(function (){
+var comments_url = "/getcomments/?_id=" + pathArray + "&side=pro";
+$.ajax({
+type: "GET",
+url: comments_url,
+success: function(data) {
+window.pro_data = data;
+$(function (){
+  var comments_url = "/getcomments/?_id=" + pathArray + "&side=con";
+  $.ajax({
+    type: "GET",
+    url: comments_url,
+    success: function(data) {
+      window.con_data = data;
+
+    function button (side, btype, name, id, z) {
+      var str = "", arr = btype + "CommentArr";
+      str += "<input type='button' class='" + btype + "_vote_button'";
+      str += " id='" + id +  "' value='" + name + "'>";
+      return str;}
+
+    function addButtons(side, y, id){
+      var buttons =  button(side, "stat", "Stat.", id, y) + button(side, "rat", "Rat.", id, y) + button(side, 'moral', "Moral", id, y) + button(side, 'anec', "Anec.", id, y);
+      return buttons;}
+
+    function comment_HTML (side, type, x){
+      var arr = type + "CommentArr";
+      var id = window[side][arr][x]._id;
+      var str = "<div class='comment'>";
+      str += "<p class='comment_text'>" + window[side][arr][x].text + "</p>";
+      str += "<p class='ref'><a href='" + window[side][arr][x].ref + "'>" + window[side][arr][x].ref + "</a></p>";
+      str += "<div class='votediv'>";
+      str += "<p>vote on comment type:</p>";
+      str += addButtons(side, x, id);
+      str += "</div>";
+      str += "</div>";
+      var re = new RegExp("\'", "g");
+      str = str.replace(re, "");
+      return str;}
+
+    function renderComments (side, type){
+      var mainArr = type + "CommentArr";
+      var data_side = side + "_data";
+      var comments_str = "";
+   console.log("length: " +  window[data_side][mainArr].length);
+      for (var i = 0; i < window[data_side][mainArr].length; i++) {
+        var passalong = i;
+        comments_str += comment_HTML(data_side, type, passalong);
+        }
+        return comments_str;
+      }
+
+    function setUpButtonClick () {
+      $(current_vote_button).click(function(){
+        console.log("clicked " + current_vote_button + " with id: " + this.id); //attaching id to buttons as a  way to keep comments straight was an interesting #problemtosolve
+        var fulltype = "";
+          switch (type) {
+            case 'stat':
+              fulltype = 'statistical';
+              break;
+            case 'rat':
+              fulltype = "rational";
+              break;
+            case 'moral':
+              fulltype = "moral";
+              break;
+            case 'anec':
+              fulltype = 'anecdotal';
+              break;
+            default:
+              fulltype = 'unknown';
+              console.log("-could not create fulltype");
+            }
+        var vote_url = "/addvote/?_id=" + this.id + "&vote=" + fulltype;
+          $.ajax({
+            type: "GET",
+            url: vote_url,
+            success: function(data) {
+              $('.votediv').html("Vote received!");
+            }
+          });
       });
-
-    // GET pro comments
-      $(function (){
-        var comments_url = "/getcomments/?_id=" + pathArray + "&side=pro";
-        $.ajax({
-          type: "GET",
-          url: comments_url,
-          success: function(data) {
-            window.pro_data = data;
-        
-            function button (btype, name, z) {
-              var str = "", arr = btype + "CommentArr"; //add back in btype = ""; if problems arise
-              str += "<input type='button' class='" + btype + "_vote_button' id='" + window.pro_data.allCommentArr[z]._id +  "' value='" + name + "'>";
-              return str;
-            }
-        
-            function addButtons(y){
-              var buttons =  button("stat", "Stat.", y) + button("rat", "Rat.", y) + button('moral', "Moral", y) + button('anec', "Anec.", y);
-              return buttons;
-            }
-
-            function comment_HTML (type, x){
-              var arr = type + "CommentArr";
-              re = new RegExp("\'", "g");
-              var str = "<div class='comment'><p class='comment_text'>" + window.pro_data.allCommentArr[x].text + "</p>";
-              str += "<p class='ref'><a href='" + window.pro_data.allCommentArr[x].ref + "'>" + window.pro_data.allCommentArr[x].ref + "</a></p>";
-              str += "<div class='votediv'><p>vote on comment type:</p>" + addButtons(x) + "</div></div>";
-              str = str.replace(re, "");
-              return str;
-            }
-
-            function renderComments (data, type){
-              var mainArr = type + "CommentArr", current_vote_button = "'." + type + "_vote_button'";
-              for (var i = 0; i < window.pro_data[mainArr].length; i++) {
-                var passalong = i;
-              $('.allprocomments').append(comment_HTML(type, passalong));
-            }
-        
-            $(current_vote_button).click(function(){
-              console.log("clicked " + current_vote_button + " with id: " + this.id); //attaching id to buttons as a  way to keep comments straight was an interesting #problemtosolve
-              var fulltype = "";
-              switch (type) {
-                case 'stat':
-                  fulltype = 'statistical';
-                  break;
-                case 'rat':
-                  fulltype = "rational";
-                  break;
-                case 'moral':
-                  fulltype = "moral";
-                  break;
-                case 'anec':
-                  fulltype = 'anecdotal';
-                  break;
-                default:
-                  fulltype = 'unknown';
-                  console.log("-could not create fulltype");
-            }
-            
-              var vote_url = "/addvote/?_id=" + this.id + "&vote=" + fulltype;
-              $.ajax({
-                type: "GET",
-                url: vote_url,
-                success: function(data) {
-                  $('.votediv').html("Vote received!");
-                  }
-                });
-        });
-      }
-
-    var all_pro_comm_rendering = renderComments(window.pro_data, "all");
-              $('.allprocomments').append();
-            }
-          }
-        );
-      });
-
-    // GET con comments
-      $(function (){
-        var comments_url = "/getcomments/?_id=" + pathArray + "&side=con";
-        $.ajax({
-          type: "GET",
-          url: comments_url,
-          success: function(data) {
-            window.con_data = data;
-            for (var i = 0; i < data.allCommentArr.length; i++) {
-              $('.allconcomments').append("<div class='comment'><p class='posted_date'>" + JSON.stringify(data.allCommentArr[i].posted).slice(1,11) + "</p><p class='comment_text'>" + data.allCommentArr[i].text + "</p><p class='ref'><a href='" + data.allCommentArr[i].ref + "'>" + data.allCommentArr[i].ref + "</a></p></div>")
-            }
-          }
-        });
-      });
-
-    </script>
-
-      <input type="button" id="allButton" value="All">
-      <input type="button" id="statButton" value="Statistical">
-      <input type="button" id="ratButton" value="Rational">
-      <input type="button" id="moralButton" value="Moral">
-      <input type="button" id="anecButton" value="Anecdotal">
-      &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-      <input type="button" id="commentButton" value="Add New Comment">
-      <div class="addCommentForm">
-        <form id="newCommentForm" action="/comment/" method="post">
-          <p>Side:<br>
-            <input type="radio" name="commside" value="pro" checked>Pro
-            <input type="radio" name="commside" value="con">Con
-          </p>
-          <p>Comment:<br>
-            <input type="text" name="commtext" ><br>
-            <span class="helpertext">Make sure it's a question</span>
-          </p>
-          <p>Reference Link:<br>
-            <input type="text" name="commref" ><br>
-          </p>
-          <p>Comment Type:<br>
-            <input type="radio" name="commtype" value="statistical" checked>Statistical
-            <input type="radio" name="commtype" value="rational">Rational
-            <input type="radio" name="commtype" value="moral">Moral
-            <input type="radio" name="commtype" value="anecdotal">Anecdotal
-          </p>
-          <p><input type="submit" value="Submit Comment" /></p>
-        </form>
-    <script>
-
-    // global variables
-
-    var current_view = "allCommentArr";
-    var pathArray = window.location.search.slice(5);
-
-// Comment Form Functionality
-
-    $('#newCommentForm').append('<input type="hidden" name="commissue_id" value="' + pathArray + '" />');
-
-    $('.addCommentForm').hide();
-
-    $('#commentButton').click(function(){
-        $('.addCommentForm').toggle();
-    });
-    $('#statButton').click(function(){
-        current_view = "statCommentArr";
-        $('.allprocomments').html(null);
-        $('.allconcomments').html(null);
-      //  console.log(window.data, "length: " + window.data.allCommentArr.length);
-        postProStats(window.pro_data);
-        postConStats(window.con_data);
-    });
-    $('#ratButton').click(function(){
-        current_view = "ratCommentArr";
-        $('.allprocomments').html(null);
-        $('.allconcomments').html(null);
-
-            function button (btype, name, z) {
-              var str = "", arr = btype + "CommentArr"; //add back in btype = ""; if problems arise
-              str += "<input type='button' class='" + btype + "_vote_button' id='" + window.pro_data.ratCommentArr[z]._id +  "' value='" + name + "'>";
-              str += "<script>"
-              return str;
-            }
-        
-            function addButtons(y){
-              var buttons =  button("stat", "Stat.", y) + button("rat", "Rat.", y) + button('moral', "Moral", y) + button('anec', "Anec.", y);
-              return buttons;
-            }
-
-            function comment_HTML (type, x){
-              var arr = type + "CommentArr";
-              re = new RegExp("\'", "g");
-              var str = "<div class='comment'><p class='comment_text'>" + window.pro_data.ratCommentArr[x].text + "</p>";
-              str += "<p class='ref'><a href='" + window.pro_data.ratCommentArr[x].ref + "'>" + window.pro_data.ratCommentArr[x].ref + "</a></p>";
-              str += "<div class='votediv'><p>vote on comment type:</p>" + addButtons(x) + "</div></div>";
-              str = str.replace(re, "");
-              return str;
-            }
-
-            function renderComments (data, type){
-              var mainArr = type + "CommentArr", current_vote_button = "'." + type + "_vote_button'";
-              for (var i = 0; i < window.pro_data[mainArr].length; i++) {
-                var passalong = i;
-              $('.allprocomments').append(comment_HTML(type, passalong));
-            }
-        
-            $(current_vote_button).click(function(){
-              console.log("clicked " + current_vote_button + " with id: " + this.id); //attaching id to buttons as a  way to keep comments straight was an interesting #problemtosolve
-              var fulltype = "";
-              switch (type) {
-                case 'stat':
-                  fulltype = 'statistical';
-                  break;
-                case 'rat':
-                  fulltype = "rational";
-                  break;
-                case 'moral':
-                  fulltype = "moral";
-                  break;
-                case 'anec':
-                  fulltype = 'anecdotal';
-                  break;
-                default:
-                  fulltype = 'unknown';
-                  console.log("-could not create fulltype");
-            }
-            
-              var vote_url = "/addvote/?_id=" + this.id + "&vote=" + fulltype;
-              $.ajax({
-                type: "GET",
-                url: vote_url,
-                success: function(data) {
-                  $('.votediv').html("Vote received!");
-                  }
-                });
-        });
-      }
-        renderComments(window.pro_data, "rat");
-        postConRats(window.con_data);
-    });
-    $('#moralButton').click(function(){
-        current_view = "moralCommentArr";
-        $('.allprocomments').html(null);
-        $('.allconcomments').html(null);
-      //  console.log(window.data, "length: " + window.data.allCommentArr.length);
-        postProMoral(window.pro_data);
-        postConMoral(window.con_data);
-    });
-    $('#anecButton').click(function(){
-        current_view = "anecCommentArr";
-        $('.allprocomments').html(null);
-        $('.allconcomments').html(null);
-      //  console.log(window.data, "length: " + window.data.allCommentArr.length);
-        postProAnec(window.pro_data);
-        postConAnec(window.con_data);
-    });
-    $('#allButton').click(function(){
-        current_view = "allCommentArr";
-        $('.allprocomments').html(null);
-        $('.allconcomments').html(null);
-      //  console.log(window.data, "length: " + window.data.allCommentArr.length);
-        postProAll(window.pro_data);
-        postConAll(window.con_data);
-    });
-
-    function postProStats(data) {
-      for (var i = 0; i < data.statCommentArr.length; i++) {
-        $('.allprocomments').append("<div class='comment'><p class='posted_date'>" + JSON.stringify(data.statCommentArr[i].posted).slice(1,11) + "</p><p class='comment_text'>" + data.statCommentArr[i].text + "</p><p class='ref'><a href='" + data.statCommentArr[i].ref + "'>" + data.statCommentArr[i].ref + "</a></p><div class='votediv'<p>vote on comment type:<br> <input type='button' class='stat_vote_button' id='" + data.statCommentArr[i]._id +  "' value='Stat'></div></p></div>")
-      }
-      $('.stat_vote_button').click(function(){
-            console.log('clicked stat_vote_button with _id: ' + this.id); //attaching an id to the buttons I generated and using that to keep the comments straight was an intereseting problem I solved.
-            var sv_url = "/addvote/?_id=" + this.id + "&vote=statistical"
-            $.ajax({
-              type: "GET",
-              url: sv_url,
-              success: function(data) {
-                $('.votediv').html("Vote received!")
-              }
-            });
-        });    }
-    function postConStats(data) {
-      for (var i = 0; i < data.statCommentArr.length; i++) {
-        $('.allconcomments').append("<div class='comment'><p class='posted_date'>" + JSON.stringify(data.statCommentArr[i].posted).slice(1,11) + "</p><p class='comment_text'>" + data.statCommentArr[i].text + "</p><p class='ref'><a href='" + data.statCommentArr[i].ref + "'>" + data.statCommentArr[i].ref + "</a></p></div>")
-      }
     }
+//Begin working with comments
+   $(".allprocomments").html(renderComments("pro", "all"));
+   $(".allconcomments").html(renderComments("con", "all"));
 
-    function postProRats(data) {
-      for (var i = 0; i < data.ratCommentArr.length; i++) {
-        $('.allprocomments').append("<div class='comment'><p class='posted_date'>" + JSON.stringify(data.ratCommentArr[i].posted).slice(1,11) + "</p><p class='comment_text'>" + data.ratCommentArr[i].text + "</p><p class='ref'><a href='" + data.ratCommentArr[i].ref + "'>" + data.ratCommentArr[i].ref + "</a></p></div>")
-      }
+//don't put functions that depend on comment data below this line
     }
-    function postConRats(data) {
-      for (var i = 0; i < data.ratCommentArr.length; i++) {
-        $('.allconcomments').append("<div class='comment'><p class='posted_date'>" + JSON.stringify(data.ratCommentArr[i].posted).slice(1,11) + "</p><p class='comment_text'>" + data.ratCommentArr[i].text + "</p><p class='ref'><a href='" + data.ratCommentArr[i].ref + "'>" + data.ratCommentArr[i].ref + "</a></p></div>")
-      }
-    }
-    function postProMoral(data) {
-            function button (btype, name, z) {
-              var button_script_tag = '<script>var current_vote_button = btype + "_vote_button";$(current_vote_button).click(function(){';
-              button_script_tag += 'console.log("clicked " + current_vote_button + " with id: " + this.id);';
-              button_script_tag += 'var fulltype = "";switch (type) {case "stat":fulltype = "statistical";break;';
-              button_script_tag += 'case "rat":fulltype = "rational";break;case "moral":fulltype = "moral";break;';
-              button_script_tag += 'case "anec":fulltype = "anecdotal";break;default:fulltype = "unknown";console.log("-could not create fulltype");}';
-              button_script_tag += 'var vote_url = "/addvote/?_id=" + this.id + "&vote=" + fulltype;';
-              button_script_tag += '$.ajax({type: "GET",url: vote_url,success: function(data) {';
-              button_script_tag += '$(".votediv").html("Vote received!");}});});</script>';
-              
-              var str = "", arr = btype + "CommentArr"; //add back in btype = ""; if problems arise
-              str += "<input type='button' class='" + btype + "_vote_button' id='" + window.pro_data.ratCommentArr[z]._id +  "' value='" + name + "'>";
-              str += "<script>"
-              return str;
-            }
-        
-            function addButtons(y){
-              var buttons =  button("stat", "Stat.", y) + button("rat", "Rat.", y) + button('moral', "Moral", y) + button('anec', "Anec.", y);
-              return buttons;
-            }
-
-            function comment_HTML (type, x){
-              var arr = type + "CommentArr";
-              re = new RegExp("\'", "g");
-              var str = "<div class='comment'><p class='comment_text'>" + window.pro_data.ratCommentArr[x].text + "</p>";
-              str += "<p class='ref'><a href='" + window.pro_data.ratCommentArr[x].ref + "'>" + window.pro_data.ratCommentArr[x].ref + "</a></p>";
-              str += "<div class='votediv'><p>vote on comment type:</p>" + addButtons(x) + "</div></div>";
-              str = str.replace(re, "");
-              return str;
-            }
-
-            function renderComments (data, type){
-              var mainArr = type + "CommentArr", current_vote_button = "'." + type + "_vote_button'";
-              for (var i = 0; i < window.pro_data[mainArr].length; i++) {
-                var passalong = i;
-              $('.allprocomments').append(comment_HTML(type, passalong));
-            }
-          }
-        renderComments(window.pro_data, "moral");
-    }
-    function postConMoral(data) {
-      for (var i = 0; i < data.moralCommentArr.length; i++) {
-        $('.allconcomments').append("<div class='comment'><p class='posted_date'>" + JSON.stringify(data.moralCommentArr[i].posted).slice(1,11) + "</p><p class='comment_text'>" + data.moralCommentArr[i].text + "</p><p class='ref'><a href='" + data.moralCommentArr[i].ref + "'>" + data.moralCommentArr[i].ref + "</a></p></div>")
-      }
-    }
-    function postProAnec(data) {
-      for (var i = 0; i < data.anecCommentArr.length; i++) {
-        $('.allprocomments').append("<div class='comment'><p class='posted_date'>" + JSON.stringify(data.anecCommentArr[i].posted).slice(1,11) + "</p><p class='comment_text'>" + data.anecCommentArr[i].text + "</p><p class='ref'><a href='" + data.anecCommentArr[i].ref + "'>" + data.anecCommentArr[i].ref + "</a></p></div>")
-      }
-    }
-    function postConAnec(data) {
-      for (var i = 0; i < data.anecCommentArr.length; i++) {
-        $('.allconcomments').append("<div class='comment'><p class='posted_date'>" + JSON.stringify(data.moralCommentArr[i].posted).slice(1,11) + "</p><p class='comment_text'>" + data.anecCommentArr[i].text + "</p><p class='ref'><a href='" + data.anecCommentArr[i].ref + "'>" + data.anecCommentArr[i].ref + "</a></p></div>")
-      }
-    }
-    function postProAll(data) {
-      for (var i = 0; i < data.allCommentArr.length; i++) {
-        $('.allprocomments').append("<div class='comment'><p class='posted_date'>" + JSON.stringify(data.allCommentArr[i].posted).slice(1,11) + "</p><p class='comment_text'>" + data.allCommentArr[i].text + "</p><p class='ref'><a href='" + data.allCommentArr[i].ref + "'>" + data.allCommentArr[i].ref + "</a></p></div>")
-      }
-    }
-    function postConAll(data) {
-      for (var i = 0; i < data.allCommentArr.length; i++) {
-        $('.allconcomments').append("<div class='comment'><p class='posted_date'>" + JSON.stringify(data.allCommentArr[i].posted).slice(1,11) + "</p><p class='comment_text'>" + data.allCommentArr[i].text + "</p><p class='ref'><a href='" + data.allCommentArr[i].ref + "'>" + data.allCommentArr[i].ref + "</a></p></div>")
-      }
-    }
+  });
+});
+}});
+});
 </script>
+
+
+        <input type="button" id="allButton" value="All">
+        <input type="button" id="statButton" value="Statistical">
+        <input type="button" id="ratButton" value="Rational">
+        <input type="button" id="moralButton" value="Moral">
+        <input type="button" id="anecButton" value="Anecdotal">
+        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+        <input type="button" id="commentButton" value="Add New Comment">
+<div class="addCommentForm">
+<form id="newCommentForm" action="/comment/" method="post">
+  <p>Side:<br>
+    <input type="radio" name="commside" value="pro" checked>Pro
+    <input type="radio" name="commside" value="con">Con
+  </p>
+  <p>Comment:<br>
+    <input type="text" name="commtext" ><br>
+    <span class="helpertext">Make sure it's a question</span>
+  </p>
+  <p>Reference Link:<br>
+    <input type="text" name="commref" ><br>
+  </p>
+  <p>Comment Type:<br>
+    <input type="radio" name="commtype" value="statistical" checked>Statistical
+    <input type="radio" name="commtype" value="rational">Rational
+    <input type="radio" name="commtype" value="moral">Moral
+    <input type="radio" name="commtype" value="anecdotal">Anecdotal
+  </p>
+  <p><input type="submit" value="Submit Comment" /></p>
+</form>
+
+
+    <script>
+// global variables
+      var current_view = "allCommentArr";
+      var pathArray = window.location.search.slice(5);
+// Comment Form Functionality
+      $('#newCommentForm').append('<input type="hidden" name="commissue_id" value="' + pathArray + '" />');
+
+      $('.addCommentForm').hide();
+
+      $('#commentButton').click(function(){
+        $('.addCommentForm').toggle();
+      });
+    </script>
   </body>
 </html>
