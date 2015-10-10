@@ -3,7 +3,9 @@
   <head>
    <meta charset="UTF-8">
     <title>Issue Prism</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js">
+
+    </script>
     <style>
       .allprocomments {
         display: inline-block;
@@ -76,7 +78,10 @@
      </div>
 
 <script>
+'strict mode'
+
 $(function (){
+
   var idPath = "/id/?_id=" + pathArray;
   $.ajax({
     type: "GET",
@@ -89,7 +94,7 @@ $(function (){
                       type: JSON.stringify(data.type).replace(/\"/g, ""),
                       scope: JSON.stringify(data.scope).replace(/\"/g, "")
                     };
-      console.log("The dataObj should have these props: " + dataObj.title + " " + dataObj.text);
+
         $('.issueTypeScope').html("<p>" + dataObj.type + " : " + dataObj.scope + "</p>");
         $('.issueTitle').html("<h2>" + dataObj.title + "</h2>");
         $('.issueText').html("<p>" + dataObj.text + "</p>");
@@ -102,6 +107,7 @@ $(function (){
 
 // GET pro comments
 $(function (){
+
 var comments_url = "/getcomments/?_id=" + pathArray + "&side=pro";
 $.ajax({
 type: "GET",
@@ -109,6 +115,7 @@ url: comments_url,
 success: function(data) {
 window.pro_data = data;
 $(function (){
+
   var comments_url = "/getcomments/?_id=" + pathArray + "&side=con";
   $.ajax({
     type: "GET",
@@ -116,17 +123,28 @@ $(function (){
     success: function(data) {
       window.con_data = data;
 
+  var clickScriptHTML = "<script>var button_id = btype + id;";
+      clickScriptHTML += "$(button_id).click(function(){";
+      clickScriptHTML += "console.log('clicked ' + current_vote_button + ' with id: ' + this.id);";
+      clickScriptHTML += "switch (type) {case 'stat':fulltype = 'statistical';break;case 'rat':fulltype = 'rational';break;";
+      clickScriptHTML += "case 'moral':fulltype = 'moral'; break;case 'anec':fulltype = 'anecdotal';break;";
+      clickScriptHTML += "default:fulltype = 'unknown';console.log('-could not create fulltype');}";
+      clickScriptHTML += "var vote_url = '/addvote/?_id=' + this.id + '&vote=' + fulltype;";
+      clickScriptHTML += "$.ajax({type: 'GET',url: vote_url,success: function(data) {$('.votediv').html('Vote received!');}});</\script>";
+
     function button (side, btype, name, id, z) {
       var str = "", arr = btype + "CommentArr";
       str += "<input type='button' class='" + btype + "_vote_button'";
-      str += " id='" + id +  "' value='" + name + "'>";
+      str += " id='" + btype + id +  "' value='" + name + "'>";
       return str;}
 
     function addButtons(side, y, id){
+
       var buttons =  button(side, "stat", "Stat.", id, y) + button(side, "rat", "Rat.", id, y) + button(side, 'moral', "Moral", id, y) + button(side, 'anec', "Anec.", id, y);
       return buttons;}
 
     function comment_HTML (side, type, x){
+
       var arr = type + "CommentArr";
       var id = window[side][arr][x]._id;
       var str = "<div class='comment'>";
@@ -142,6 +160,7 @@ $(function (){
       return str;}
 
     function renderComments (side, type){
+
       var mainArr = type + "CommentArr";
       var data_side = side + "_data";
       var comments_str = "";
@@ -154,6 +173,7 @@ $(function (){
       }
 
     function setUpButtonClick () {
+
       $(current_vote_button).click(function(){
         console.log("clicked " + current_vote_button + " with id: " + this.id); //attaching id to buttons as a  way to keep comments straight was an interesting #problemtosolve
         var fulltype = "";
@@ -184,9 +204,54 @@ $(function (){
           });
       });
     }
+
 //Begin working with comments
    $(".allprocomments").html(renderComments("pro", "all"));
    $(".allconcomments").html(renderComments("con", "all"));
+   $('.stat_vote_button').click(function(){
+      console.log('clicked stat_vote_button with _id: ' + this.id); //attaching an id to the buttons I generated and using that to keep the comments straight was an intereseting problem I solved.
+      var sv_url = "/addvote/?_id=" + this.id + "&vote=statistical";
+      $.ajax({
+        type: "GET",
+        url: sv_url,
+        success: function(data) {
+          $('.votediv').html("Vote received!");
+        }
+      });
+  });
+  $('.rat_vote_button').click(function(){
+      console.log('clicked rat_vote_button with _id: ' + this.id); //attaching an id to the buttons I generated and using that to keep the comments straight was an intereseting problem I solved.
+      var sv_url = "/addvote/?_id=" + this.id + "&vote=rational";
+      $.ajax({
+        type: "GET",
+        url: sv_url,
+        success: function(data) {
+          $('.votediv').html("Vote received!");
+        }
+      });
+  });
+  $('.moral_vote_button').click(function(){
+      console.log('clicked moral_vote_button with _id: ' + this.id); //attaching an id to the buttons I generated and using that to keep the comments straight was an intereseting problem I solved.
+      var sv_url = "/addvote/?_id=" + this.id + "&vote=moral";
+      $.ajax({
+        type: "GET",
+        url: sv_url,
+        success: function(data) {
+          $('.votediv').html("Vote received!");
+        }
+      });
+  });
+  $('.anec_vote_button').click(function(){
+      console.log('clicked anec_vote_button with _id: ' + this.id); //attaching an id to the buttons I generated and using that to keep the comments straight was an intereseting problem I solved.
+      var sv_url = "/addvote/?_id=" + this.id + "&vote=anecdotal";
+      $.ajax({
+        type: "GET",
+        url: sv_url,
+        success: function(data) {
+          $('.votediv').html("Vote received!");
+        }
+      });
+  });
 
 //don't put functions that depend on comment data below this line
     }
