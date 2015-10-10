@@ -123,19 +123,10 @@ $(function (){
     success: function(data) {
       window.con_data = data;
 
-  var clickScriptHTML = "<script>var button_id = btype + id;";
-      clickScriptHTML += "$(button_id).click(function(){";
-      clickScriptHTML += "console.log('clicked ' + current_vote_button + ' with id: ' + this.id);";
-      clickScriptHTML += "switch (type) {case 'stat':fulltype = 'statistical';break;case 'rat':fulltype = 'rational';break;";
-      clickScriptHTML += "case 'moral':fulltype = 'moral'; break;case 'anec':fulltype = 'anecdotal';break;";
-      clickScriptHTML += "default:fulltype = 'unknown';console.log('-could not create fulltype');}";
-      clickScriptHTML += "var vote_url = '/addvote/?_id=' + this.id + '&vote=' + fulltype;";
-      clickScriptHTML += "$.ajax({type: 'GET',url: vote_url,success: function(data) {$('.votediv').html('Vote received!');}});</\script>";
-
-    function button (side, btype, name, id, z) {
+      function button (side, btype, name, id, z) {
       var str = "", arr = btype + "CommentArr";
       str += "<input type='button' class='" + btype + "_vote_button'";
-      str += " id='" + btype + id +  "' value='" + name + "'>";
+      str += " id='" +  id +  "' value='" + name + "'>";
       return str;}
 
     function addButtons(side, y, id){
