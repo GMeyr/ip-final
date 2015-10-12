@@ -35,11 +35,11 @@ function commentSort (arr) {
     }
   });
 
-  arr.sort(sortBy('votes', 'posted'));
-  statcomms.sort(sortBy('votes', 'posted')); //don't forget to combine upvotes and downvotes to votes
-  ratcomms.sort(sortBy('votes', 'posted'));
-  moralcomms.sort(sortBy('votes', 'posted'));
-  aneccomms.sort(sortBy('votes', 'posted'));
+  arr.sort(sortBy('-votes', 'posted'));
+  statcomms.sort(sortBy('-votes', 'posted')); //don't forget to combine upvotes and downvotes to votes
+  ratcomms.sort(sortBy('-votes', 'posted'));
+  moralcomms.sort(sortBy('-votes', 'posted'));
+  aneccomms.sort(sortBy('-votes', 'posted'));
 
   var commArrays = {
     allCommentArr: arr,
