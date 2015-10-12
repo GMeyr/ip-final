@@ -25,6 +25,8 @@ handle["/template"] = requestHandlers.template;
 handle["/template/"] = requestHandlers.template;
 handle["/addvote"] = requestHandlers.addvote;
 handle["/addvote/"] = requestHandlers.addvote;
+handle["/addtypevote"] = requestHandlers.addtypevote;
+handle["/addtypevote/"] = requestHandlers.addtypevote;
 
 //view requests
 handle["/sciencelocal"] = requestHandlers.sciencelocal;

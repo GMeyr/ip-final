@@ -56,9 +56,9 @@ function commentSort (arr) {
 
 function calcCommType (obj){
     console.log("-----obj.statvotes: " + obj.statvotes,
-                "-----obj.ratvotes: " + obj.ratvotes,
-                 "-----obj.moralvotes: " + obj.moralvotes,
-                 "-----obj.anecvotes: " + obj.anecvotes)
+                ", obj.ratvotes: " + obj.ratvotes,
+                 ", obj.moralvotes: " + obj.moralvotes,
+                 ", obj.anecvotes: " + obj.anecvotes)
     if (obj.statvotes > obj.ratvotes
        && obj.statvotes > obj.moralvotes
        && obj.statvotes > obj.anecvotes) {

@@ -33,6 +33,8 @@
         border: 1px solid black;
         border-radius: 10%;
         padding: 0px 10px;
+        min-height: 150px;
+        min-width: 230px;
       }
       .addCommentForm {
         position: relative;
@@ -43,6 +45,35 @@
         padding: 5px;
         border: 1px solid black;
         border-radius: 10px;
+      }
+
+      .comment_right {
+  background-color: yellow;
+  display: inline;
+  float: right;
+  width: 70%;
+  margin-left: 10px;
+  padding: 10px;
+}
+.comment_left {
+  display: inline;
+  background-color: blue;
+  margin: 1px solid black;
+  z-index: 1;
+  position: absolute;
+  margin-top: 20px;
+}
+      .up_vote_button {
+        width: 50px;
+        height: 40px;
+      }
+
+      .down_vote_button {
+        width: 50px;
+        height: 40px;
+      }
+
+      .votediv {
       }
 
       button {
@@ -123,28 +154,34 @@ $(function (){
     success: function(data) {
       window.con_data = data;
 
-      function button (side, btype, name, id, z) {
-      var str = "", arr = btype + "CommentArr";
+      function button (btype, name, id, big) {
+      var str = "";
       str += "<input type='button' class='" + btype + "_vote_button'";
       str += " id='" +  id +  "' value='" + name + "'>";
       return str;}
 
-    function addButtons(side, y, id){
+    function addTypeButtons(id){
 
-      var buttons =  button(side, "stat", "Stat.", id, y) + button(side, "rat", "Rat.", id, y) + button(side, 'moral', "Moral", id, y) + button(side, 'anec', "Anec.", id, y);
+      var buttons =  button("stat", "Stat.", id) + button("rat", "Rat.", id) + button('moral', "Moral", id) + button('anec', "Anec.", id);
       return buttons;}
+
+    function addVoteButtons(id){
+      var buttons = button("up", "Up", id) + "<br>" + button("down", "Down", id);
+      return buttons;
+    }
 
     function comment_HTML (side, type, x){
 
       var arr = type + "CommentArr";
       var id = window[side][arr][x]._id;
       var str = "<div class='comment'>";
-      str += "<p class='comment_text'>" + window[side][arr][x].text + "</p>";
-      str += "<p class='ref'><a href='" + window[side][arr][x].ref + "'>" + window[side][arr][x].ref + "</a></p>";
+      str += "<div class='comment_left'>" + addVoteButtons(id) + "</div>";
+      str += "<div class='comment_right'><p class='comment_text'>" + window[side][arr][x].text + "</p>";
+      str += "<p class='ref'><a href='" + window[side][arr][x].ref + "'>" + window[side][arr][x].ref + "</a></p></div>";
       str += "<div class='votediv'><div id='votediv" + id + "'>'";
-      str += "<p>vote on comment type:</p>";
-      str += addButtons(side, x, id);
-      str += "</div></div></div>";
+      str += "<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
+      str += addTypeButtons(id);
+      str += "</p></div></div></div>";
       var re = new RegExp("\'", "g");
       str = str.replace(re, "");
       return str;}
@@ -168,7 +205,7 @@ $(function (){
    $(".allconcomments").html(renderComments("con", "all"));
    $('.stat_vote_button').click(function(){
       console.log('clicked stat_vote_button with _id: ' + this.id); //attaching an id to the buttons I generated and using that to keep the comments straight was an intereseting problem I solved.
-      var sv_url = "/addvote/?_id=" + this.id + "&vote=statistical";
+      var sv_url = "/addtypevote/?_id=" + this.id + "&vote=statistical";
       var sv_id = this.id;
       $.ajax({
         type: "GET",
@@ -176,13 +213,13 @@ $(function (){
         success: function(data) {
           var current_votediv = "#votediv" + sv_id;
           console.log(sv_id, "and votediv current = " + current_votediv);
-          $(current_votediv).html("Vote received!");
+          $(current_votediv).html("................Vote received!");
         }
       });
   });
   $('.rat_vote_button').click(function(){
       console.log('clicked rat_vote_button with _id: ' + this.id); //attaching an id to the buttons I generated and using that to keep the comments straight was an intereseting problem I solved.
-      var sv_url = "/addvote/?_id=" + this.id + "&vote=rational";
+      var sv_url = "/addtypevote/?_id=" + this.id + "&vote=rational";
       var sv_id = this.id;
       $.ajax({
         type: "GET",
@@ -190,13 +227,13 @@ $(function (){
         success: function(data) {
           var current_votediv = "#votediv" + sv_id;
           console.log(sv_id, "and votediv current = " + current_votediv);
-          $(current_votediv).html("Vote received!");
+          $(current_votediv).html("................Vote received!");
         }
       });
   });
   $('.moral_vote_button').click(function(){
       console.log('clicked moral_vote_button with _id: ' + this.id); //attaching an id to the buttons I generated and using that to keep the comments straight was an intereseting problem I solved.
-      var sv_url = "/addvote/?_id=" + this.id + "&vote=moral";
+      var sv_url = "/addtypevote/?_id=" + this.id + "&vote=moral";
       var sv_id = this.id;
       $.ajax({
         type: "GET",
@@ -204,13 +241,13 @@ $(function (){
         success: function(data) {
           var current_votediv = "#votediv" + sv_id;
           console.log(sv_id, "and votediv current = " + current_votediv);
-          $(current_votediv).html("Vote received!");
+          $(current_votediv).html("..........Vote received!");
         }
       });
   });
   $('.anec_vote_button').click(function(){
       console.log('clicked anec_vote_button with _id: ' + this.id); //attaching an id to the buttons I generated and using that to keep the comments straight was an intereseting problem I solved.
-      var sv_url = "/addvote/?_id=" + this.id + "&vote=anecdotal";
+      var sv_url = "/addtypevote/?_id=" + this.id + "&vote=anecdotal";
       var sv_id = this.id;
       $.ajax({
         type: "GET",
@@ -218,7 +255,35 @@ $(function (){
         success: function(data) {
           var current_votediv = "#votediv" + sv_id;
           console.log(sv_id, "and votediv current = " + current_votediv);
-          $(current_votediv).html("Vote received!");
+          $(current_votediv).html("................Vote received!");
+        }
+      });
+  });
+  $('.up_vote_button').click(function(){
+      console.log('clicked up_vote_button with _id: ' + this.id); //attaching an id to the buttons I generated and using that to keep the comments straight was an intereseting problem I solved.
+      var sv_url = "/addvote/?_id=" + this.id + "&vote=up";
+      var sv_id = this.id;
+      $.ajax({
+        type: "GET",
+        url: sv_url,
+        success: function(data) {
+          var current_votediv = "#votediv" + sv_id;
+          console.log(sv_id, "and votediv current = " + current_votediv);
+          $(comment_left).html("Vote received!");
+        }
+      });
+  });
+  $('.down_vote_button').click(function(){
+      console.log('clicked down_vote_button with _id: ' + this.id); //attaching an id to the buttons I generated and using that to keep the comments straight was an intereseting problem I solved.
+      var sv_url = "/addvote/?_id=" + this.id + "&vote=down";
+      var sv_id = this.id;
+      $.ajax({
+        type: "GET",
+        url: sv_url,
+        success: function(data) {
+          var current_votediv = "#votediv" + sv_id;
+          console.log(sv_id, "and votediv current = " + current_votediv);
+          $(current_left).html("Vote received!");
         }
       });
   });
@@ -233,7 +298,7 @@ $('#allButton').click(function(){
 
        $('.stat_vote_button').click(function(){
           console.log('clicked stat_vote_button with _id: ' + this.id); //attaching an id to the buttons I generated and using that to keep the comments straight was an intereseting problem I solved.
-          var sv_url = "/addvote/?_id=" + this.id + "&vote=statistical";
+          var sv_url = "/addtypevote/?_id=" + this.id + "&vote=statistical";
           var sv_id = this.id;
           $.ajax({
             type: "GET",
@@ -241,13 +306,13 @@ $('#allButton').click(function(){
             success: function(data) {
               var current_votediv = "#votediv" + sv_id;
               console.log(sv_id, "and votediv current = " + current_votediv);
-              $(current_votediv).html("Vote received!");
+              $(current_votediv).html("................Vote received!");
             }
           });
       });
       $('.rat_vote_button').click(function(){
           console.log('clicked rat_vote_button with _id: ' + this.id); //attaching an id to the buttons I generated and using that to keep the comments straight was an intereseting problem I solved.
-          var sv_url = "/addvote/?_id=" + this.id + "&vote=rational";
+          var sv_url = "/addtypevote/?_id=" + this.id + "&vote=rational";
           var sv_id = this.id;
           $.ajax({
             type: "GET",
@@ -255,13 +320,13 @@ $('#allButton').click(function(){
             success: function(data) {
               var current_votediv = "#votediv" + sv_id;
               console.log(sv_id, "and votediv current = " + current_votediv);
-              $(current_votediv).html("Vote received!");
+              $(current_votediv).html("................Vote received!");
             }
           });
       });
       $('.moral_vote_button').click(function(){
           console.log('clicked moral_vote_button with _id: ' + this.id); //attaching an id to the buttons I generated and using that to keep the comments straight was an intereseting problem I solved.
-          var sv_url = "/addvote/?_id=" + this.id + "&vote=moral";
+          var sv_url = "/addtypevote/?_id=" + this.id + "&vote=moral";
           var sv_id = this.id;
           $.ajax({
             type: "GET",
@@ -269,13 +334,13 @@ $('#allButton').click(function(){
             success: function(data) {
               var current_votediv = "#votediv" + sv_id;
               console.log(sv_id, "and votediv current = " + current_votediv);
-              $(current_votediv).html("Vote received!");
+              $(current_votediv).html("................Vote received!");
             }
           });
       });
       $('.anec_vote_button').click(function(){
           console.log('clicked anec_vote_button with _id: ' + this.id); //attaching an id to the buttons I generated and using that to keep the comments straight was an intereseting problem I solved.
-          var sv_url = "/addvote/?_id=" + this.id + "&vote=anecdotal";
+          var sv_url = "/addtypevote/?_id=" + this.id + "&vote=anecdotal";
           var sv_id = this.id;
           $.ajax({
             type: "GET",
@@ -283,7 +348,7 @@ $('#allButton').click(function(){
             success: function(data) {
               var current_votediv = "#votediv" + sv_id;
               console.log(sv_id, "and votediv current = " + current_votediv);
-              $(current_votediv).html("Vote received!");
+              $(current_votediv).html("................Vote received!");
             }
           });
       });
@@ -297,7 +362,7 @@ $('#statButton').click(function(){
 
     $('.stat_vote_button').click(function(){
        console.log('clicked stat_vote_button with _id: ' + this.id); //attaching an id to the buttons I generated and using that to keep the comments straight was an intereseting problem I solved.
-       var sv_url = "/addvote/?_id=" + this.id + "&vote=statistical";
+       var sv_url = "/addtypevote/?_id=" + this.id + "&vote=statistical";
        var sv_id = this.id;
        $.ajax({
          type: "GET",
@@ -305,13 +370,13 @@ $('#statButton').click(function(){
          success: function(data) {
            var current_votediv = "#votediv" + sv_id;
            console.log(sv_id, "and votediv current = " + current_votediv);
-           $(current_votediv).html("Vote received!");
+           $(current_votediv).html("................Vote received!");
          }
        });
    });
    $('.rat_vote_button').click(function(){
        console.log('clicked rat_vote_button with _id: ' + this.id); //attaching an id to the buttons I generated and using that to keep the comments straight was an intereseting problem I solved.
-       var sv_url = "/addvote/?_id=" + this.id + "&vote=rational";
+       var sv_url = "/addtypevote/?_id=" + this.id + "&vote=rational";
        var sv_id = this.id;
        $.ajax({
          type: "GET",
@@ -319,13 +384,13 @@ $('#statButton').click(function(){
          success: function(data) {
            var current_votediv = "#votediv" + sv_id;
            console.log(sv_id, "and votediv current = " + current_votediv);
-           $(current_votediv).html("Vote received!");
+           $(current_votediv).html("................Vote received!");
          }
        });
    });
    $('.moral_vote_button').click(function(){
        console.log('clicked moral_vote_button with _id: ' + this.id); //attaching an id to the buttons I generated and using that to keep the comments straight was an intereseting problem I solved.
-       var sv_url = "/addvote/?_id=" + this.id + "&vote=moral";
+       var sv_url = "/addtypevote/?_id=" + this.id + "&vote=moral";
        var sv_id = this.id;
        $.ajax({
          type: "GET",
@@ -333,13 +398,13 @@ $('#statButton').click(function(){
          success: function(data) {
            var current_votediv = "#votediv" + sv_id;
            console.log(sv_id, "and votediv current = " + current_votediv);
-           $(current_votediv).html("Vote received!");
+           $(current_votediv).html("................Vote received!");
          }
        });
    });
    $('.anec_vote_button').click(function(){
        console.log('clicked anec_vote_button with _id: ' + this.id); //attaching an id to the buttons I generated and using that to keep the comments straight was an intereseting problem I solved.
-       var sv_url = "/addvote/?_id=" + this.id + "&vote=anecdotal";
+       var sv_url = "/addtypevote/?_id=" + this.id + "&vote=anecdotal";
        var sv_id = this.id;
        $.ajax({
          type: "GET",
@@ -347,7 +412,7 @@ $('#statButton').click(function(){
          success: function(data) {
            var current_votediv = "#votediv" + sv_id;
            console.log(sv_id, "and votediv current = " + current_votediv);
-           $(current_votediv).html("Vote received!");
+           $(current_votediv).html("................Vote received!");
          }
        });
    });
@@ -362,7 +427,7 @@ $('#ratButton').click(function(){
 
     $('.stat_vote_button').click(function(){
        console.log('clicked stat_vote_button with _id: ' + this.id); //attaching an id to the buttons I generated and using that to keep the comments straight was an intereseting problem I solved.
-       var sv_url = "/addvote/?_id=" + this.id + "&vote=statistical";
+       var sv_url = "/addtypevote/?_id=" + this.id + "&vote=statistical";
        var sv_id = this.id;
        $.ajax({
          type: "GET",
@@ -370,13 +435,13 @@ $('#ratButton').click(function(){
          success: function(data) {
            var current_votediv = "#votediv" + sv_id;
            console.log(sv_id, "and votediv current = " + current_votediv);
-           $(current_votediv).html("Vote received!");
+           $(current_votediv).html("................Vote received!");
          }
        });
    });
    $('.rat_vote_button').click(function(){
        console.log('clicked rat_vote_button with _id: ' + this.id); //attaching an id to the buttons I generated and using that to keep the comments straight was an intereseting problem I solved.
-       var sv_url = "/addvote/?_id=" + this.id + "&vote=rational";
+       var sv_url = "/addtypevote/?_id=" + this.id + "&vote=rational";
        var sv_id = this.id;
        $.ajax({
          type: "GET",
@@ -384,13 +449,13 @@ $('#ratButton').click(function(){
          success: function(data) {
            var current_votediv = "#votediv" + sv_id;
            console.log(sv_id, "and votediv current = " + current_votediv);
-           $(current_votediv).html("Vote received!");
+           $(current_votediv).html("................Vote received!");
          }
        });
    });
    $('.moral_vote_button').click(function(){
        console.log('clicked moral_vote_button with _id: ' + this.id); //attaching an id to the buttons I generated and using that to keep the comments straight was an intereseting problem I solved.
-       var sv_url = "/addvote/?_id=" + this.id + "&vote=moral";
+       var sv_url = "/addtypevote/?_id=" + this.id + "&vote=moral";
        var sv_id = this.id;
        $.ajax({
          type: "GET",
@@ -398,13 +463,13 @@ $('#ratButton').click(function(){
          success: function(data) {
            var current_votediv = "#votediv" + sv_id;
            console.log(sv_id, "and votediv current = " + current_votediv);
-           $(current_votediv).html("Vote received!");
+           $(current_votediv).html("................Vote received!");
          }
        });
    });
    $('.anec_vote_button').click(function(){
        console.log('clicked anec_vote_button with _id: ' + this.id); //attaching an id to the buttons I generated and using that to keep the comments straight was an intereseting problem I solved.
-       var sv_url = "/addvote/?_id=" + this.id + "&vote=anecdotal";
+       var sv_url = "/addtypevote/?_id=" + this.id + "&vote=anecdotal";
        var sv_id = this.id;
        $.ajax({
          type: "GET",
@@ -412,7 +477,7 @@ $('#ratButton').click(function(){
          success: function(data) {
            var current_votediv = "#votediv" + sv_id;
            console.log(sv_id, "and votediv current = " + current_votediv);
-           $(current_votediv).html("Vote received!");
+           $(current_votediv).html("................Vote received!");
          }
        });
    });
@@ -427,7 +492,7 @@ $('#moralButton').click(function(){
 
     $('.stat_vote_button').click(function(){
        console.log('clicked stat_vote_button with _id: ' + this.id); //attaching an id to the buttons I generated and using that to keep the comments straight was an intereseting problem I solved.
-       var sv_url = "/addvote/?_id=" + this.id + "&vote=statistical";
+       var sv_url = "/addtypevote/?_id=" + this.id + "&vote=statistical";
        var sv_id = this.id;
        $.ajax({
          type: "GET",
@@ -435,13 +500,13 @@ $('#moralButton').click(function(){
          success: function(data) {
            var current_votediv = "#votediv" + sv_id;
            console.log(sv_id, "and votediv current = " + current_votediv);
-           $(current_votediv).html("Vote received!");
+           $(current_votediv).html("................Vote received!");
          }
        });
    });
    $('.rat_vote_button').click(function(){
        console.log('clicked rat_vote_button with _id: ' + this.id); //attaching an id to the buttons I generated and using that to keep the comments straight was an intereseting problem I solved.
-       var sv_url = "/addvote/?_id=" + this.id + "&vote=rational";
+       var sv_url = "/addtypevote/?_id=" + this.id + "&vote=rational";
        var sv_id = this.id;
        $.ajax({
          type: "GET",
@@ -449,13 +514,13 @@ $('#moralButton').click(function(){
          success: function(data) {
            var current_votediv = "#votediv" + sv_id;
            console.log(sv_id, "and votediv current = " + current_votediv);
-           $(current_votediv).html("Vote received!");
+           $(current_votediv).html("................Vote received!");
          }
        });
    });
    $('.moral_vote_button').click(function(){
        console.log('clicked moral_vote_button with _id: ' + this.id); //attaching an id to the buttons I generated and using that to keep the comments straight was an intereseting problem I solved.
-       var sv_url = "/addvote/?_id=" + this.id + "&vote=moral";
+       var sv_url = "/addtypevote/?_id=" + this.id + "&vote=moral";
        var sv_id = this.id;
        $.ajax({
          type: "GET",
@@ -463,13 +528,13 @@ $('#moralButton').click(function(){
          success: function(data) {
            var current_votediv = "#votediv" + sv_id;
            console.log(sv_id, "and votediv current = " + current_votediv);
-           $(current_votediv).html("Vote received!");
+           $(current_votediv).html("................Vote received!");
          }
        });
    });
    $('.anec_vote_button').click(function(){
        console.log('clicked anec_vote_button with _id: ' + this.id); //attaching an id to the buttons I generated and using that to keep the comments straight was an intereseting problem I solved.
-       var sv_url = "/addvote/?_id=" + this.id + "&vote=anecdotal";
+       var sv_url = "/addtypevote/?_id=" + this.id + "&vote=anecdotal";
        var sv_id = this.id;
        $.ajax({
          type: "GET",
@@ -477,7 +542,7 @@ $('#moralButton').click(function(){
          success: function(data) {
            var current_votediv = "#votediv" + sv_id;
            console.log(sv_id, "and votediv current = " + current_votediv);
-           $(current_votediv).html("Vote received!");
+           $(current_votediv).html("................Vote received!");
          }
        });
    });
@@ -491,7 +556,7 @@ $('#anecButton').click(function(){
 
     $('.stat_vote_button').click(function(){
        console.log('clicked stat_vote_button with _id: ' + this.id); //attaching an id to the buttons I generated and using that to keep the comments straight was an intereseting problem I solved.
-       var sv_url = "/addvote/?_id=" + this.id + "&vote=statistical";
+       var sv_url = "/addtypevote/?_id=" + this.id + "&vote=statistical";
        var sv_id = this.id;
        $.ajax({
          type: "GET",
@@ -499,13 +564,13 @@ $('#anecButton').click(function(){
          success: function(data) {
            var current_votediv = "#votediv" + sv_id;
            console.log(sv_id, "and votediv current = " + current_votediv);
-           $(current_votediv).html("Vote received!");
+           $(current_votediv).html("................Vote received!");
          }
        });
    });
    $('.rat_vote_button').click(function(){
        console.log('clicked rat_vote_button with _id: ' + this.id); //attaching an id to the buttons I generated and using that to keep the comments straight was an intereseting problem I solved.
-       var sv_url = "/addvote/?_id=" + this.id + "&vote=rational";
+       var sv_url = "/addtypevote/?_id=" + this.id + "&vote=rational";
        var sv_id = this.id;
        $.ajax({
          type: "GET",
@@ -513,13 +578,13 @@ $('#anecButton').click(function(){
          success: function(data) {
            var current_votediv = "#votediv" + sv_id;
            console.log(sv_id, "and votediv current = " + current_votediv);
-           $(current_votediv).html("Vote received!");
+           $(current_votediv).html("................Vote received!");
          }
        });
    });
    $('.moral_vote_button').click(function(){
        console.log('clicked moral_vote_button with _id: ' + this.id); //attaching an id to the buttons I generated and using that to keep the comments straight was an intereseting problem I solved.
-       var sv_url = "/addvote/?_id=" + this.id + "&vote=moral";
+       var sv_url = "/addtypevote/?_id=" + this.id + "&vote=moral";
        var sv_id = this.id;
        $.ajax({
          type: "GET",
@@ -527,13 +592,13 @@ $('#anecButton').click(function(){
          success: function(data) {
            var current_votediv = "#votediv" + sv_id;
            console.log(sv_id, "and votediv current = " + current_votediv);
-           $(current_votediv).html("Vote received!");
+           $(current_votediv).html("................Vote received!");
          }
        });
    });
    $('.anec_vote_button').click(function(){
        console.log('clicked anec_vote_button with _id: ' + this.id); //attaching an id to the buttons I generated and using that to keep the comments straight was an intereseting problem I solved.
-       var sv_url = "/addvote/?_id=" + this.id + "&vote=anecdotal";
+       var sv_url = "/addtypevote/?_id=" + this.id + "&vote=anecdotal";
        var sv_id = this.id;
        $.ajax({
          type: "GET",
@@ -541,7 +606,7 @@ $('#anecButton').click(function(){
          success: function(data) {
            var current_votediv = "#votediv" + sv_id;
            console.log(sv_id, "and votediv current = " + current_votediv);
-           $(current_votediv).html("Vote received!");
+           $(current_votediv).html("................Vote received!");
          }
        });
    });
