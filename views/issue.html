@@ -81,25 +81,44 @@
         float: left;
 
       }
+
+      #navbar {
+        position: relative;
+        float: right;
+      }
+
+      #main_content{
+        margin-left: 50px;
+      }
+      #issueContent {
+        margin-left: 150px;
+      }
+      #prism {
+        margin-left: 100px;
+      }
     </style>
   </head>
 
   <body>
+
+    <div id="navbar">
     <h1 class="logo">issueprism</h1>
-    <div class="navbar">
       <p><a href="/">Home</a> &nbsp; <a href="/addissue">Add Issue</a></p>
     </div>
-    <div class="issueContent">
+    <div id="issueContent">
       <div class="issueTypeScope"></div>
       <div class="issueTitle"></div>
       <div class="issueText"></div>
+
+    </div>
+    <div id="prism">
+      <img src="http://oi62.tinypic.com/2rz5nv8.jpg" alt="Smiley face">
     </div>
 
-
-
+<div id="main_content">
      <div>
        <span class="allprocomments">
-         Pro Comments  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+         Pro Comments  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
 
        </span>
        <span class="allconcomments">
@@ -269,7 +288,7 @@ $(function (){
         success: function(data) {
           var current_votediv = "#votediv" + sv_id;
           console.log(sv_id, "and votediv current = " + current_votediv);
-          $(comment_left).html("Vote received!");
+          $(comment_left).html("...................Vote received!.................");
         }
       });
   });
@@ -283,7 +302,7 @@ $(function (){
         success: function(data) {
           var current_votediv = "#votediv" + sv_id;
           console.log(sv_id, "and votediv current = " + current_votediv);
-          $(current_left).html("Vote received!");
+          $(current_left).html("...................Vote received!.................");
         }
       });
   });
@@ -363,7 +382,7 @@ $('#allButton').click(function(){
          success: function(data) {
            var current_votediv = "#votediv" + sv_id;
            console.log(sv_id, "and votediv current = " + current_votediv);
-           $(comment_left).html("Vote received!");
+           $(comment_left).html("...................Vote received!.................");
          }
        });
    });
@@ -377,7 +396,7 @@ $('#allButton').click(function(){
          success: function(data) {
            var current_votediv = "#votediv" + sv_id;
            console.log(sv_id, "and votediv current = " + current_votediv);
-           $(current_left).html("Vote received!");
+           $(current_left).html("...................Vote received!.................");
          }
        });
    });
@@ -456,7 +475,7 @@ $('.up_vote_button').click(function(){
       success: function(data) {
         var current_votediv = "#votediv" + sv_id;
         console.log(sv_id, "and votediv current = " + current_votediv);
-        $(comment_left).html("Vote received!");
+        $(comment_left).html("...................Vote received!.................");
       }
     });
 });
@@ -470,7 +489,7 @@ $('.down_vote_button').click(function(){
       success: function(data) {
         var current_votediv = "#votediv" + sv_id;
         console.log(sv_id, "and votediv current = " + current_votediv);
-        $(current_left).html("Vote received!");
+        $(current_left).html("...................Vote received!.................");
       }
     });
 });
@@ -550,7 +569,7 @@ $('.up_vote_button').click(function(){
       success: function(data) {
         var current_votediv = "#votediv" + sv_id;
         console.log(sv_id, "and votediv current = " + current_votediv);
-        $(comment_left).html("Vote received!");
+        $(comment_left).html("...................Vote received!.................");
       }
     });
 });
@@ -564,7 +583,7 @@ $('.down_vote_button').click(function(){
       success: function(data) {
         var current_votediv = "#votediv" + sv_id;
         console.log(sv_id, "and votediv current = " + current_votediv);
-        $(current_left).html("Vote received!");
+        $(current_left).html("...................Vote received!.................");
       }
     });
 });
@@ -644,7 +663,7 @@ $('.up_vote_button').click(function(){
       success: function(data) {
         var current_votediv = "#votediv" + sv_id;
         console.log(sv_id, "and votediv current = " + current_votediv);
-        $(comment_left).html("Vote received!");
+        $(comment_left).html("...................Vote received!.................");
       }
     });
 });
@@ -658,7 +677,7 @@ $('.down_vote_button').click(function(){
       success: function(data) {
         var current_votediv = "#votediv" + sv_id;
         console.log(sv_id, "and votediv current = " + current_votediv);
-        $(current_left).html("Vote received!");
+        $(current_left).html("...................Vote received!.................");
       }
     });
 });
@@ -738,7 +757,7 @@ $('.up_vote_button').click(function(){
       success: function(data) {
         var current_votediv = "#votediv" + sv_id;
         console.log(sv_id, "and votediv current = " + current_votediv);
-        $(comment_left).html("Vote received!");
+        $(comment_left).html("...................Vote received!.................");
       }
     });
 });
@@ -752,7 +771,7 @@ $('.down_vote_button').click(function(){
       success: function(data) {
         var current_votediv = "#votediv" + sv_id;
         console.log(sv_id, "and votediv current = " + current_votediv);
-        $(current_left).html("Vote received!");
+        $(current_left).html("...................Vote received!.................");
       }
     });
 });
@@ -810,6 +829,8 @@ $('.down_vote_button').click(function(){
       $('#commentButton').click(function(){
         $('.addCommentForm').toggle();
       });
+
     </script>
+          </div>
   </body>
 </html>
