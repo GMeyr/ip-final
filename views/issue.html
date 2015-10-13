@@ -39,7 +39,8 @@
         background-color: white;
       }
       .addCommentForm {
-        position: relative;
+        position: absolute;
+        z-index: 10;
         background-color: #E3E3E3;
         float: left;
         clear: both;
@@ -133,12 +134,14 @@
       .votediv {
         z-index: 0;
       }
-      #navbar h1 {
+      #navbar img {
         display: inline-block;;
       }
       #navbar p {
         display: inline-block;
-        margin: 0px 10px;
+        margin: 40px 30px  0px 30px;
+        position: absolute;
+        z-index: 15;
       }
      .button_bar {
         margin-left: 500px;
@@ -149,7 +152,7 @@
         position: relative;
       }
       #issueContent {
-        margin-left: 30px;
+        margin-left: 230px;
         position: relative;;
         float: left;
       }
@@ -194,18 +197,19 @@
         position: absolute;
         z-index: 5;
       }
+      .issueTypeScope {
+        display: inline-block;
+      }
     </style>
   </head>
 
   <body>
 
     <div id="navbar">
-    <h1 class="logo">issueprism</h1>
+      <img src="http://oi61.tinypic.com/11hwk11.jpg " alt="IP Logo" style="width: 500px">
       <p><a href="/">Home</a> &nbsp; <a href="/addissue">Add Issue</a><div class="issueTypeScope"></div></p>
     </div>
-    <div id="prism">
-      <img src="http://oi62.tinypic.com/2rz5nv8.jpg" alt="Prism Illustration">
-    </div>
+
     <div id="issueContent">
       <div class="issueTitle"></div>
       <div class="issueText"></div>
