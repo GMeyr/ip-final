@@ -339,7 +339,7 @@ function submit(response, postData) {
 
   var generated_issue_id = new ObjectId();
   var generated__comment_id = new ObjectId();
-  db.issues.save({ _id: generated_issue_id, title: postTitle, text: postText, type: postType, scope: postScope},
+  dbi.issues.save({ _id: generated_issue_id, title: postTitle, text: postText, type: postType, scope: postScope},
                   function(err, saved){
                     if(err || !saved) console.log("--Post not saved");
                     else {

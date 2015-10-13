@@ -11,14 +11,18 @@
         display: inline-block;
         float: left;
         position: absolute;
-        margin-top: 30px;
+        width: 400px;
+        margin-top: 70px;
+        margin right: 30px;
       }
       .allconcomments {
         display: inline-block;
         float: right;
-        margin-left: 300px;
+        margin-left: 500px;
         position: absolute;
-        margin-top: 30px;
+        margin-top: 70px;
+        width: 400px;
+
       }
       #commentButton {
         z-index: 1;
@@ -27,40 +31,84 @@
       }
       .comment {
         display: block;
-        background-color: gray;
         position: relative;
         margin: 5px;
-        border: 1px solid black;
-        border-radius: 10%;
         padding: 0px 10px;
         min-height: 150px;
         min-width: 230px;
+        background-color: white;
       }
       .addCommentForm {
         position: relative;
         background-color: yellow;
         float: left;
         clear: both;
-        margin: 30px 0px;
+        margin: 50px 0px 0px 170px;
         padding: 5px;
         border: 1px solid black;
         border-radius: 10px;
       }
 
-      .comment_right {
-  background-color: yellow;
+      .votediv p {
+        margin-top: 10px;
+        margin-left: 100px;
+      }
+
+      .all_comment_right {
   display: inline;
   float: right;
-  width: 70%;
+  width: 80%;
   margin-left: 10px;
   padding: 10px;
+
+  border: 2px solid black;
+  border-radius: 10%;
 }
+
+
+     .stat_comment_right {
+       display: inline;
+       float: right;
+       width: 80%;
+       margin-left: 10px;
+       padding: 10px;
+       border: 2px solid #FF6600;
+       border-radius: 10%;
+     }
+     .rat_comment_right {
+       display: inline;
+       float: right;
+       width: 80%;
+       margin-left: 10px;
+       padding: 10px;
+       border: 2px solid #FFC90E;
+       border-radius: 10%;
+     }
+     .moral_comment_right {
+       display: inline;
+       float: right;
+       width: 80%;
+       margin-left: 10px;
+       padding: 10px;
+       border: 2px solid #00B28F;
+       border-radius: 10%;
+     }
+     .anec_comment_right {
+       display: inline;
+       float: right;
+       width: 80%;
+       margin-left: 10px;
+       padding: 10px;
+       border: 2px solid #A349A4;
+       border-radius: 10%;
+     }
+
 .comment_left {
   display: inline;
   margin: 1px solid black;
   z-index: 1;
   position: absolute;
-  margin-top: 20px;
+  margin-top: 14px;
 }
       .up_vote_button {
         width: 50px;
@@ -73,6 +121,9 @@
       }
 
       .votediv {
+        margin-top: 97px;
+        position: absolute;
+        z-index: 10;
       }
 
       button {
@@ -95,6 +146,19 @@
       #prism {
         margin-left: 100px;
       }
+
+      .h2_Statistical {
+        color: #FF6600;
+      }
+      .h2_Rational {
+        color: #FFC90E;
+      }
+      .h2_Moral {
+        color: #00B28F;
+      }
+      .h2_Anecdotal {
+        color: #A349A4;
+      }
     </style>
   </head>
 
@@ -116,13 +180,13 @@
 
 <div id="main_content">
      <div>
-       <span class="allprocomments">
-         Pro Comments  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+       <div class="allprocomments">
+         Pro Comments
+       </div>
 
-       </span>
-       <span class="allconcomments">
+       <div class="allconcomments">
          Con Comments
-       </span>
+       </div>
 
      </div>
 
@@ -194,10 +258,10 @@ $(function (){
       var id = window[side][arr][x]._id;
       var str = "<div class='comment'>";
       str += "<div class='comment_left'><div id='vote_updown" + id + "'>" + addVoteButtons(id) + "</div></div>";
-      str += "<div class='comment_right'><p class='comment_text'>" + window[side][arr][x].text + "</p>";
+      str += "<div class='" + type + "_comment_right'><p class='comment_text'>" + window[side][arr][x].text + "</p>";
       str += "<p class='ref'><a href='" + window[side][arr][x].ref + "'>" + window[side][arr][x].ref + "</a></p></div>";
       str += "<div class='votediv'><div id='votediv" + id + "'>'";
-      str += "<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
+      str += "<p>";
       str += addTypeButtons(id);
       str += "</p></div></div></div>";
       var re = new RegExp("\'", "g");
@@ -205,10 +269,30 @@ $(function (){
       return str;}
 
     function renderComments (side, type){
-
+      var h2_type = "";
+      switch (type) {
+        case "stat":
+          h2_type = "Statistical";
+          break;
+        case "rat":
+          h2_type = "Rational";
+          break;
+        case "moral":
+          h2_type = "Moral";
+            break;
+          case "anec":
+            h2_type = "Anecdotal";
+            break;
+          default:
+            h2_type = "All"
+      }
+      var h2_type_class = "h2_" + h2_type;
       var mainArr = type + "CommentArr";
       var data_side = side + "_data";
-      var comments_str = "";
+      var h2_side = "";
+      if (side === "pro") h2_side = "Pro";
+      else h2_side = "Con";
+      var comments_str = "<h2>" + h2_side + " Comments <span class='" + h2_type_class + "'>&mdash;&nbsp; " + h2_type + "</span></h2>";
    console.log("length: " +  window[data_side][mainArr].length);
       for (var i = 0; i < window[data_side][mainArr].length; i++) {
         var passalong = i;
@@ -231,7 +315,7 @@ $(function (){
         success: function(data) {
           var current_votediv = "#votediv" + sv_id;
           console.log(sv_id, "and votediv current = " + current_votediv);
-          $(current_votediv).html("..............Type vote recieved!.............");
+          $(current_votediv).html("<p class='typevoted_p'>Type vote recieved!</p>");
         }
       });
   });
@@ -245,7 +329,7 @@ $(function (){
         success: function(data) {
           var current_votediv = "#votediv" + sv_id;
           console.log(sv_id, "and votediv current = " + current_votediv);
-          $(current_votediv).html("..............Type vote recieved!.............");
+          $(current_votediv).html("<p class='typevoted_p'>Type vote recieved!</p>");
         }
       });
   });
@@ -259,7 +343,7 @@ $(function (){
         success: function(data) {
           var current_votediv = "#votediv" + sv_id;
           console.log(sv_id, "and votediv current = " + current_votediv);
-          $(current_votediv).html("..............Type vote recieved!.............");
+          $(current_votediv).html("<p class='typevoted_p'>Type vote recieved!</p>");
         }
       });
   });
@@ -273,7 +357,7 @@ $(function (){
         success: function(data) {
           var current_votediv = "#votediv" + sv_id;
           console.log(sv_id, "and votediv current = " + current_votediv);
-          $(current_votediv).html("..............Type vote recieved!.............");
+          $(current_votediv).html("<p class='typevoted_p'>Type vote recieved!</p>");
         }
       });
   });
@@ -287,7 +371,7 @@ $(function (){
         success: function(data) {
           var current_votediv = "#vote_updown" + sv_id;
           console.log(sv_id, "and votediv current = " + current_votediv);
-          $(current_votediv).html("Got it!");
+          $(current_votediv).html("<p><br><br>Got it!</p>");
         }
       });
   });
@@ -301,7 +385,7 @@ $(function (){
         success: function(data) {
           var current_votediv = "#vote_updown" + sv_id;
           console.log(sv_id, "and votediv current = " + current_votediv);
-          $(current_votediv).html("Got it!");
+          $(current_votediv).html("<p><br><br>Got it!</p>");
         }
       });
   });
@@ -324,7 +408,7 @@ $('#allButton').click(function(){
             success: function(data) {
               var current_votediv = "#votediv" + sv_id;
               console.log(sv_id, "and votediv current = " + current_votediv);
-              $(current_votediv).html("..............Type vote recieved!.............");
+              $(current_votediv).html("<p class='typevoted_p'>Type vote recieved!</p>");
             }
           });
       });
@@ -338,7 +422,7 @@ $('#allButton').click(function(){
             success: function(data) {
               var current_votediv = "#votediv" + sv_id;
               console.log(sv_id, "and votediv current = " + current_votediv);
-              $(current_votediv).html("..............Type vote recieved!.............");
+              $(current_votediv).html("<p class='typevoted_p'>Type vote recieved!</p>");
             }
           });
       });
@@ -352,7 +436,7 @@ $('#allButton').click(function(){
             success: function(data) {
               var current_votediv = "#votediv" + sv_id;
               console.log(sv_id, "and votediv current = " + current_votediv);
-              $(current_votediv).html("..............Type vote recieved!.............");
+              $(current_votediv).html("<p class='typevoted_p'>Type vote recieved!</p>");
             }
           });
       });
@@ -366,7 +450,7 @@ $('#allButton').click(function(){
             success: function(data) {
               var current_votediv = "#votediv" + sv_id;
               console.log(sv_id, "and votediv current = " + current_votediv);
-              $(current_votediv).html("..............Type vote recieved!.............");
+              $(current_votediv).html("<p class='typevoted_p'>Type vote recieved!</p>");
             }
           });
       });
@@ -381,7 +465,7 @@ $('#allButton').click(function(){
          success: function(data) {
            var current_votediv = "#vote_updown" + sv_id;
            console.log(sv_id, "and votediv current = " + current_votediv);
-           $(current_votediv).html("Got it!");
+           $(current_votediv).html("<p><br><br>Got it!</p>");
          }
        });
    });
@@ -395,7 +479,7 @@ $('#allButton').click(function(){
          success: function(data) {
            var current_votediv = "#vote_updown" + sv_id;
            console.log(sv_id, "and votediv current = " + current_votediv);
-           $(current_votediv).html("Got it!");
+           $(current_votediv).html("<p><br><br>Got it!</p>");
          }
        });
    });
@@ -417,7 +501,7 @@ $('#statButton').click(function(){
          success: function(data) {
            var current_votediv = "#votediv" + sv_id;
            console.log(sv_id, "and votediv current = " + current_votediv);
-           $(current_votediv).html("..............Type vote recieved!.............");
+           $(current_votediv).html("<p class='typevoted_p'>Type vote recieved!</p>");
          }
        });
    });
@@ -431,7 +515,7 @@ $('#statButton').click(function(){
          success: function(data) {
            var current_votediv = "#votediv" + sv_id;
            console.log(sv_id, "and votediv current = " + current_votediv);
-           $(current_votediv).html("..............Type vote recieved!.............");
+           $(current_votediv).html("<p class='typevoted_p'>Type vote recieved!</p>");
          }
        });
    });
@@ -445,7 +529,7 @@ $('#statButton').click(function(){
          success: function(data) {
            var current_votediv = "#votediv" + sv_id;
            console.log(sv_id, "and votediv current = " + current_votediv);
-           $(current_votediv).html("..............Type vote recieved!.............");
+           $(current_votediv).html("<p class='typevoted_p'>Type vote recieved!</p>");
          }
        });
    });
@@ -459,7 +543,7 @@ $('#statButton').click(function(){
          success: function(data) {
            var current_votediv = "#votediv" + sv_id;
            console.log(sv_id, "and votediv current = " + current_votediv);
-           $(current_votediv).html("..............Type vote recieved!.............");
+           $(current_votediv).html("<p class='typevoted_p'>Type vote recieved!</p>");
          }
        });
    });
@@ -474,7 +558,7 @@ $('.up_vote_button').click(function(){
       success: function(data) {
         var current_votediv = "#vote_updown" + sv_id;
         console.log(sv_id, "and votediv current = " + current_votediv);
-        $(current_votediv).html("Got it!");
+        $(current_votediv).html("<p><br><br>Got it!</p>");
       }
     });
 });
@@ -488,7 +572,7 @@ $('.down_vote_button').click(function(){
       success: function(data) {
         var current_votediv = "#vote_updown" + sv_id;
         console.log(sv_id, "and votediv current = " + current_votediv);
-        $(current_votediv).html("Got it!");
+        $(current_votediv).html("<p><br><br>Got it!</p>");
       }
     });
 });
@@ -511,7 +595,7 @@ $('#ratButton').click(function(){
          success: function(data) {
            var current_votediv = "#votediv" + sv_id;
            console.log(sv_id, "and votediv current = " + current_votediv);
-           $(current_votediv).html("..............Type vote recieved!.............");
+           $(current_votediv).html("<p class='typevoted_p'>Type vote recieved!</p>");
          }
        });
    });
@@ -525,7 +609,7 @@ $('#ratButton').click(function(){
          success: function(data) {
            var current_votediv = "#votediv" + sv_id;
            console.log(sv_id, "and votediv current = " + current_votediv);
-           $(current_votediv).html("..............Type vote recieved!.............");
+           $(current_votediv).html("<p class='typevoted_p'>Type vote recieved!</p>");
          }
        });
    });
@@ -539,7 +623,7 @@ $('#ratButton').click(function(){
          success: function(data) {
            var current_votediv = "#votediv" + sv_id;
            console.log(sv_id, "and votediv current = " + current_votediv);
-           $(current_votediv).html("..............Type vote recieved!.............");
+           $(current_votediv).html("<p class='typevoted_p'>Type vote recieved!</p>");
          }
        });
    });
@@ -553,7 +637,7 @@ $('#ratButton').click(function(){
          success: function(data) {
            var current_votediv = "#votediv" + sv_id;
            console.log(sv_id, "and votediv current = " + current_votediv);
-           $(current_votediv).html("..............Type vote recieved!.............");
+           $(current_votediv).html("<p class='typevoted_p'>Type vote recieved!</p>");
          }
        });
    });
@@ -568,7 +652,7 @@ $('.up_vote_button').click(function(){
       success: function(data) {
         var current_votediv = "#vote_updown" + sv_id;
         console.log(sv_id, "and votediv current = " + current_votediv);
-        $(current_votediv).html("Got it!");
+        $(current_votediv).html("<p><br><br>Got it!</p>");
       }
     });
 });
@@ -582,7 +666,7 @@ $('.down_vote_button').click(function(){
       success: function(data) {
         var current_votediv = "#vote_updown" + sv_id;
         console.log(sv_id, "and votediv current = " + current_votediv);
-        $(current_votediv).html("Got it!");
+        $(current_votediv).html("<p><br><br>Got it!</p>");
       }
     });
 });
@@ -605,7 +689,7 @@ $('#moralButton').click(function(){
          success: function(data) {
            var current_votediv = "#votediv" + sv_id;
            console.log(sv_id, "and votediv current = " + current_votediv);
-           $(current_votediv).html("..............Type vote recieved!.............");
+           $(current_votediv).html("<p class='typevoted_p'>Type vote recieved!</p>");
          }
        });
    });
@@ -619,7 +703,7 @@ $('#moralButton').click(function(){
          success: function(data) {
            var current_votediv = "#votediv" + sv_id;
            console.log(sv_id, "and votediv current = " + current_votediv);
-           $(current_votediv).html("..............Type vote recieved!.............");
+           $(current_votediv).html("<p class='typevoted_p'>Type vote recieved!</p>");
          }
        });
    });
@@ -633,7 +717,7 @@ $('#moralButton').click(function(){
          success: function(data) {
            var current_votediv = "#votediv" + sv_id;
            console.log(sv_id, "and votediv current = " + current_votediv);
-           $(current_votediv).html("..............Type vote recieved!.............");
+           $(current_votediv).html("<p class='typevoted_p'>Type vote recieved!</p>");
          }
        });
    });
@@ -647,7 +731,7 @@ $('#moralButton').click(function(){
          success: function(data) {
            var current_votediv = "#votediv" + sv_id;
            console.log(sv_id, "and votediv current = " + current_votediv);
-           $(current_votediv).html("..............Type vote recieved!.............");
+           $(current_votediv).html("<p class='typevoted_p'>Type vote recieved!</p>");
          }
        });
    });
@@ -662,7 +746,7 @@ $('.up_vote_button').click(function(){
       success: function(data) {
         var current_votediv = "#vote_updown" + sv_id;
         console.log(sv_id, "and votediv current = " + current_votediv);
-        $(current_votediv).html("Got it!");
+        $(current_votediv).html("<p><br><br>Got it!</p>");
       }
     });
 });
@@ -676,7 +760,7 @@ $('.down_vote_button').click(function(){
       success: function(data) {
         var current_votediv = "#vote_updown" + sv_id;
         console.log(sv_id, "and votediv current = " + current_votediv);
-        $(current_votediv).html("Got it!");
+        $(current_votediv).html("<p><br><br>Got it!</p>");
       }
     });
 });
@@ -699,7 +783,7 @@ $('#anecButton').click(function(){
          success: function(data) {
            var current_votediv = "#votediv" + sv_id;
            console.log(sv_id, "and votediv current = " + current_votediv);
-           $(current_votediv).html("..............Type vote recieved!.............");
+           $(current_votediv).html("<p class='typevoted_p'>Type vote recieved!</p>");
          }
        });
    });
@@ -713,7 +797,7 @@ $('#anecButton').click(function(){
          success: function(data) {
            var current_votediv = "#votediv" + sv_id;
            console.log(sv_id, "and votediv current = " + current_votediv);
-           $(current_votediv).html("..............Type vote recieved!.............");
+           $(current_votediv).html("<p class='typevoted_p'>Type vote recieved!</p>");
          }
        });
    });
@@ -727,7 +811,7 @@ $('#anecButton').click(function(){
          success: function(data) {
            var current_votediv = "#votediv" + sv_id;
            console.log(sv_id, "and votediv current = " + current_votediv);
-           $(current_votediv).html("..............Type vote recieved!.............");
+           $(current_votediv).html("<p class='typevoted_p'>Type vote recieved!</p>");
          }
        });
    });
@@ -741,7 +825,7 @@ $('#anecButton').click(function(){
          success: function(data) {
            var current_votediv = "#votediv" + sv_id;
            console.log(sv_id, "and votediv current = " + current_votediv);
-           $(current_votediv).html("..............Type vote recieved!.............");
+           $(current_votediv).html("<p class='typevoted_p'>Type vote recieved!</p>");
          }
        });
    });
@@ -756,7 +840,7 @@ $('.up_vote_button').click(function(){
       success: function(data) {
         var current_votediv = "#vote_updown" + sv_id;
         console.log(sv_id, "and votediv current = " + current_votediv);
-        $(current_votediv).html("Got it!");
+        $(current_votediv).html("<p><br><br>Got it!</p>");
       }
     });
 });
@@ -770,7 +854,7 @@ $('.down_vote_button').click(function(){
       success: function(data) {
         var current_votediv = "#vote_updown" + sv_id;
         console.log(sv_id, "and votediv current = " + current_votediv);
-        $(current_votediv).html("Got it!");
+        $(current_votediv).html("<p><br><br>Got it!</p>");
       }
     });
 });
