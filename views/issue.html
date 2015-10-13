@@ -12,7 +12,7 @@
         float: left;
         position: absolute;
         width: 400px;
-        margin-top: 70px;
+        margin-top: 30px;
         margin right: 30px;
       }
       .allconcomments {
@@ -20,19 +20,19 @@
         float: right;
         margin-left: 500px;
         position: absolute;
-        margin-top: 70px;
+        margin-top: 30px;
         width: 400px;
 
       }
       #commentButton {
-        z-index: 1;
+        z-index: 3;
         float: left;
         position: absolute;
       }
       .comment {
         display: block;
         position: relative;
-        margin: 5px;
+        margin: 5px 150px 5px -150px;
         padding: 0px 10px;
         min-height: 150px;
         min-width: 230px;
@@ -106,18 +106,20 @@
 .comment_left {
   display: inline;
   margin: 1px solid black;
-  z-index: 1;
+  z-index: 2;
   position: absolute;
   margin-top: 14px;
 }
       .up_vote_button {
         width: 50px;
         height: 40px;
+        margin-left: 2px;
       }
 
       .down_vote_button {
         width: 50px;
         height: 40px;
+        margin-left: 2px;
       }
 
 
@@ -128,19 +130,33 @@
 
       }
 
-      #navbar {
-        position: relative;
-        float: right;
+      .votediv {
+        z-index: 0;
       }
-
-      #main_content{
-        margin-left: 50px;
+      #navbar h1 {
+        display: inline-block;;
+      }
+      #navbar p {
+        display: inline-block;
+        margin: 0px 10px;
+      }
+     .button_bar {
+        margin-left: 500px;
+        background-color: grey;
+      }
+      .main_content{
+        margin-left: 200px;
+        position: relative;
       }
       #issueContent {
-        margin-left: 150px;
+        margin-left: 30px;
+        position: relative;;
+        float: left;
       }
       #prism {
-        margin-left: 100px;
+        margin-left: 200px;
+        float: left;
+        position: relative;
       }
 
       .h2_Statistical {
@@ -155,6 +171,29 @@
       .h2_Anecdotal {
         color: #A349A4;
       }
+      .clear{
+        clear: both;
+        height: 1px;
+        width: 100%;
+      }
+
+      .allprocomments h2 {
+        margin-left: -100px;
+        font-size: 20px;
+      }
+      .allconcomments h2 {
+        margin-left: -100px;
+        font-size: 20px;
+      }
+
+      .statistical_flag {
+        height: 30px;
+        width: 30px;
+        margin: 3px;
+        color: #FF6600;
+        position: absolute;
+        z-index: 5;
+      }
     </style>
   </head>
 
@@ -162,19 +201,19 @@
 
     <div id="navbar">
     <h1 class="logo">issueprism</h1>
-      <p><a href="/">Home</a> &nbsp; <a href="/addissue">Add Issue</a></p>
+      <p><a href="/">Home</a> &nbsp; <a href="/addissue">Add Issue</a><div class="issueTypeScope"></div></p>
+    </div>
+    <div id="prism">
+      <img src="http://oi62.tinypic.com/2rz5nv8.jpg" alt="Prism Illustration">
     </div>
     <div id="issueContent">
-      <div class="issueTypeScope"></div>
       <div class="issueTitle"></div>
       <div class="issueText"></div>
 
     </div>
-    <div id="prism">
-      <img src="http://oi62.tinypic.com/2rz5nv8.jpg" alt="Smiley face">
-    </div>
+<div class="clear"></div>
 
-<div id="main_content">
+<div class="main_content">
      <div>
        <div class="allprocomments">
          Pro Comments
@@ -253,11 +292,11 @@ $(function (){
       var arr = type + "CommentArr";
       var id = window[side][arr][x]._id;
       var str = "<div class='comment'>";
-      str += "<div class='comment_left'><div id='vote_updown" + id + "'>" + addVoteButtons(id) + "</div></div>";
+      str += "<div class='comment_left'><div id='vote_updown" + id + "'>" + addVoteButtons(id) + "<div class='" + window[side][arr][x].type + "_flag'></div></div></div>";
       str += "<div class='" + type + "_comment_right'><p class='comment_text'>" + window[side][arr][x].text + "</p>";
       str += "<p class='ref'><a href='" + window[side][arr][x].ref + "'>" + window[side][arr][x].ref + "</a></p></div>";
-      str += "<div class='votediv'><div id='votediv" + id + "'>'";
-      str += "<p>";
+      str += "<div class='votediv'><div id='votediv" + id + " style=\"z-index: 1\">'";
+      str += "<p id='button_bar'>";
       str += addTypeButtons(id);
       str += "</p></div></div></div>";
       var re = new RegExp("\'", "g");
