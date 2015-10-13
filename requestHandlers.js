@@ -389,7 +389,7 @@ function submit(response, postData) {
     }
 
   response.writeHead(200, {"Content-Type": "text/html"});
-  response.end(submitHTML);
+  response.end();
   }}
 
 function template(response, postData) {

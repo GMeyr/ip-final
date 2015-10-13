@@ -938,7 +938,7 @@ $('.down_vote_button').click(function(){
     <input type="radio" name="commtype" value="moral">Moral
     <input type="radio" name="commtype" value="anecdotal">Anecdotal
   </p>
-  <p><input type="submit" value="Submit Comment" /></p>
+  <p><input class="comment_submit_button" type="submit" value="Submit Comment" /></p>
 </form>
 
 
@@ -953,6 +953,10 @@ $('.down_vote_button').click(function(){
 
       $('#commentButton').click(function(){
         $('.addCommentForm').toggle();
+      });
+
+      $('.comment_submit_button').click(function(){
+        $('.commentButton').html("Comment submitted!");
       });
 
     </script>
