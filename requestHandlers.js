@@ -274,7 +274,7 @@ function comment(response, postData, query) {
 function id (response, postData, query){
       var param = '' + query.slice(4) + '';
       console.log("Handling /id/ and searching mongoDB for _id: " + param);
-        db.blogs.findOne({_id: ObjectId(param) }, function(err, doc) {
+        dbi.issues.findOne({_id: ObjectId(param) }, function(err, doc) {
         if( err || !doc) {
       console.log("No issues found");
       response.writeHead(200, {"Content-Type": "text/html"});
@@ -349,7 +349,7 @@ function submit(response, postData) {
   if (postCommSide === "pro" || "con"){
   //find comment just saved to retrieve _id
     newslug = randomInt(100, 10000);
-    db.comments.save({_id: generated__comment_id, issue_id: generated_issue_id, slug: newslug, posted: new Date(),
+    dbc.comments.save({_id: generated__comment_id, issue_id: generated_issue_id, slug: newslug, posted: new Date(),
                       side: postCommSide, type: postCommType, text: postCommText, ref: postCommRef,
                       statvotes: 0, ratvotes: 0, moralvotes: 0, anecvotes: 0, badvotes: 0, votes: 0, none: 0 },
                     function(err, saved){
@@ -436,7 +436,7 @@ function randomInt (low, high) {
 function sciencelocal (response){
   console.log("Request handler 'sciencelocal' was called.");
 
-  db.blogs.find({type: "science", scope: "local"}, function(err, slposts) {
+  dbi.issues.find({type: "science", scope: "local"}, function(err, slposts) {
     if( err || !slposts) {
       console.log("No issues found");
     } else {
@@ -463,7 +463,7 @@ function sciencelocal (response){
 function scienceregional (response, postData){
   console.log("Request handler 'scienceregional' was called.");
 
-  db.blogs.find({type: "science", scope: "regional"}, function(err, slposts) {
+  dbi.issues.find({type: "science", scope: "regional"}, function(err, slposts) {
     if( err || !slposts) {
       console.log("No issues found");
     } else {
@@ -489,7 +489,7 @@ function scienceregional (response, postData){
 function sciencenational (response){
   console.log("Request handler 'sciencenational' was called.");
 
-  db.blogs.find({type: "science", scope: "national"}, function(err, slposts) {
+  dbi.issues.find({type: "science", scope: "national"}, function(err, slposts) {
     if( err || !slposts) {
       console.log("No issues found");
     } else {
@@ -515,7 +515,7 @@ function sciencenational (response){
 function scienceglobal (response){
   console.log("Request handler 'scienceglobal' was called.");
 
-  db.blogs.find({type: "science", scope: "global"}, function(err, slposts) {
+  dbi.issues.find({type: "science", scope: "global"}, function(err, slposts) {
     if( err || !slposts) {
       console.log("No issues found");
     } else {
@@ -541,7 +541,7 @@ function scienceglobal (response){
 function politicslocal (response){
   console.log("Request handler 'politicslocal' was called.");
 
-  db.blogs.find({type: "politics", scope: "local"}, function(err, slposts) {
+  dbi.issues.find({type: "politics", scope: "local"}, function(err, slposts) {
     if( err || !slposts) {
       console.log("No issues found");
     } else {
@@ -567,7 +567,7 @@ function politicslocal (response){
 function politicsregional (response){
   console.log("Request handler 'politicsregional' was called.");
 
-  db.blogs.find({type: "politics", scope: "regional"}, function(err, slposts) {
+  dbi.issues.find({type: "politics", scope: "regional"}, function(err, slposts) {
     if( err || !slposts) {
       console.log("No issues found");
     } else {
@@ -593,7 +593,7 @@ function politicsregional (response){
 function politicsnational (response){
   console.log("Request handler 'politicsnational' was called.");
 
-  db.blogs.find({type: "politics", scope: "national"}, function(err, slposts) {
+  dbi.issues.find({type: "politics", scope: "national"}, function(err, slposts) {
     if( err || !slposts) {
       console.log("No issues found");
     } else {
@@ -619,7 +619,7 @@ function politicsnational (response){
 function politicsglobal (response){
   console.log("Request handler 'politicsglobal' was called.");
 
-  db.blogs.find({type: "politics", scope: "global"}, function(err, slposts) {
+  dbi.issues.find({type: "politics", scope: "global"}, function(err, slposts) {
     if( err || !slposts) {
       console.log("No issues found");
     } else {
@@ -645,7 +645,7 @@ function politicsglobal (response){
 function lifelocal (response){
   console.log("Request handler 'lifelocal' was called.");
 
-  db.blogs.find({type: "life", scope: "local"}, function(err, slposts) {
+  dbi.issues.find({type: "life", scope: "local"}, function(err, slposts) {
     if( err || !slposts) {
       console.log("No issues found");
     } else {
@@ -671,7 +671,7 @@ function lifelocal (response){
 function liferegional (response){
   console.log("Request handler 'liferegional' was called.");
 
-  db.blogs.find({type: "life", scope: "regional"}, function(err, slposts) {
+  dbi.issues.find({type: "life", scope: "regional"}, function(err, slposts) {
     if( err || !slposts) {
       console.log("No issues found");
     } else {
@@ -697,7 +697,7 @@ function liferegional (response){
 function lifenational (response){
   console.log("Request handler 'lifenational' was called.");
 
-  db.blogs.find({type: "life", scope: "national"}, function(err, slposts) {
+  dbi.issues.find({type: "life", scope: "national"}, function(err, slposts) {
     if( err || !slposts) {
       console.log("No issues found");
     } else {
@@ -723,7 +723,7 @@ function lifenational (response){
 function lifeglobal (response){
   console.log("Request handler 'lifeglobal' was called.");
 
-  db.blogs.find({type: "life", scope: "global"}, function(err, slposts) {
+  dbi.issues.find({type: "life", scope: "global"}, function(err, slposts) {
     if( err || !slposts) {
       console.log("No issues found");
     } else {
@@ -749,7 +749,7 @@ function lifeglobal (response){
 function otherlocal (response){
   console.log("Request handler 'otherlocal' was called.");
 
-  db.blogs.find({type: "other", scope: "local"}, function(err, slposts) {
+  dbi.issues.find({type: "other", scope: "local"}, function(err, slposts) {
     if( err || !slposts) {
       console.log("No issues found");
     } else {
@@ -775,7 +775,7 @@ function otherlocal (response){
 function otherregional (response){
   console.log("Request handler 'otherregional' was called.");
 
-  db.blogs.find({type: "other", scope: "regional"}, function(err, slposts) {
+  dbi.issues.find({type: "other", scope: "regional"}, function(err, slposts) {
     if( err || !slposts) {
       console.log("No issues found");
     } else {
@@ -801,7 +801,7 @@ function otherregional (response){
 function othernational (response){
   console.log("Request handler 'othernational' was called.");
 
-  db.blogs.find({type: "other", scope: "national"}, function(err, slposts) {
+  dbi.issues.find({type: "other", scope: "national"}, function(err, slposts) {
     if( err || !slposts) {
       console.log("No issues found");
     } else {
@@ -827,7 +827,7 @@ function othernational (response){
 function otherglobal (response){
   console.log("Request handler 'otherglobal' was called.");
 
-  db.blogs.find({type: "other", scope: "global"}, function(err, slposts) {
+  dbi.issues.find({type: "other", scope: "global"}, function(err, slposts) {
     if( err || !slposts) {
       console.log("No issues found");
     } else {
