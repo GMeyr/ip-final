@@ -368,7 +368,7 @@ function submit(response, postData) {
   var generated__comment_id = new ObjectId();
   db.issues.save({ _id: generated_issue_id, title: postTitle, text: postText, type: postType, scope: postScope},
                   function(err, saved){
-                    if(err || !saved) console.log("--Post not saved");
+                    if(err || !saved) console.log("--Post not saved, err: " + err);
                     else {
                       console.log("--Post saved!");
                     }
@@ -380,7 +380,7 @@ function submit(response, postData) {
                       side: postCommSide, type: postCommType, text: postCommText, ref: postCommRef,
                       statvotes: 0, ratvotes: 0, moralvotes: 0, anecvotes: 0, badvotes: 0, votes: 0, none: 0 },
                     function(err, saved){
-                      if(err || !saved) console.log("--comment not saved");
+                      if(err || !saved) console.log("--comment not saved, err: " + err);
                       else {
                         console.log("--comment saved!");
                       }
