@@ -301,7 +301,7 @@ $(function (){
       var str = "<div class='comment'>";
       str += "<div class='comment_left'><div id='vote_updown" + id + "'>" + addVoteButtons(id) + "<div class='" + window[side][arr][x].type + "_flag'></div></div></div>";
       str += "<div class='" + type + "_comment_right'><p class='comment_text'>" + window[side][arr][x].text + "</p>";
-      str += "<p class='ref'><a href='" + window[side][arr][x].ref + "'>" + window[side][arr][x].ref + "</a></p></div>";
+      str += "<p class='ref'><a href='/" + window[side][arr][x].ref + "'>" + window[side][arr][x].ref + "</a></p></div>";
       str += "<div class='votediv'><div id='votediv" + id + " style=\"z-index: 1\">'";
       str += "<p id='button_bar'>";
       str += addTypeButtons(id);
