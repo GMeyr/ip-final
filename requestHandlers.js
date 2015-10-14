@@ -494,11 +494,12 @@ function scienceregional (response, postData){
     if( err || !slposts) {
       console.log("No issues found");
     } else {
-      var issuesList = "";
+      var issuesList = "<div class='issuelist_div'";
       slposts.forEach( function(issue) {
       var currentIssue = createIssueListHTML(issue);
       issuesList = issuesList + currentIssue;
-    } );
+      } );
+      issueslist += "</div>"
       if (issuesList.length > 1){
       response.writeHead(200, {"Content-Type": "text/html"});
       response.write(issuesList);
