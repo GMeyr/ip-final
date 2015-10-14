@@ -295,9 +295,9 @@ $(function (){
     }
 
     function comment_HTML (side, type, x){
+      var arr = type + "CommentArr";
       var given_url = window[side][arr][x].ref;
       var re_url_1 = new RegExp("http\:\/\/"), re_url_2 = new RegExp("/www/");
-      var arr = type + "CommentArr";
       var id = window[side][arr][x]._id;
       var str = "<div class='comment'>";
       str += "<div class='comment_left'><div id='vote_updown" + id + "'>" + addVoteButtons(id) + "<div class='" + window[side][arr][x].type + "_flag'></div></div></div>";
