@@ -23,8 +23,8 @@ function start(route, handle) {
     })
   }
 
-  http.createServer(onRequest).listen(process.env.PORT || 8888);
-  console.log("Server started on port 8888.")
+  http.createServer(onRequest).listen(process.env.OPENSHIFT_NODEJS_PORT || process.env.PORT || 8080);
+  console.log("Server started on port 8080.")
 }
 
 

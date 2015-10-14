@@ -13,6 +13,10 @@ var fs = require('fs');
 var ObjectId = mongojs.ObjectId;
 var querystring = require('querystring');
 
+var mongo = require('mongodb');
+
+
+
 //file references
 var addissueHTML = fs.readFileSync('views/addissue.html');
 var homeHTML = fs.readFileSync('views/home.html');
