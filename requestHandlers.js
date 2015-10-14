@@ -5,7 +5,8 @@ var collectionsC = ["comments"];
 var commentSort = require('./commentSorter.js').commentSort;
 var databaseUrl = "ip";
 var mongojs = require('mongojs');
-var db = mongojs(databaseUrl, collections);
+var db = mongojs("mongodb://heroku_sbd3mh64:vdm6uokhosiefj5ndkuek9tho0@ds037234.mongolab.com:37234/heroku_sbd3mh64", ['collectionsI']);
+//var db = mongojs(databaseUrl, collections);
 var dbi = mongojs(databaseUrl, collectionsI);
 var dbc = mongojs(databaseUrl, collectionsC);
 var exec = require('child_process').exec;
@@ -15,12 +16,12 @@ var querystring = require('querystring');
 
 var mongo = require('mongodb');
 var db_name = "nodejs";
-var mongodb_connection_string = 'mongodb://heroku_sbd3mh64:vdm6uokhosiefj5ndkuek9tho0@ds037234.mongolab.com:37234/heroku_sbd3mh64/' + "ip";
+/*var mongodb_connection_string = 'mongodb://heroku_sbd3mh64:vdm6uokhosiefj5ndkuek9tho0@ds037234.mongolab.com:37234/heroku_sbd3mh64/' + "ip";
 //take advantage of openshift env vars when available:
 if(process.env.OPENSHIFT_MONGODB_DB_URL){
   mongodb_connection_string = process.env.OPENSHIFT_MONGODB_DB_URL + db_name;
 }
-
+*/
 
 //file references
 var addissueHTML = fs.readFileSync('views/addissue.html');
@@ -348,7 +349,7 @@ function submit(response, postData) {
 
   var generated_issue_id = new ObjectId();
   var generated__comment_id = new ObjectId();
-  dbi.issues.save({ _id: generated_issue_id, title: postTitle, text: postText, type: postType, scope: postScope},
+  db.issues.save({ _id: generated_issue_id, title: postTitle, text: postText, type: postType, scope: postScope},
                   function(err, saved){
                     if(err || !saved) console.log("--Post not saved");
                     else {
