@@ -467,8 +467,7 @@ function sciencelocal (response){
     if( err || !slposts) {
       console.log("No issues found");
     } else {
-      var issuesList = "    <div id='navbar'><img src='http://oi61.tinypic.com/11hwk11.jpg' alt='IP Logo' style='width: 400px'>";
-          issuesList +=  "<p><a href="/">Home</a> &nbsp; <a href='/addissue'>Add Issue</a><!--<div class='issueTypeScope'></div>--></p></div>";
+      var issuesList = "";
       slposts.forEach( function(issue) {
       var currentIssue = createIssueListHTML(issue);
       issuesList = issuesList + currentIssue;
