@@ -416,7 +416,7 @@ function submit(response, postData) {
     }
 
   response.writeHead(200, {"Content-Type": "text/html"});
-  response.end();
+  response.end(submitHTML);
   }}
 
 function template(response, postData) {
