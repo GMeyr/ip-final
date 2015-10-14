@@ -5,13 +5,13 @@ var collectionsC = ["comments"];
 var commentSort = require('./commentSorter.js').commentSort;
 var databaseUrl = "ip";
 var mongojs = require('mongojs');
-var db_url = "mongodb://gabemeyr:foxes@ds037234.mongolab.com:37234/heroku_sbd3mh64";
-var db = mongojs(db_url, ['issues']);
+var db_url = "mongodb://heroku_sbd3mh64:vdm6uokhosiefj5ndkuek9tho0@ds037234.mongolab.com:37234/heroku_sbd3mh64";
+var db = mongojs(db_url, ['issues'], {authMechanism: 'ScramSHA1'});
 //var db = mongojs("mongodb://heroku_sbd3mh64:vdm6uokhosiefj5ndkuek9tho0@ds037234.mongolab.com:37234/heroku_sbd3mh64", ['collectionsI']);
 //var db = mongojs(databaseUrl, collections);
-var dbi = mongojs(db_url, collectionsI);
+var dbi = mongojs(db_url, collectionsI, {authMechanism: 'ScramSHA1'});
 //var dbi = mongojs(db_url, collectionsI);
-var dbc = mongojs(db_url, collectionsC);
+var dbc = mongojs(db_url, collectionsC, {authMechanism: 'ScramSHA1'});
 //var dbc = mongojs(db_url, collectionsC);
 
 db.on('error', function(err) {
