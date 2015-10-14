@@ -6,7 +6,6 @@ var commentSort = require('./commentSorter.js').commentSort;
 var databaseUrl = "ip";
 var mongojs = require('mongojs');
 var db_url = "mongodb://heroku_sbd3mh64:vdm6uokhosiefj5ndkuek9tho0@ds037234.mongolab.com:37234/heroku_sbd3mh64";
-var mongojs = require('mongojs');
 var db = mongojs.connect("mongodb://heroku_sbd3mh64:vdm6uokhosiefj5ndkuek9tho0@ds037234.mongolab.com:37234/heroku_sbd3mh64", ['collectionsI']);
 //var db = mongojs("mongodb://heroku_sbd3mh64:vdm6uokhosiefj5ndkuek9tho0@ds037234.mongolab.com:37234/heroku_sbd3mh64", ['collectionsI']);
 //var db = mongojs(databaseUrl, collections);
@@ -14,6 +13,19 @@ var dbi = mongojs.connect(db_url, collectionsI);
 //var dbi = mongojs(db_url, collectionsI);
 var dbc = mongojs.connect(db_url, collectionsC);
 //var dbc = mongojs(db_url, collectionsC);
+
+db.on('error', function(err) {
+    console.log('Catch ', err);
+});
+dbi.on('error', function(err) {
+    console.log('Catch ', err);
+});
+dbc.on('error', function(err) {
+    console.log('Catch ', err);
+});
+
+
+
 var exec = require('child_process').exec;
 var fs = require('fs');
 var ObjectId = mongojs.ObjectId;
