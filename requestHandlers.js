@@ -14,7 +14,12 @@ var ObjectId = mongojs.ObjectId;
 var querystring = require('querystring');
 
 var mongo = require('mongodb');
-
+var db_name = "nodejs";
+var mongodb_connection_string = 'mongodb://heroku_sbd3mh64:vdm6uokhosiefj5ndkuek9tho0@ds037234.mongolab.com:37234/heroku_sbd3mh64/' + "ip";
+//take advantage of openshift env vars when available:
+if(process.env.OPENSHIFT_MONGODB_DB_URL){
+  mongodb_connection_string = process.env.OPENSHIFT_MONGODB_DB_URL + db_name;
+}
 
 
 //file references
