@@ -3,11 +3,21 @@
   <head>
     <title>handlebars demo</title>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <style>
+    #navbar img {
+      display: inline-block;;
+    }
+    #navbar p {
+      display: inline-block;
+      margin: 40px 30px  0px 30px;
+      position: absolute;
+      z-index: 15;
+    }
+    </style>
   </head>
 
   <body>
     <!--header-->
-    <h1 class="logo">issueprism</h1>
     <div id="navbar">
       <img src="http://oi61.tinypic.com/11hwk11.jpg " alt="IP Logo" style="width: 400px">
       <p><a href="/">Home</a> &nbsp; <a href="/addissue">Add Issue</a><!--<div class="issueTypeScope"></div>--></p>
