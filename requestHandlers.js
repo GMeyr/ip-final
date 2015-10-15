@@ -290,9 +290,8 @@ function comment(response, postData, query) {
   response.writeHead(200, {"Content-Type": "text/html"});
   response.end(
     "<!--header-->" +
-    "<h1 class='logo'>issueprism</h1>" +
-    '<div class="navbar">' +
-    '<p><a href="/">Home</a> &nbsp; <a href="/addissue">Add Issue</a></p>' +
+    '<div id="navbar"><a href = "/"><img src="http://oi61.tinypic.com/11hwk11.jpg" style="display: inline-block" alt="IP Logo" style="width: 400px"></a>' +
+    '<p style="display: inline-block, margin: 40px 30px  0px 30px, position: absolute, z-index: 15";><a href="/">Home</a> &nbsp; <a href="/addissue">Add Issue</a><!--<div class="issueTypeScope"></div>--></p>' +
     '</div>' +
     '<!--content-->' +
     "<p>Comment sumbmitted!</p>");
