@@ -494,7 +494,7 @@ function scienceregional (response, postData){
     if( err || !slposts) {
       console.log("No issues found");
     } else {
-      var issuesList = "<div class='issuelist_div'";
+      var issuesList = "<div class='issuelist_div'>";
       slposts.forEach( function(issue) {
       var currentIssue = createIssueListHTML(issue);
       issuesList = issuesList + currentIssue;
