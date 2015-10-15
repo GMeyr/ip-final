@@ -288,14 +288,7 @@ function comment(response, postData, query) {
     }
 
   response.writeHead(200, {"Content-Type": "text/html"});
-  response.end(
-    "<!--header-->" +
-    "<h1 class='logo'>issueprism</h1>" +
-    '<div class="navbar">' +
-    '<p><a href="/">Home</a> &nbsp; <a href="/addissue">Add Issue</a></p>' +
-    '</div>' +
-    '<!--content-->' +
-    "<p>Comment sumbmitted!</p>");
+  response.end(templateHTML);
 }
 
 function id (response, postData, query){
