@@ -4,7 +4,7 @@ The version of issueprism that finally made it to production on issueprism.com.
 
 DESCRIPTION
 
-I decided to build a site that is a cross between Stack Overflow and a public debate forum. The
+This site that is a cross between Stack Overflow and a public debate forum. The
 idea is people will post questions about issues ranging from global warming to charter schools.
 Other people will comment, taking a pro or con side and providing some type of argument. The arguments are categorized
 as logical, anecdotal, statistical, or moral. Users can also up/downvote comments.
