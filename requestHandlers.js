@@ -7,25 +7,8 @@ var databaseUrl = "ip";
 var mongojs = require('mongojs');
 var db_url = "mongodb://heroku_sbd3mh64:vdm6uokhosiefj5ndkuek9tho0@ds037234.mongolab.com:37234/heroku_sbd3mh64";
 var db = mongojs(db_url, ['issues'], {authMechanism: 'ScramSHA1'});
-//var db = mongojs("mongodb://heroku_sbd3mh64:vdm6uokhosiefj5ndkuek9tho0@ds037234.mongolab.com:37234/heroku_sbd3mh64", ['collectionsI']);
-//var db = mongojs(databaseUrl, collections);
 var dbi = mongojs(db_url, collectionsI, {authMechanism: 'ScramSHA1'});
-//var dbi = mongojs(db_url, collectionsI);
 var dbc = mongojs(db_url, collectionsC, {authMechanism: 'ScramSHA1'});
-//var dbc = mongojs(db_url, collectionsC);
-
-db.on('error', function(err) {
-    console.log('Catch ', err);
-});
-dbi.on('error', function(err) {
-    console.log('Catch ', err);
-});
-dbc.on('error', function(err) {
-    console.log('Catch ', err);
-});
-
-
-
 var exec = require('child_process').exec;
 var fs = require('fs');
 var ObjectId = mongojs.ObjectId;
@@ -33,12 +16,6 @@ var querystring = require('querystring');
 
 var mongo = require('mongodb');
 var db_name = "nodejs";
-/*var mongodb_connection_string = 'mongodb://heroku_sbd3mh64:vdm6uokhosiefj5ndkuek9tho0@ds037234.mongolab.com:37234/heroku_sbd3mh64/' + "ip";
-//take advantage of openshift env vars when available:
-if(process.env.OPENSHIFT_MONGODB_DB_URL){
-  mongodb_connection_string = process.env.OPENSHIFT_MONGODB_DB_URL + db_name;
-}
-*/
 
 //file references
 var addissueHTML = fs.readFileSync('views/addissue.html');
@@ -47,7 +24,7 @@ var issueHTML = fs.readFileSync('views/issue.html');
 var submitHTML = fs.readFileSync('views/submit.html');
 var templateHTML = fs.readFileSync('views/template.html');
 
-//request handlers
+//request handlers (in alphabetical order)
 function addissue(response, postData) {
   console.log("Handling /addissue/");
   response.writeHead(200, {"Content-Type": "text/html"});
