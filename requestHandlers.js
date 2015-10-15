@@ -772,11 +772,11 @@ function lifeglobal (response){
     }
   });
 }
-//other
-function otherlocal (response){
-  console.log("Request handler 'otherlocal' was called.");
+//sports
+function sportslocal (response){
+  console.log("Request handler 'sportslocal' was called.");
 
-  dbi.issues.find({type: "other", scope: "local"}, function(err, slposts) {
+  dbi.issues.find({type: "sports", scope: "local"}, function(err, slposts) {
     if( err || !slposts) {
       console.log("No issues found");
     } else {
@@ -799,10 +799,10 @@ function otherlocal (response){
   });
 }
 
-function otherregional (response){
-  console.log("Request handler 'otherregional' was called.");
+function sportsregional (response){
+  console.log("Request handler 'sportsregional' was called.");
 
-  dbi.issues.find({type: "other", scope: "regional"}, function(err, slposts) {
+  dbi.issues.find({type: "sports", scope: "regional"}, function(err, slposts) {
     if( err || !slposts) {
       console.log("No issues found");
     } else {
@@ -825,10 +825,10 @@ function otherregional (response){
   });
 }
 
-function othernational (response){
-  console.log("Request handler 'othernational' was called.");
+function sportsnational (response){
+  console.log("Request handler 'sportsnational' was called.");
 
-  dbi.issues.find({type: "other", scope: "national"}, function(err, slposts) {
+  dbi.issues.find({type: "sports", scope: "national"}, function(err, slposts) {
     if( err || !slposts) {
       console.log("No issues found");
     } else {
@@ -851,10 +851,10 @@ function othernational (response){
   });
 }
 
-function otherglobal (response){
-  console.log("Request handler 'otherglobal' was called.");
+function sportsglobal (response){
+  console.log("Request handler 'sportsglobal' was called.");
 
-  dbi.issues.find({type: "other", scope: "global"}, function(err, slposts) {
+  dbi.issues.find({type: "sports", scope: "global"}, function(err, slposts) {
     if( err || !slposts) {
       console.log("No issues found");
     } else {
@@ -902,7 +902,7 @@ exports.lifelocal = lifelocal;
 exports.liferegional = liferegional;
 exports.lifenational = lifenational;
 exports.lifeglobal = lifeglobal;
-exports.otherlocal = otherlocal;
-exports.otherregional = otherregional;
-exports.othernational = othernational;
-exports.otherglobal = otherglobal;
+exports.sportslocal = sportslocal;
+exports.sportsregional = sportsregional;
+exports.sportsnational = sportsnational;
+exports.sportsglobal = sportsglobal;

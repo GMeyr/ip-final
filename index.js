@@ -53,14 +53,14 @@ handle["/lifenational"] = requestHandlers.lifenational;
 handle["/lifenational/"] = requestHandlers.lifenational;
 handle["/lifeglobal"] = requestHandlers.lifeglobal;
 handle["/lifeglobal/"] = requestHandlers.lifeglobal;
-handle["/otherlocal"] = requestHandlers.otherlocal;
-handle["/otherlocal/"] = requestHandlers.otherlocal;
-handle["/otherregional"] = requestHandlers.otherregional;
-handle["/otherregional/"] = requestHandlers.otherregional;
-handle["/othernational"] = requestHandlers.othernational;
-handle["/othernational/"] = requestHandlers.othernational;
-handle["/otherglobal"] = requestHandlers.otherglobal;
-handle["/otherglobal/"] = requestHandlers.otherglobal;
+handle["/sportslocal"] = requestHandlers.sportslocal;
+handle["/sportslocal/"] = requestHandlers.sportslocal;
+handle["/sportsregional"] = requestHandlers.sportsregional;
+handle["/sportsregional/"] = requestHandlers.sportsregional;
+handle["/sportsnational"] = requestHandlers.sportsnational;
+handle["/sportsnational/"] = requestHandlers.sportsnational;
+handle["/sportsglobal"] = requestHandlers.sportsglobal;
+handle["/sportsglobal/"] = requestHandlers.sportsglobal;
 
 
 server.start(router.route, handle);
