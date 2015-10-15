@@ -1,40 +1,46 @@
 <!--home page-->
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html>
-  <head>
+<html><head>
     <title>issueprism</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <meta http-equiv="Content-type" content="text/html" charset="UTF-8" />
+    <meta http-equiv="Content-type" content="text/html" charset="UTF-8">
     <style>
     #navbar img {
       display: inline-block;;
     }
     #navbar p {
       display: inline-block;
-      margin: 40px 30px  0px 30px;
+      margin: 30px 30px  0px 30px;
       position: absolute;
       z-index: 15;
+    }
+    h1 {
+      font-size: 10;
+      margin-bottom: 20px;
+      margin-left: 20px;
+      font-weight: normal;
+    }
+    #left_space {
+      margin-left: 30px;
     }
     </style>
   </head>
   <body>
+
     <!--header-->
     <div id="navbar">
-      <a href = "/"><img src="http://oi61.tinypic.com/11hwk11.jpg " alt="IP Logo" style="width: 400px"></a>
+      <a href="/"><img src="http://oi61.tinypic.com/11hwk11.jpg " alt="IP Logo" style="width: 400px"></a>
       <p><a href="/">Home</a> &nbsp; <a href="/addissue">Add Issue</a><!--<div class="issueTypeScope"></div>--></p>
     </div>
 
     <!--content-->
     <form action="/template" method="get">
-      <p>Welcome to issueprism, "The Marketplace of Ideas"</p>
+      <h1>Welcome to the new marketplace of ideas.</h1>
+    <div id="left_space">
       <br>
-      <h2>Here's what you do:</h2>
-      <p>1. Look up or ask about issues on a variety of topics.</p>
-      <p>2. Read pro and con comments, and even filter responses by argument style.</p>
-      <br>
-      <p><strong>Start by selecting the kind of issues you want to see.</strong></p>
-      <p>Select a Type<br>
+
+      <p>Select a Type of Issue<br>
         <input type="radio" name="type" value="science" checked="true">Science
         <input type="radio" name="type" value="politics">Politics
         <input type="radio" name="type" value="life">Life
@@ -47,7 +53,10 @@
         <input type="radio" name="scope" value="national">National
         <input type="radio" name="scope" value="global">Global<br>
       </p>
-      <p><input type="submit" value="View Issues" /></p>
+      <p><input type="submit" value="View Issues"></p>
+      </div>
     </form>
-  </body>
-</html>
+
+  
+
+</body></html>
