@@ -1,6 +1,6 @@
 
 # ip-final
-The version of issueprism that finally made it to production.
+The version of issueprism that finally made it to production on issueprism.com.
 
 DESCRIPTION
 
