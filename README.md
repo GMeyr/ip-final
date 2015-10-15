@@ -22,6 +22,7 @@ For a typical pageview, the server listening at  and router will gather up a req
 a handle function based on the request url (and pass the function the POST data and query, if applicable). These functions are stored on in the requestHandlers.js file. Some views are compiled on the back-end, some in the browser, but all pass through a requestHandler function.
 
 THANK YOU
+
 I couldn't have built this without Paul Frame, who helped me figure out how to interface with mongo and helped me deploy the app successfully. Also big thanks to my wife, who made the logo, beta tested, and populated the site with far more interesting issues and comments than I could have.
 
 FUTURE DEVELOPMENT
