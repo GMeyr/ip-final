@@ -22,7 +22,6 @@
         position: absolute;
         margin-top: 30px;
         width: 400px;
-
       }
       #commentButton {
         z-index: 3;
@@ -49,24 +48,19 @@
         border: 1px solid black;
         border-radius: 10px;
       }
-
       .votediv p {
         margin-top: 10px;
         margin-left: 100px;
       }
-
       .all_comment_right {
-  display: inline;
-  float: right;
-  width: 80%;
-  margin-left: 10px;
-  padding: 10px;
-
-  border: 2px solid black;
-  border-radius: 10%;
-}
-
-
+        display: inline;
+        float: right;
+        width: 80%;
+        margin-left: 10px;
+        padding: 10px;
+        border: 2px solid black;
+        border-radius: 10%;
+      }
      .stat_comment_right {
        display: inline;
        float: right;
@@ -103,45 +97,38 @@
        border: 2px solid #A349A4;
        border-radius: 10%;
      }
-
-.comment_left {
-  display: inline;
-  margin: 1px solid black;
-  z-index: 2;
-  position: absolute;
-  margin-top: 14px;
-}
-      .up_vote_button {
-        width: 50px;
-        height: 40px;
-        margin-left: 2px;
-      }
-
-      .down_vote_button {
-        width: 50px;
-        height: 40px;
-        margin-left: 2px;
-      }
-
-
-
-      button {
-        position: inherit;
-        float: left;
-
-      }
-
-      .votediv {
+     .comment_left {
+       display: inline;
+       margin: 1px solid black;
+       z-index: 2;
+       position: absolute;
+       margin-top: 14px;
+     }
+     .up_vote_button {
+       width: 50px;
+       height: 40px;
+       margin-left: 2px;
+     }
+     .down_vote_button {
+       width: 50px;
+       height: 40px;
+       margin-left: 2px;
+     }
+     button {
+       position: inherit;
+       float: left;
+     }
+     .votediv {
         z-index: 0;
-      }
-      #navbar img {
-        display: inline-block;;
-      }
-      #navbar p {
-        display: inline-block;
-        margin: 40px 30px  0px 30px;
+     }
+     #navbar img {
+       display: inline-block;;
+     }
+     #navbar p {
+       display: inline-block;
+       margin: 40px 30px  0px 30px;
         position: absolute;
-        z-index: 15;
+       z-index: 15;
       }
      .button_bar {
         margin-left: 500px;
@@ -162,7 +149,6 @@
         float: left;
         position: relative;
       }
-
       .h2_Statistical {
         color: #FF6600;
       }
@@ -180,7 +166,6 @@
         height: 1px;
         width: 100%;
       }
-
       .allprocomments h2 {
         margin-left: -100px;
         font-size: 20px;
@@ -189,7 +174,6 @@
         margin-left: -100px;
         font-size: 20px;
       }
-
       .statistical_flag {
         height: 30px;
         width: 30px;
@@ -205,7 +189,6 @@
         margin-bottom: 40px;
         margin-right: 200px;
       }
-
       .issueTitle {
         margin-right: 150px;
       }
@@ -213,7 +196,6 @@
   </head>
 
   <body>
-
     <div id="navbar">
       <a href = "/"><img src="http://oi61.tinypic.com/11hwk11.jpg " alt="IP Logo" style="width: 400px"></a>
       <p><a href="/">Home</a> &nbsp; <a href="/addissue">Add Issue</a><!--<div class="issueTypeScope"></div>--></p>
@@ -222,139 +204,131 @@
     <div id="issueContent">
       <div class="issueTitle"></div>
       <div class="issueText"></div>
-
     </div>
-<div class="clear"></div>
-
-<div class="main_content">
-     <div>
+    <div class="clear"></div>
+    
+    <!--Comment Area-->
+    <div class="main_content">
+      <div>
        <div class="allprocomments">
-         Pro Comments
-       </div>
+        Pro Comments
+      </div>
+      <div class="allconcomments">
+        Con Comments
+      </div>
+    </div>
 
-       <div class="allconcomments">
-         Con Comments
-       </div>
+    <script>
+      'strict mode'
+// GET issue
+      $(function (){
+        var idPath = "/id/?_id=" + pathArray;
+        $.ajax({
+          type: "GET",
+          url: idPath,
+          success: function(data) {
+          var dataObj = {
+                          _id: JSON.stringify(data._id).replace(/\"/g, ""),
+                          title: JSON.stringify(data.title).replace(/\"/g, ""),
+                          text: JSON.stringify(data.text).replace(/\"/g, ""),
+                          type: JSON.stringify(data.type).replace(/\"/g, ""),
+                          scope: JSON.stringify(data.scope).replace(/\"/g, "")
+                        };
 
-     </div>
-
-<script>
-'strict mode'
-
-$(function (){
-
-  var idPath = "/id/?_id=" + pathArray;
-  $.ajax({
-    type: "GET",
-    url: idPath,
-    success: function(data) {
-     var dataObj = {
-                      _id: JSON.stringify(data._id).replace(/\"/g, ""),
-                      title: JSON.stringify(data.title).replace(/\"/g, ""),
-                      text: JSON.stringify(data.text).replace(/\"/g, ""),
-                      type: JSON.stringify(data.type).replace(/\"/g, ""),
-                      scope: JSON.stringify(data.scope).replace(/\"/g, "")
-                    };
-
-        $('.issueTypeScope').html("<p>" + dataObj.type + " : " + dataObj.scope + "</p>");
-        $('.issueTitle').html("<h2>" + dataObj.title + "</h2>");
-        $('.issueText').html("<p>" + dataObj.text + "</p>");
-
-    }
-  });
-});
-
-// GET pro and con comments
+          $('.issueTypeScope').html("<p>" + dataObj.type + " : " + dataObj.scope + "</p>");
+          $('.issueTitle').html("<h2>" + dataObj.title + "</h2>");
+          $('.issueText').html("<p>" + dataObj.text + "</p>");
+          }
+        });
+      });
 
 // GET pro comments
-$(function (){
+      $(function (){
+        var comments_url = "/getcomments/?_id=" + pathArray + "&side=pro";
+        $.ajax({
+          type: "GET",
+          url: comments_url,
+          success: function(data) {
+            window.pro_data = data;
+   
+            $(function (){
+              var comments_url = "/getcomments/?_id=" + pathArray + "&side=con";
+              $.ajax({
+                type: "GET",
+                url: comments_url,
+                success: function(data) {
+                  window.con_data = data;
 
-var comments_url = "/getcomments/?_id=" + pathArray + "&side=pro";
-$.ajax({
-type: "GET",
-url: comments_url,
-success: function(data) {
-window.pro_data = data;
-$(function (){
+                  function button (btype, name, id, big) {
+                    var str = "";
+                    str += "<input type='button' class='" + btype + "_vote_button'";
+                    str += " id='" +  id +  "' value='" + name + "'>";
+                    return str;}
 
-  var comments_url = "/getcomments/?_id=" + pathArray + "&side=con";
-  $.ajax({
-    type: "GET",
-    url: comments_url,
-    success: function(data) {
-      window.con_data = data;
+                  function addTypeButtons(id){
+                    var buttons =  button("stat", "Stat", id) + button("rat", "Logic", id) + button('moral', "Moral", id) + button('anec', "Anec.", id);
+                    return buttons;}
 
-      function button (btype, name, id, big) {
-      var str = "";
-      str += "<input type='button' class='" + btype + "_vote_button'";
-      str += " id='" +  id +  "' value='" + name + "'>";
-      return str;}
+                  function addVoteButtons(id){
+                    var buttons = button("up", "Up", id) + "<br>" + button("down", "Down", id);
+                    return buttons;
+                  }
 
-    function addTypeButtons(id){
+                  function comment_HTML (side, type, x){
+                    var arr = type + "CommentArr";
+                    var given_url = window[side][arr][x].ref;
+                    var abbrv_url = window[side][arr][x].ref.slice(0, 40);
+                    var re_url_1 = new RegExp("http"), re_url_2 = new RegExp("/www/");
+                    var id = window[side][arr][x]._id;
+                    var str = "<div class='comment'>";
+                    str += "<div class='comment_left'><div id='vote_updown" + id + "'>" + addVoteButtons(id) + "<div class='" + window[side][arr][x].type + "_flag'></div></div></div>";
+                    str += "<div class='" + type + "_comment_right'><p class='comment_text'>" + window[side][arr][x].text + "</p>";
+                    if (given_url.length < 3) {
+                      str += "</div>";
+                    } else if (re_url_1.test(given_url) || re_url_2.test(given_url)){
+                      str += "<p class='ref'><a href='" + given_url + "'>" + abbrv_url + "... </a></p></div>";
+                    } else {str += "<p class='ref'><a href='http://www." + given_url + "'>" + abbrv_url + "... </a></p></div>";}
+                    str += "<div class='votediv'><div id='votediv" + id + " style=\"z-index: 1\">'";
+                    str += "<p id='button_bar'>";
+                    str += addTypeButtons(id);
+                    str += "</p></div></div></div>";
+                    var re = new RegExp("\'", "g");
+                    str = str.replace(re, "");
+                    return str;}
 
-      var buttons =  button("stat", "Stat", id) + button("rat", "Logic", id) + button('moral', "Moral", id) + button('anec', "Anec.", id);
-      return buttons;}
-
-    function addVoteButtons(id){
-      var buttons = button("up", "Up", id) + "<br>" + button("down", "Down", id);
-      return buttons;
-    }
-
-    function comment_HTML (side, type, x){
-      var arr = type + "CommentArr";
-      var given_url = window[side][arr][x].ref;
-      var abbrv_url = window[side][arr][x].ref.slice(0, 40);
-      var re_url_1 = new RegExp("http"), re_url_2 = new RegExp("/www/");
-      var id = window[side][arr][x]._id;
-      var str = "<div class='comment'>";
-      str += "<div class='comment_left'><div id='vote_updown" + id + "'>" + addVoteButtons(id) + "<div class='" + window[side][arr][x].type + "_flag'></div></div></div>";
-      str += "<div class='" + type + "_comment_right'><p class='comment_text'>" + window[side][arr][x].text + "</p>";
-      if (given_url.length < 3) {
-        str += "</div>";
-      } else if (re_url_1.test(given_url) || re_url_2.test(given_url)){
-        str += "<p class='ref'><a href='" + given_url + "'>" + abbrv_url + "... </a></p></div>";
-      } else {str += "<p class='ref'><a href='http://www." + given_url + "'>" + abbrv_url + "... </a></p></div>";}
-      str += "<div class='votediv'><div id='votediv" + id + " style=\"z-index: 1\">'";
-      str += "<p id='button_bar'>";
-      str += addTypeButtons(id);
-      str += "</p></div></div></div>";
-      var re = new RegExp("\'", "g");
-      str = str.replace(re, "");
-      return str;}
-
-    function renderComments (side, type){
-      var h2_type = "";
-      switch (type) {
-        case "stat":
-          h2_type = "Statistical";
-          break;
-        case "rat":
-          h2_type = "Rational";
-          break;
-        case "moral":
-          h2_type = "Moral";
-            break;
-          case "anec":
-            h2_type = "Anecdotal";
-            break;
-          default:
-            h2_type = "All"
-      }
-      var h2_type_class = "h2_" + h2_type;
-      var mainArr = type + "CommentArr";
-      var data_side = side + "_data";
-      var h2_side = "";
-      if (side === "pro") h2_side = "Pro";
-      else h2_side = "Con";
-      var comments_str = "<h2>" + h2_side + " Comments <span class='" + h2_type_class + "'>&mdash;&nbsp; " + h2_type + "</span></h2>";
-   console.log("length: " +  window[data_side][mainArr].length);
-      for (var i = 0; i < window[data_side][mainArr].length; i++) {
-        var passalong = i;
-        comments_str += comment_HTML(data_side, type, passalong);
-        }
-        return comments_str;
-      }
-
+                  function renderComments (side, type){
+                    var h2_type = "";
+                    switch (type) {
+                      case "stat":
+                        h2_type = "Statistical";
+                        break;
+                      case "rat":
+                        h2_type = "Rational";
+                        break;
+                      case "moral":
+                        h2_type = "Moral";
+                        break;
+                      case "anec":
+                        h2_type = "Anecdotal";
+                        break;
+                      default:
+                        h2_type = "All"
+                    }
+                  var h2_type_class = "h2_" + h2_type;
+                  var mainArr = type + "CommentArr";
+                  var data_side = side + "_data";
+                  var h2_side = "";
+                  if (side === "pro") h2_side = "Pro";
+                  else h2_side = "Con";
+                  var comments_str = "<h2>" + h2_side + " Comments <span class='" + h2_type_class + "'>&mdash;&nbsp; " + h2_type + "</span></h2>";
+                  console.log("length: " +  window[data_side][mainArr].length);
+                  
+                  for (var i = 0; i < window[data_side][mainArr].length; i++) {
+                    var passalong = i;
+                    comments_str += comment_HTML(data_side, type, passalong);
+                  }
+                return comments_str;
+              }
 
 //Begin working with comments
    $(".allprocomments").html(renderComments("pro", "all"));
@@ -931,46 +905,49 @@ $('.down_vote_button').click(function(){
         <input type="button" id="anecButton" value="Anecdotal">
         &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
         <input type="button" id="commentButton" value="Add New Comment">
-<div class="addCommentForm">
-<form id="newCommentForm" action="/comment/" method="post">
-  <p>Side:<br>
-    <input type="radio" name="commside" value="pro" checked>Pro
-    <input type="radio" name="commside" value="con">Con
-  </p>
-  <p>Comment:<br>
-    <textarea type="text" name="commtext" cols="40" rows="4"></textarea>
-  </p>
-  <p>Reference Link:<br>
-    <input type="text" name="commref" style="width:300px"><br>
-  </p>
-  <p>Comment Type:<br>
-    <input type="radio" name="commtype" value="statistical" checked>Statistical
-    <input type="radio" name="commtype" value="rational">Rational
-    <input type="radio" name="commtype" value="moral">Moral
-    <input type="radio" name="commtype" value="anecdotal">Anecdotal
-  </p>
-  <p><input class="comment_submit_button" type="submit" value="Submit Comment" /></p>
-</form>
+        
+        <div class="addCommentForm">
+          <form id="newCommentForm" action="/comment/" method="post">
+            <p>Side:<br>
+              <input type="radio" name="commside" value="pro" checked>Pro
+              <input type="radio" name="commside" value="con">Con
+            </p>
+            <p>
+              Comment:<br>
+              <textarea type="text" name="commtext" cols="40" rows="4"></textarea>
+           </p>
+            <p>
+              Reference Link:<br>
+              <input type="text" name="commref" style="width:300px"><br>
+            </p>
+            <p>
+              Comment Type:<br>
+              <input type="radio" name="commtype" value="statistical" checked>Statistical
+              <input type="radio" name="commtype" value="rational">Rational
+              <input type="radio" name="commtype" value="moral">Moral
+              <input type="radio" name="commtype" value="anecdotal">Anecdotal
+            </p>
+            <p>
+              <input class="comment_submit_button" type="submit" value="Submit Comment" />
+            </p>
+          </form>
+          <script>
+          // global variables
+          var current_view = "allCommentArr";
+          var pathArray = window.location.search.slice(5);
+          // comment form functionality
+          $('#newCommentForm').append('<input type="hidden" name="commissue_id" value="' + pathArray + '" />');
 
+          $('.addCommentForm').hide();
 
-    <script>
-// global variables
-      var current_view = "allCommentArr";
-      var pathArray = window.location.search.slice(5);
-// Comment Form Functionality
-      $('#newCommentForm').append('<input type="hidden" name="commissue_id" value="' + pathArray + '" />');
+          $('#commentButton').click(function(){
+            $('.addCommentForm').toggle();
+          });
 
-      $('.addCommentForm').hide();
-
-      $('#commentButton').click(function(){
-        $('.addCommentForm').toggle();
-      });
-
-      $('.comment_submit_button').click(function(){
-        $('.commentButton').html("Comment submitted!");
-      });
-
-    </script>
-          </div>
+          $('.comment_submit_button').click(function(){
+            $('.commentButton').html("Comment submitted!");
+          });
+        </script>
+      </div>
   </body>
 </html>
