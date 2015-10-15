@@ -53,7 +53,7 @@ function commentSort (arr) {
 }
 
 
-
+//the 'badvotes' prop is in here in anticipation of a flagging feature I'll add eventually
 function calcCommType (obj){
     console.log("-----obj.statvotes: " + obj.statvotes,
                 ", obj.ratvotes: " + obj.ratvotes,
@@ -88,6 +88,49 @@ function calcCommType (obj){
              if(obj.badvotes < 3)
                return "anecdotal";
              else return "badvotes";
+     //dealing with ties (arbitrary assignment of winner)
+          } else if (obj.anecvotes === obj.ratvotes
+              && obj.anecvotes > obj.statvotes
+              && obj.anecvotes > obj.moralvotes) {
+                console.log("ratvotes and anecvotes tie, rational wins");
+                if(obj.badvotes < 3)
+                  return "rational";
+                else return "badvotes";
+          } else if (obj.anecvotes === obj.statvotes
+              && obj.anecvotes > obj.statvotes
+                && obj.anecvotes > obj.moralvotes) {
+                  console.log("anecvotes and statvotes tie, anecvotes wins");
+                  if(obj.badvotes < 3)
+                     return "anecdotal";
+                   else return "badvotes";
+          } else if (obj.anecvotes === obj.moralvotes
+              && obj.anecvotes > obj.statvotes
+              && obj.anecvotes > obj.ratvotes) {
+                console.log("anecvotes and moral tie, moralvotes wins");
+                if(obj.badvotes < 3)
+                  return "moral";
+                else return "badvotes";
+          } else if (obj.ratvotes === obj.moralvotes
+               && obj.ratvotes > obj.statvotes
+               && obj.ratvotes > obj.ratvotes) {
+                 console.log("ratvotes and moral tie, ratvotes wins");
+                 if(obj.badvotes < 3)
+                   return "rational";
+                 else return "badvotes";
+          } else if (obj.ratvotes === obj.statvotes
+              && obj.ratvotes > obj.statvotes
+              && obj.ratvotes > obj.ratvotes) {
+                console.log("ratvotes and statvotes tie, ratvotes wins");
+                if(obj.badvotes < 3)
+                  return "rational";
+                else return "badvotes";
+          } else if (obj.statvotes === obj.moralvotes
+             && obj.statvotes > obj.anecvotes
+             && obj.statvotes > obj.ratvotes) {
+               console.log("statvotes and moralvotes tie, moral wins");
+               if(obj.badvotes < 3)
+                 return "moral";
+               else return "badvotes";              
           } else {
             console.log("no winner chosen");
             //need to account for ties
