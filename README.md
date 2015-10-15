@@ -28,5 +28,5 @@ Issues I want to add in the future are:
 -let users edit their comments/issues after posting them
 -display upvote count on comments
 -take users back to the issue they were just on when they post a comment
--allor user to search for issues
+-allow user to search for issues
 -eventually it would be nice to have a pro/con spectrum, instead of a dichotomy. Maybe display the spectrum of comments horizontally
