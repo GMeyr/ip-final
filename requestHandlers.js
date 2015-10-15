@@ -365,6 +365,9 @@ function submit(response, postData) {
 
   var generated_issue_id = new ObjectId();
   var generated__comment_id = new ObjectId();
+  var g2 = generated_issue_id.toString();
+
+
   db.issues.save({ _id: generated_issue_id, title: postTitle, text: postText, type: postType, scope: postScope},
                   function(err, saved){
                     if(err || !saved) console.log("--Post not saved, err: " + err);
@@ -375,7 +378,7 @@ function submit(response, postData) {
   if (postCommSide === "pro" || "con"){
   //find comment just saved to retrieve _id
     newslug = randomInt(100, 10000);
-    dbc.comments.save({_id: generated__comment_id, issue_id: generated_issue_id, slug: newslug, posted: new Date(),
+    dbc.comments.save({_id: generated__comment_id, issue_id: g2, slug: newslug, posted: new Date(),
                       side: postCommSide, type: postCommType, text: postCommText, ref: postCommRef,
                       statvotes: 0, ratvotes: 0, moralvotes: 0, anecvotes: 0, badvotes: 0, votes: 0, none: 0 },
                     function(err, saved){

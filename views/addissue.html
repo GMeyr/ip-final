@@ -7,7 +7,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <style>
     #navbar img {
-      display: inline-block;;
+      display: inline-block;
     }
     #navbar p {
       display: inline-block;
@@ -51,21 +51,28 @@
       </script>
 
         <div class="commentForm">
-          <p>What type of comment is it?</p>
-          <p><input type="radio" value="statistical" name="commtype"> Statistical
-             <input type="radio" value="rational" name="commtype" checked> Rational
-             <input type="radio" value="moral" name="commtype"> Moral
-             <input type="radio" value="anecdotal" name="commtype"> Anecdotal
-          </p>
-          <p>Pro or con?<br>
+          <p>Side:<br>
             <input type="radio" name="commside" value="pro" checked>Pro
             <input type="radio" name="commside" value="con">Con
           </p>
-          <p>Comment<br>
-            <textarea name="commtext" rows="10" cols="60"></textarea></p>
-          <p>Reference Link<br>
-            <textarea name="commref" rows="1" cols="60"></textarea></p>
+          <p>Comment:<br>
+            <textarea type="text" name="commtext" cols="40" rows="4"></textarea>
+          </p>
+          <p>Reference Link:<br>
+            <input type="text" name="commref" style="width:300px"><br>
+          </p>
+          <p>Comment Type:<br>
+            <input type="radio" name="commtype" value="statistical" checked>Statistical
+            <input type="radio" name="commtype" value="rational">Rational
+            <input type="radio" name="commtype" value="moral">Moral
+            <input type="radio" name="commtype" value="anecdotal">Anecdotal
+          </p>
         </div>
+
+
+
+
+
 
           <script>
             $(".commentForm").hide();
