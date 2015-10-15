@@ -297,6 +297,7 @@ $(function (){
     function comment_HTML (side, type, x){
       var arr = type + "CommentArr";
       var given_url = window[side][arr][x].ref;
+      var abbrv_url = window[side][arr][x].ref.slice(0, 45);
       var re_url_1 = new RegExp("http\:\/\/"), re_url_2 = new RegExp("/www/");
       var id = window[side][arr][x]._id;
       var str = "<div class='comment'>";
@@ -304,7 +305,7 @@ $(function (){
       str += "<div class='" + type + "_comment_right'><p class='comment_text'>" + window[side][arr][x].text + "</p>";
       if (re_url_1.test(given_url) || re_url_2.test(given_url)){
         str += "<p class='ref'><a href='" + given_url + "'>" + window[side][arr][x].ref + "</a></p></div>";
-      } else {str += "<p class='ref'><a href='http://www." + given_url + "'>" + window[side][arr][x].ref + "</a></p></div>";}
+      } else {str += "<p class='ref'><a href='http://www." + given_url + "'>" + abbrv_url + "</a></p></div>";}
       str += "<div class='votediv'><div id='votediv" + id + " style=\"z-index: 1\">'";
       str += "<p id='button_bar'>";
       str += addTypeButtons(id);
