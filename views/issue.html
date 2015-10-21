@@ -251,8 +251,8 @@
           success: function(data) {
           var dataObj = {
                           _id: JSON.stringify(data._id).replace(/\"/g, ""),
-                          title: JSON.stringify(data.title).replace(/\"/g, ""),
-                          text: JSON.stringify(data.text).replace(/\"/g, ""),
+                          title: JSON.stringify(data.title).replace(/\"/g, "").replace(/\/\'/g, '&#39;').replace(/\/\"/g, '&#quot;');,
+                          text: JSON.stringify(data.text).replace(/\"/g, "").replace(/\/\'/g, '&#39;').replace(/\/\"/g, '&#quot;');,
                           type: JSON.stringify(data.type).replace(/\"/g, ""),
                           scope: JSON.stringify(data.scope).replace(/\"/g, "")
                         };
@@ -301,7 +301,7 @@
                     var given_url = window[side][arr][x].ref;
                     var abbrv_url = window[side][arr][x].ref.slice(0, 40);
                     window[side][arr][x].text.replace(/"/g, '&quot;');
-                    window[side][arr][x].text.replace(/'/g, '&quot;');
+                    window[side][arr][x].text.replace(/'/g, '&#39;');
                     var re_url_1 = new RegExp("http"), re_url_2 = new RegExp("/www/");
                     var id = window[side][arr][x]._id;
                     var str = "<div class='comment'>";
