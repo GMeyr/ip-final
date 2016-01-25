@@ -51,123 +51,78 @@
     #left_space {
       margin-left: 30px;
     }
+    #homeBtn, #addIssueBtn {
+      color: black !important;
+      font-color: black !important;
+      font-size: 20px;
+    }
+    .navbar-collapse.collapse {
+      display: block !important;
+    }
+
+    .navbar-nav>li, .navbar-nav {
+      float: left !important;
+    }
+
+    .navbar-nav.navbar-right:last-child {
+      margin-right: -15px !important;
+    }
+
+    .navbar-right {
+      float: right !important;
+    }
     </style>
   </head>
   <body>
-<nav class="light-blue lighten-1" role="navigation">
-    <div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo">Logo</a>
-      <ul class="right hide-on-med-and-down">
-        <li><a href="#">Navbar Link</a></li>
-      </ul>
+<nav class="white lighten-1" role="navigation" style="height: 110px;">
+    <div nav-wrapper container>
+      <a href="/"><img src="http://oi61.tinypic.com/11hwk11.jpg " alt="IP Logo" style="width:350px"></a>
 
-      <ul id="nav-mobile" class="side-nav">
-        <li><a href="#">Navbar Link</a></li>
+      <ul class="right hide-on-med-and-down">
+        <li><a href="/"><span  id="homeBtn">Home</span></a></li>
+        <li><a href="/addissue"><span id="addIssueBtn">Add Issue</span></a></li>
       </ul>
-      <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
     </div>
   </nav>
-    <!--header-->
-    <div id="navbar">
-      <a href="/"><img src="http://oi61.tinypic.com/11hwk11.jpg " alt="IP Logo" style="width: 400px"></a>
-      <p><a href="/">Home</a> &nbsp; <a href="/addissue">Add Issue</a><!--<div class="issueTypeScope"></div>--></p>
-    </div>
-
-
-
- <div class="row">
-    <form class="col s12">
-      <div class="row">
-
-        <div class="input-field col s12">
-    <select>
-      <option value="" disabled selected>Choose your option</option>
-      <option value="1">Option 1</option>
-      <option value="2">Option 2</option>
-      <option value="3">Option 3</option>
-    </select>
-    <label>Materialize Select</label>
-  </div>
-        <div class="input-field col s6">
-          <input placeholder="Placeholder" id="first_name" type="text" class="validate">
-          <label for="first_name">First Name</label>
-        </div>
-        <div class="input-field col s6">
-          <input id="last_name" type="text" class="validate">
-          <label for="last_name">Last Name</label>
-        </div>
-      </div>
-      <div class="row">
-        <div class="input-field col s12">
-          <input disabled value="I am not editable" id="disabled" type="text" class="validate">
-          <label for="disabled">Disabled</label>
-        </div>
-      </div>
-      <div class="row">
-        <div class="input-field col s12">
-          <input id="password" type="password" class="validate">
-          <label for="password">Password</label>
-        </div>
-      </div>
-      <div class="row">
-        <div class="input-field col s12">
-          <input id="email" type="email" class="validate">
-          <label for="email">Email</label>
-        </div>
-      </div>
-    </form>
-  </div>
-        
-
-
-
-
-
-
 
     <!--content-->
-    <form action="/template" method="get">
-      <h1>Welcome to the new marketplace of ideas.</h1>
-    <div id="left_space">
-      <br>
-
-      <p>Select a Type of Issue<br>
-        <input type="radio" name="type" value="science" checked="true">Science
-        <input type="radio" name="type" value="politics">Politics
-        <input type="radio" name="type" value="life">Life
-        <input type="radio" name="type" value="sports">Sports<br>
-      </p>
-
-      <p>Select a Scope<br>
-        <input type="radio" name="scope" value="local" checked="true">Local
-        <input type="radio" name="scope" value="regional">Regional
-        <input type="radio" name="scope" value="national">National
-        <input type="radio" name="scope" value="global">Global<br>
-      </p>
-      <p><input type="submit" value="View Issues"></p>
-
-        <div class="input-field col s12">
-    <select>
-      <option value="" disabled selected>Choose your option</option>
-      <option value="1">Option 1</option>
-      <option value="2">Option 2</option>
-      <option value="3">Option 3</option>
-    </select>
-    <label>Materialize Select</label>
-  </div>
-
-      </div>
-
-
-
-    </form>
+  
 
     <div class="section no-pad-bot" id="index-banner">
     <div class="container">
       <br><br>
-      <h1 class="header center orange-text">Starter Template</h1>
+      <h1 class="header center orange-text">Welcome To issueprism</h1>
       <div class="row center">
-        <h5 class="header col s12 light">A modern responsive front-end framework based on Material Design</h5>
+        <h5 class="header col s12 light">The new marketplace of ideas</h5>
       </div>
+        <form action="/template" method="get">
+      <div id="left_space">
+        <br>
+
+        <p>Select a Type of Issue<br>
+          <input type="radio" name="type" value="science" checked="true">Science
+          <input type="radio" name="type" value="politics">Politics
+          <input type="radio" name="type" value="life">Life
+          <input type="radio" name="type" value="sports">Sports<br>
+        </p>
+
+        <p>Select a Scope<br>
+          <input type="radio" name="scope" value="local" checked="true">Local
+          <input type="radio" name="scope" value="regional">Regional
+          <input type="radio" name="scope" value="national">National
+          <input type="radio" name="scope" value="global">Global<br>
+        </p>
+
+        <select multiple class="form-control">
+  <option>1</option>
+  <option>2</option>
+  <option>3</option>
+  <option>4</option>
+  <option>5</option>
+</select>
+        <p><input type="submit" value="View Issues"></p>
+      </div>
+    </form>
       <div class="row center">
         <a href="http://materializecss.com/getting-started.html" id="download-button" class="btn-large waves-effect waves-light orange">Get Started</a>
       </div>
@@ -177,41 +132,7 @@
   </div>
 
 
-  <div class="container">
-    <div class="section">
-
-      <!--   Icon Section   -->
-      <div class="row">
-        <div class="col s12 m4">
-          <div class="icon-block">
-            <h2 class="center light-blue-text"><i class="material-icons">flash_on</i></h2>
-            <h5 class="center">Speeds up development</h5>
-
-            <p class="light">We did most of the heavy lifting for you to provide a default stylings that incorporate our custom components. Additionally, we refined animations and transitions to provide a smoother experience for developers.</p>
-          </div>
-        </div>
-
-        <div class="col s12 m4">
-          <div class="icon-block">
-            <h2 class="center light-blue-text"><i class="material-icons">group</i></h2>
-            <h5 class="center">User Experience Focused</h5>
-
-            <p class="light">By utilizing elements and principles of Material Design, we were able to create a framework that incorporates components and animations that provide more feedback to users. Additionally, a single underlying responsive system across all platforms allow for a more unified user experience.</p>
-          </div>
-        </div>
-
-        <div class="col s12 m4">
-          <div class="icon-block">
-            <h2 class="center light-blue-text"><i class="material-icons">settings</i></h2>
-            <h5 class="center">Easy to work with</h5>
-
-            <p class="light">We have provided detailed documentation as well as specific code examples to help new users get started. We are also always open to feedback and can answer any questions a user may have about Materialize.</p>
-          </div>
-        </div>
-      </div>
-
-    </div>
-    <br><br>
+  
 
     <div class="section">
 
