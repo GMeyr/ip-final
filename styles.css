@@ -1,0 +1,38 @@
+#navbar img {
+  display: inline-block;;
+}
+#navbar p {
+  display: inline-block;
+  margin: 30px 30px  0px 30px;
+  position: absolute;
+  z-index: 15;
+}
+h1 {
+  font-size: 10;
+  margin-bottom: 20px;
+  margin-left: 20px;
+  font-weight: normal;
+}
+#left_space {
+  margin-left: 30px;
+}
+#homeBtn, #addIssueBtn {
+  color: black !important;
+  font-color: black !important;
+  font-size: 20px;
+}
+.navbar-collapse.collapse {
+  display: block !important;
+}
+
+.navbar-nav>li, .navbar-nav {
+  float: left !important;
+}
+
+.navbar-nav.navbar-right:last-child {
+  margin-right: -15px !important;
+}
+
+.navbar-right {
+  float: right !important;
+}
