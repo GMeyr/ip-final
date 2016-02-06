@@ -73,95 +73,93 @@
     .navbar-right {
       float: right !important;
     }
+    .middle-spacer {
+      width: 10%;
+    }
     </style>
 
   </head>
   <body>
-      <script src="//code.jquery.com/jquery-2.1.2.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
-
-<nav class="white lighten-1" role="navigation" style="height: 110px;">
-    <div nav-wrapper container>
-      <a href="/"><img src="http://oi61.tinypic.com/11hwk11.jpg " alt="IP Logo" style="width:350px"></a>
-
-      <ul class="right hide-on-med-and-down">
-        <li><a href="/"><span  id="homeBtn">Home</span></a></li>
-        <li><a href="/addissue"><span id="addIssueBtn">Add Issue</span></a></li>
-      </ul>
-    </div>
-  </nav>
+    <script src="//code.jquery.com/jquery-2.1.2.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
+  
+    <nav class="white lighten-1" role="navigation" style="height: 110px;">
+      <div nav-wrapper container>
+        <a href="/">
+          <img src="http://oi61.tinypic.com/11hwk11.jpg " alt="IP Logo" style="width:350px">
+        </a>
+        <ul class="right hide-on-med-and-down">
+          <li><a href="/"><span  id="homeBtn">Home</span></a></li>
+          <li><a href="/addissue"><span id="addIssueBtn">Add Issue</span></a></li>
+        </ul>
+      </div>
+    </nav>
 
     <!--content-->
-  
 
-    <div class="section no-pad-bot" id="index-banner">
-    <div class="container">
-      <br><br>
-      <h1 class="header center orange-text">Welcome To issueprism</h1>
-      <div class="row center">
-        <h5 class="header col s12 light">The new marketplace of ideas</h5>
-      </div>
-        <div class="input-field col s12">
-    <select>
-      <option value="" disabled selected>Choose your option</option>
-      <option value="1">Option 1</option>
-      <option value="2">Option 2</option>
-      <option value="3">Option 3</option>
-    </select>
-    <label>Materialize Select</label>
-  </div>
-        <form action="/template" method="get">
-          <div class="input-field col s12">
-    <select>
-      <option value="" disabled selected>Choose your option</option>
-      <option value="1">Option 1</option>
-      <option value="2">Option 2</option>
-      <option value="3">Option 3</option>
-    </select>
-    <label>Materialize Select</label>
-  </div>
-<!--       <div id="left_space">
-        <br>
+      <div class="container">
+         <br><br>
+        <h1 class="header center orange-text">Welcome To issueprism</h1>
+        <div class="row center">
+          <h5 class="header col s12 light">The new marketplace of ideas</h5>
+        </div>
+          <div class="row">
+            <div class="left s12 m12 l12 middle-spacer">
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            </div>
+            <div class="left s12 m12 l12 middle-spacer">
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
-        <p>Select a Type of Issue<br>
-          <input type="radio" name="type" value="science" checked="true">Science
-          <input type="radio" name="type" value="politics">Politics
-          <input type="radio" name="type" value="life">Life
-          <input type="radio" name="type" value="sports">Sports<br>
-        </p>
-
-        <p>Select a Scope<br>
-          <input type="radio" name="scope" value="local" checked="true">Local
-          <input type="radio" name="scope" value="regional">Regional
-          <input type="radio" name="scope" value="national">National
-          <input type="radio" name="scope" value="global">Global<br>
-        </p>
-
-        <select multiple class="form-control">
-  <option>1</option>
-  <option>2</option>
-  <option>3</option>
-  <option>4</option>
-  <option>5</option>
-</select>
-        <p><input type="submit" value="View Issues"></p>
-      </div> -->
-    </form>
-      <div class="row center">
-        <a href="http://materializecss.com/getting-started.html" id="download-button" class="btn-large waves-effect waves-light orange">Get Started</a>
-      </div>
-      <br><br>
-
-    </div>
-  </div>
-
-
-  
-
-    <div class="section">
-
-    </div>
-  </div>
+            </div>
+            
+              <div class="left">
+                <div class="input-field s12 m5 l5">
+                  <h5>Select a type of issue</h5>
+                  <select id="type-select">
+                    <option name="type" value="science" selected>Science</option>
+                    <option name="type" value="politics">Politics</option>
+                    <option name="type" value="life">Life</option>
+                    <option name="type" value="sports">Sports</option>
+                  </select>
+                </div>
+              </div>
+              <div class="left s12 m12 l12 center">
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              </div>
+              <div class="left">
+                <div class="input-field s12 m5 l5">
+                  <h5>Now select a scope</h5>
+                  <select id="scope-select">
+                    <option name="scope" value="local"  selected>Local</option>
+                    <option name="scope" value="regional">Regional</option>
+                    <option name="scope" value="national">National</option>
+                    <option name="scope" value="global">Global</option>
+                  </select>
+                </div>
+              </div>
+          </div>
+          <div class="row center">
+            <button id="submit-btn" id="download-button" class="btn-large waves-effect waves-light orange">View Issues</button>
+          </div>
 
 
 
@@ -203,7 +201,14 @@
 <script>
 $(document).ready(function() {
     $('select').material_select();
+    $('#submit-btn').click(function(){
+      var scope = $('#scope-select').val();
+      var type = $('#type-select').val();
+    var destination = '/' + type + scope;
+    $.get( destination );
+    });
 });
+
 </script>
 
 </body></html>
