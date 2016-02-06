@@ -400,8 +400,6 @@ function submit(response, postData) {
 
 function template(response, postData) {
   console.log("Request handler 'template' was called.");
-  console.log('postData', postData);
-  console.log('templateHTML', rawTemplateHTML);
   response.writeHead(200, {"Content-Type": "text/html"});
   response.end(templateHTML);
 }
@@ -417,8 +415,23 @@ function template(response, postData) {
 //helper functions
 function createIssueListHTML(issue){
     var thing = "";
-    thing += propToElement(issue, "title", "h2", true);
+    thing +=  '<div class="row">' + 
+          '<div class="col s12 m12 l8">' +
+            '<div class="card blue-grey lighten-4">' +
+              '<div class="card-content black-text">' +
+                '<span class="card-title">';
+
+    thing += propToElement(issue, "title", "span");
+    thing += '</span>';
     thing += propToElement(issue, "text", "p");
+    thing +=  '</div>' +
+              '<div class="card-action">' +
+                '<a style="color: #01579b !important" href="/issue/?_id=' + issue._id + '">Go To Issue</a>' +
+              '</div>' +
+            '</div>' +
+          '</div>' +
+        '</div>';
+    
     return thing;
 }
 
