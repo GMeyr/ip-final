@@ -133,7 +133,7 @@
               <div class="left">
                 <div class="input-field s12 m5 l5">
                   <h5>Select a type of issue</h5>
-                  <select id="type-select">
+                  <select id="select-type">
                     <option name="type" value="science" selected>Science</option>
                     <option name="type" value="politics">Politics</option>
                     <option name="type" value="life">Life</option>
@@ -148,7 +148,7 @@
               <div class="left">
                 <div class="input-field s12 m5 l5">
                   <h5>Now select a scope</h5>
-                  <select id="scope-select">
+                  <select id="select-scope">
                     <option name="scope" value="local"  selected>Local</option>
                     <option name="scope" value="regional">Regional</option>
                     <option name="scope" value="national">National</option>
@@ -158,7 +158,7 @@
               </div>
           </div>
           <div class="row center">
-            <button id="submit-btn" id="download-button" class="btn-large waves-effect waves-light orange">View Issues</button>
+            <button  id="form-button" value="View Issues" class="btn-large waves-effect waves-light orange"></button>
           </div>
 
 
@@ -201,14 +201,14 @@
 <script>
 $(document).ready(function() {
     $('select').material_select();
-    $('#submit-btn').click(function(){
-      var scope = $('#scope-select').val();
-      var type = $('#type-select').val();
-    var destination = '/' + type + scope;
-    $.get( destination );
-    });
+    $('#form-button').click(function(){
+      var scope = $('#select-scope').val();
+      var type = $('#select-type').val();
+      var newURL = '/template?type=' + type + '&scope=' + scope;
+      console.log('newURL', newURL);
+      window.location = newURL;
+    })
 });
-
 </script>
 
 </body></html>

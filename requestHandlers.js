@@ -400,6 +400,8 @@ function submit(response, postData) {
 
 function template(response, postData) {
   console.log("Request handler 'template' was called.");
+  console.log('postData', postData);
+  console.log('templateHTML', rawTemplateHTML);
   response.writeHead(200, {"Content-Type": "text/html"});
   response.end(templateHTML);
 }
@@ -446,6 +448,7 @@ function sciencelocal (response){
     if( err || !slposts) {
       console.log("No issues found");
     } else {
+      console.log('science/local posts found', slposts);
       var issuesList = "";
       slposts.forEach( function(issue) {
       var currentIssue = createIssueListHTML(issue);
@@ -885,3 +888,14 @@ exports.sportslocal = sportslocal;
 exports.sportsregional = sportsregional;
 exports.sportsnational = sportsnational;
 exports.sportsglobal = sportsglobal;
+
+
+rawTemplateHTML = 
+"<!DOCTYPE html><html itemscope itemtype='http://schema.org/Product'><head><title>issueprism</title><script type='text/javascript' src='https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js'></script><meta name='description' content='Welcome to the new marketplace of ideas.' /><meta itemprop='name' content='The Name or Title Here'><meta itemprop='description' content='This is the page description'><meta itemprop='image' content='http://oi61.tinypic.com/11hwk11.jpg'><!-- Twitter Card data --><meta name='twitter:card' content='summary_large_image'><meta name='twitter:site' content='@gmeyr'><meta name='twitter:title' content='issueprism'><meta name='twitter:description' content='Welcome to the new marketplace of ideas.'><meta name='twitter:creator' content='@gmeyr'><!-- Twitter summary card with large image must be at least 280x150px --><meta name='twitter:image:src' content='http://oi61.tinypic.com/11hwk11.jpg'>" +
+"<!-- Open Graph data --><meta property='og:title' content='issueprism' /><meta property='og:type' content='website' /><meta property='og:url' content='http://issueprism.com/' /><meta property='og:image' content='http://oi61.tinypic.com/11hwk11.jpg' /><meta property='og:description' content='Welcome to the new marketplace of ideas.' /><meta property='og:site_name' content='issueprism' />" +
+"<style>#navbar img {display: inline-block;}#navbar p {display: inline-block;margin: 40px 30px  0px 30px;position: absolute;z-index: 15;}#issuelist {margin: 0px 100px;}</style>" +
+"</head><body><!--header--><div id='navbar'><a href = '/'><img src='http://oi61.tinypic.com/11hwk11.jpg ' alt='IP Logo' style='width: 400px'></a><p><a href='/'>Home</a> &nbsp; <a href='/addissue'>Add Issue</a><!--<div class='issueTypeScope'></div>--></p></div>" +
+"<!--content--><div id='contentplaceholder'></div><div id='issuelist'></div><script>var pathArray = window.location.search;check(pathArray, selectionsToObj);function check(url, callback){var reType = new RegExp(/type/);var reScope = new RegExp(/scope/);if ( (reType.test(url)) && (reScope.test(url)) ){console.log('function 'check' successful');return callback(url);} else return 'Type and Scope are not specified';}" +
+"function selectionsToObj (url) {var results = {};var andIndex = url.indexOf('&');var newType = url.slice(6, andIndex);var newScope = url.slice(andIndex + 7);results.type = newType;results.scope = newScope;console.log('function 'selectionsToObj' successful');return requestIssues(results);}" +
+"function requestIssues(selectionsObj){var event = document.createEvent('Event');event.initEvent('gotIssues', true, true);var viewThis = selectionsObj.type + selectionsObj.scope;console.log('requesting isues for ' + viewThis);var req = new XMLHttpRequest();req.open('GET', viewThis, false);req.send(null);console.log('Got back: ' + req.response, typeof req.response);$(document).ready(function(){$('#issuelist').html(req.responseText);});}</script></body></html>";
+
