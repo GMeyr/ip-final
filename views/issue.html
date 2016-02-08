@@ -319,8 +319,16 @@
                           str += '<div class="col s10">';
                             str += '<div class="card blue-grey darken-1">';
                               str += '<div class="card-content white-text">';
-                                str += '<span class="card-title">Card Title</span>';
-                                str += '<p>I am a very simple card. I am good at containing small bits of information./nI am convenient because I require little markup to use effectively.</p>';
+                                str += '<p>' + window[side][arr][x].text;
+
+                                if (given_url.length < 3) {
+                                  str += "</div>";
+                                } else if (re_url_1.test(given_url) || re_url_2.test(given_url)){
+                                str += "<p class='ref'><a href='" + given_url + "'>" + abbrv_url + "... </a></p></div>";
+                                } else {str += "<p class='ref'><a href='http://www." + given_url + "'>" + abbrv_url + "... </a></p>"
+                                str += "<div class='" + type + "_comment_right'></div>";}
+                                str += '</p>';
+
                               str += '</div>';
                               str += '<div class="card-action">';
                                 str += '<a href="#">This is a link</a>';
@@ -329,17 +337,10 @@
                             str += '</div>';
                           str += '</div>';
                         str += '</div>';
-            
-
 
                     // var str = "<div class='comment'>";
                     // str += "<div class='comment_left'><div id='vote_updown" + id + "'>" + addVoteButtons(id) + "<div class='" + window[side][arr][x].type + "_flag'></div></div></div>";
-                    // str += "<div class='" + type + "_comment_right'><p class='comment_text'>" + window[side][arr][x].text + "</p>";
-                    // if (given_url.length < 3) {
-                    //   str += "</div>";
-                    // } else if (re_url_1.test(given_url) || re_url_2.test(given_url)){
-                    //   str += "<p class='ref'><a href='" + given_url + "'>" + abbrv_url + "... </a></p></div>";
-                    // } else {str += "<p class='ref'><a href='http://www." + given_url + "'>" + abbrv_url + "... </a></p></div>";}
+
                     // str += "<div class='votediv'><div id='votediv" + id + " style=\"z-index: 1\">'";
                     // str += "<p id='button_bar'>";
                     // str += addTypeButtons(id);
