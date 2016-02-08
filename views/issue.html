@@ -2,6 +2,11 @@
 <html itemscope itemtype="http://schema.org/Product">
   <head>
    <meta charset="UTF-8">
+   <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css">
+
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
     <title>issueprism</title>
     <meta name="description" content="Welcome to the new marketplace of ideas." />
 
@@ -304,18 +309,36 @@
                     window[side][arr][x].text.replace(/'/g, '&#39;');
                     var re_url_1 = new RegExp("http"), re_url_2 = new RegExp("/www/");
                     var id = window[side][arr][x]._id;
-                    var str = "<div class='comment'>";
-                    str += "<div class='comment_left'><div id='vote_updown" + id + "'>" + addVoteButtons(id) + "<div class='" + window[side][arr][x].type + "_flag'></div></div></div>";
-                    str += "<div class='" + type + "_comment_right'><p class='comment_text'>" + window[side][arr][x].text + "</p>";
-                    if (given_url.length < 3) {
-                      str += "</div>";
-                    } else if (re_url_1.test(given_url) || re_url_2.test(given_url)){
-                      str += "<p class='ref'><a href='" + given_url + "'>" + abbrv_url + "... </a></p></div>";
-                    } else {str += "<p class='ref'><a href='http://www." + given_url + "'>" + abbrv_url + "... </a></p></div>";}
-                    str += "<div class='votediv'><div id='votediv" + id + " style=\"z-index: 1\">'";
-                    str += "<p id='button_bar'>";
-                    str += addTypeButtons(id);
-                    str += "</p></div></div></div>";
+
+                    var str = '<div class="row">';
+                          str += '<div class="col s12">';
+                            str += '<div class="card blue-grey darken-1">';
+                              str += '<div class="card-content white-text">';
+                                str += '<span class="card-title">Card Title</span>';
+                                str += '<p>I am a very simple card. I am good at containing small bits of information./nI am convenient because I require little markup to use effectively.</p>';
+                              str += '</div>';
+                              str += '<div class="card-action">';
+                                str += '<a href="#">This is a link</a>';
+                                str += '<a href="#">This is a link</a>';
+                              str += '</div>';
+                            str += '</div>';
+                          str += '</div>';
+                        str += '</div>';
+            
+
+
+                    // var str = "<div class='comment'>";
+                    // str += "<div class='comment_left'><div id='vote_updown" + id + "'>" + addVoteButtons(id) + "<div class='" + window[side][arr][x].type + "_flag'></div></div></div>";
+                    // str += "<div class='" + type + "_comment_right'><p class='comment_text'>" + window[side][arr][x].text + "</p>";
+                    // if (given_url.length < 3) {
+                    //   str += "</div>";
+                    // } else if (re_url_1.test(given_url) || re_url_2.test(given_url)){
+                    //   str += "<p class='ref'><a href='" + given_url + "'>" + abbrv_url + "... </a></p></div>";
+                    // } else {str += "<p class='ref'><a href='http://www." + given_url + "'>" + abbrv_url + "... </a></p></div>";}
+                    // str += "<div class='votediv'><div id='votediv" + id + " style=\"z-index: 1\">'";
+                    // str += "<p id='button_bar'>";
+                    // str += addTypeButtons(id);
+                    // str += "</p></div></div></div>";
                     var re = new RegExp("\'", "g");
                     str = str.replace(re, "");
                     return str;}
