@@ -251,8 +251,8 @@
           success: function(data) {
           var dataObj = {
                           _id: JSON.stringify(data._id).replace(/\"/g, ""),
-                          title: JSON.stringify(data.title).replace(/\"/g, "").replace(/\/\'/g, '&#39;').replace(/\/\"/g, '&#quot;');,
-                          text: JSON.stringify(data.text).replace(/\"/g, "").replace(/\/\'/g, '&#39;').replace(/\/\"/g, '&#quot;');,
+                          title: JSON.stringify(data.title).replace(/\"/g, "").replace(/\/\'/g, '&#39;').replace(/\/\"/g, '&#quot;'),
+                          text: JSON.stringify(data.text).replace(/\"/g, "").replace(/\/\'/g, '&#39;').replace(/\/\"/g, '&#quot;'),
                           type: JSON.stringify(data.type).replace(/\"/g, ""),
                           scope: JSON.stringify(data.scope).replace(/\"/g, "")
                         };
