@@ -416,9 +416,9 @@ function template(response, postData) {
 function createIssueListHTML(issue){
     var thing = "";
     thing +=  '<div class="row">' + 
-          '<div class="col s12 m12 l8">' +
-            '<div class="card blue-grey lighten-4">' +
-              '<div class="card-content black-text">' +
+          '<div class="col s12 m12 l12">' +
+            '<div class="card orange darken-2">' +
+              '<div class="card-content white-text">' +
                 '<span class="card-title">';
 
     thing += propToElement(issue, "title", "span");
@@ -426,7 +426,7 @@ function createIssueListHTML(issue){
     thing += propToElement(issue, "text", "p");
     thing +=  '</div>' +
               '<div class="card-action">' +
-                '<a style="color: #01579b !important" href="/issue/?_id=' + issue._id + '">Go To Issue</a>' +
+                '<a style="color: white !important" href="/issue/?_id=' + issue._id + '">Go To Issue</a>' +
               '</div>' +
             '</div>' +
           '</div>' +
