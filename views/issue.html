@@ -148,10 +148,6 @@
         position: absolute;
        z-index: 15;
       }
-     .button_bar {
-        margin-left: 500px;
-        background-color: grey;
-      }
       .main_content{
         margin-left: 200px;
         position: relative;
@@ -216,6 +212,21 @@
       }
       .card {
         z-index: 10;
+      }
+      .stat-card {
+        background-color: #ef5350;
+      }
+      .rat-card {
+        background-color: #ffa726;
+      }
+      .anec-card {
+        background-color: #26c6da;
+      }
+      .moral-card {
+        background-color: #66bb6a;
+      }
+      .type-btn {
+        color: black !important;
       }
     </style>
   </head>
@@ -292,17 +303,13 @@
 
                   function button (btype, name, id, big) {
                     var str = "";
-                    str += "<a class='" + btype + "_vote_button'";
+                    str += "<a class='type-btn " + btype + "_vote_button'";
                     str += " id='" +  id +  "' value='" + name + "'>";
                     str += name + "</a>";
                     return str;
                   }
 
                   function rankButton (btype, name, id, big) {
-                    // var str = "";
-                    // str += "<a class='" + btype + "_vote_button'";
-                    // str += " id='" +  id +  "' value='" + name + "'>";
-                    // str += name + "</a>";
                     var str = '<a class="waves-effect waves-light btn ' + btype +'_vote_button" id="' + id + '"><i class="material-icons left">thumb_'+ btype + '</i>button</a>';
                     return str;
                   }
@@ -333,8 +340,8 @@
                             str += "</div>"
                           str += '</div>';
                           str += '<div class="col s10">';
-                            str += '<div class="card blue-grey darken-1">';
-                              str += '<div class="card-content white-text">';
+                            str += '<div class="card ' + type + '-card">';
+                              str += '<div class="card-content black-text">';
                                 str += '<p>' + window[side][arr][x].text;
 
                                 if (given_url.length < 3) {
@@ -348,7 +355,7 @@
                               
                               str += '<div class="card-action">';
                                 str += "<div class='votediv'><div id='votediv" + id + " style=\"z-index: 1\">'";
-                                str += "<div id='button_bar'>";
+                                str += "<div>";
                                 str += addTypeButtons(id);
                                 str += "</div></div>"
                                 str += '</div>';
