@@ -4,6 +4,7 @@
    <meta charset="UTF-8">
    <!-- Compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
     <!-- Compiled and minified JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
@@ -219,6 +220,13 @@
       .issueTitle {
         margin-right: 150px;
       }
+      .vote-buttons {
+        margin-top: 20px !important;
+        z-index: 10;
+      }
+      .card {
+        z-index: 10;
+      }
     </style>
   </head>
 
@@ -297,14 +305,25 @@
                     str += "<a class='" + btype + "_vote_button'";
                     str += " id='" +  id +  "' value='" + name + "'>";
                     str += name + "</a>";
-                    return str;}
+                    return str;
+                  }
+
+                  function rankButton (btype, name, id, big) {
+                    // var str = "";
+                    // str += "<a class='" + btype + "_vote_button'";
+                    // str += " id='" +  id +  "' value='" + name + "'>";
+                    // str += name + "</a>";
+                    var str = '<a class="waves-effect waves-light btn"><i class="material-icons left">thumb_'+ btype + '</i>button</a>';
+                    return str;
+                  }
 
                   function addTypeButtons(id){
                     var buttons =  button("stat", "Stat", id) + button("rat", "Logic", id) + button('moral', "Moral", id) + button('anec', "Anec.", id);
-                    return buttons;}
+                    return buttons;
+                  }
 
                   function addVoteButtons(id){
-                    var buttons = button("up", "Up", id) + "<br>" + button("down", "Down", id);
+                    var buttons = '<div class="vote-buttons">' + rankButton("up", "Up", id) + "<br>" + rankButton("down", "Down", id) + '</div>';
                     return buttons;
                   }
 
