@@ -286,10 +286,17 @@
                 success: function(data) {
                   window.con_data = data;
 
+                  // function button (btype, name, id, big) {
+                  //   var str = "";
+                  //   str += "<input type='button' class='" + btype + "_vote_button'";
+                  //   str += " id='" +  id +  "' value='" + name + "'>";
+                  //   return str;}
+
                   function button (btype, name, id, big) {
                     var str = "";
-                    str += "<input type='button' class='" + btype + "_vote_button'";
+                    str += "<a class='" + btype + "_vote_button'";
                     str += " id='" +  id +  "' value='" + name + "'>";
+                    str += name + "</a>";
                     return str;}
 
                   function addTypeButtons(id){
@@ -329,10 +336,13 @@
                                 str += "<div class='" + type + "_comment_right'></div>";}
                                 str += '</p>';
 
-                              str += '</div>';
+                              
                               str += '<div class="card-action">';
-                                str += '<a href="#">This is a link</a>';
-                                str += '<a href="#">This is a link</a>';
+                                str += "<div class='votediv'><div id='votediv" + id + " style=\"z-index: 1\">'";
+                                str += "<div id='button_bar'>";
+                                str += addTypeButtons(id);
+                                str += "</div></div>"
+                                str += '</div>';
                               str += '</div>';
                             str += '</div>';
                           str += '</div>';
@@ -396,7 +406,7 @@
         success: function(data) {
           var current_votediv = "#votediv" + sv_id;
           console.log(sv_id, "and votediv current = " + current_votediv);
-          $(current_votediv).html("<p class='typevoted_p'>Type vote recieved!</p>");
+          $(current_votediv).html("<a class='center'>Type vote recieved!</a>");
         }
       });
   });
@@ -410,7 +420,7 @@
         success: function(data) {
           var current_votediv = "#votediv" + sv_id;
           console.log(sv_id, "and votediv current = " + current_votediv);
-          $(current_votediv).html("<p class='typevoted_p'>Type vote recieved!</p>");
+          $(current_votediv).html("<a class='center'>Type vote recieved!</a>");
         }
       });
   });
@@ -424,7 +434,7 @@
         success: function(data) {
           var current_votediv = "#votediv" + sv_id;
           console.log(sv_id, "and votediv current = " + current_votediv);
-          $(current_votediv).html("<p class='typevoted_p'>Type vote recieved!</p>");
+          $(current_votediv).html("<a class='center'>Type vote recieved!</a>");
         }
       });
   });
@@ -438,7 +448,7 @@
         success: function(data) {
           var current_votediv = "#votediv" + sv_id;
           console.log(sv_id, "and votediv current = " + current_votediv);
-          $(current_votediv).html("<p class='typevoted_p'>Type vote recieved!</p>");
+          $(current_votediv).html("<a class='center'>Type vote recieved!</a>");
         }
       });
   });
