@@ -225,9 +225,13 @@
       .moral-card {
         background-color: #66bb6a;
       }
+      .all-card {
+        background-color: #cfd8dc;
+      }
       .type-btn {
         color: black !important;
       }
+
     </style>
   </head>
 
@@ -347,8 +351,8 @@
                                 if (given_url.length < 3) {
                                   str += "</div>";
                                 } else if (re_url_1.test(given_url) || re_url_2.test(given_url)){
-                                str += "<p class='ref'><a href='" + given_url + "'>" + abbrv_url + "... </a></p></div>";
-                                } else {str += "<p class='ref'><a href='http://www." + given_url + "'>" + abbrv_url + "... </a></p>"
+                                str += "<p class='ref'><a target='_blank' href='" + given_url + "'>" + abbrv_url + "... </a></p></div>";
+                                } else {str += "<p class='ref'><a target='_blank' href='http://www." + given_url + "'>" + abbrv_url + "... </a></p>"
                                 str += "<div class='" + type + "_comment_right'></div>";}
                                 str += '</p>';
 
