@@ -992,8 +992,10 @@ $('.down_vote_button').click(function(){
         <div class="addCommentForm">
           <form id="newCommentForm" action="/comment/" method="post">
             <p>Side:<br>
-              <input type="radio" name="commside" value="pro" checked>Pro
-              <input type="radio" name="commside" value="con">Con
+              <input name="commside" type="radio" value="pro" id="pro" />
+              <label for="pro">Pro</label>
+              <input name="commside" type="radio" value="con" id="con" />
+              <label for="con">Con</label>
             </p>
             <p>
               Comment:<br>
@@ -1005,13 +1007,17 @@ $('.down_vote_button').click(function(){
             </p>
             <p>
               Comment Type:<br>
-              <input type="radio" name="commtype" value="statistical" checked>Statistical
-              <input type="radio" name="commtype" value="rational">Rational
-              <input type="radio" name="commtype" value="moral">Moral
-              <input type="radio" name="commtype" value="anecdotal">Anecdotal
+              <input name="commtype" type="radio" value="statistical" id="statistical" checked/>
+              <label for="statistical">Statistical</label>
+              <input name="commtype" type="radio" value="rational" id="rational" />
+              <label for="rational">Rational</label>
+              <input name="commtype" type="radio" value="moral" id="moral" />
+              <label for="moral">Moral</label>
+              <input name="commtype" type="radio" value="anecdotal" id="anecdotal" />
+              <label for="anecdotal">Anecdotal</label>
             </p>
             <p>
-              <input class="comment_submit_button" type="submit" value="Submit Comment" />
+              <input class="btn comment_submit_button" type="submit" value="Submit Comment" />
             </p>
           </form>
           <script>
