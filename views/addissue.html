@@ -2,6 +2,11 @@
 <!DOCTYPE html>
 <html itemscope itemtype="http://schema.org/Product">
   <head>
+      <!-- Compiled and minified CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css">
+
+  <!-- Compiled and minified JavaScript -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
     <title>issueprism - Add An Issue</title>
     <meta http-equiv="Content-type" content="text/html" charset="UTF-8" />
     <meta name="description" content="Welcome to the new marketplace of ideas." />
@@ -44,6 +49,9 @@
       <a href = "/"><img src="http://oi61.tinypic.com/11hwk11.jpg " alt="IP Logo" style="width: 400px"></a>
       <p><a href="/">Home</a> &nbsp; <a href="/addissue">Add Issue</a><!--<div class="issueTypeScope"></div>--></p>
     </div>
+    <div class="container">
+    <div class="row">
+      <div class="col s6">
 
     <h2>Create An Issue</h2>
 
@@ -51,19 +59,27 @@
       <p>Title:<br><input type="text" name="title" ><br><span class="helpertext">Make sure it's a question</span></p>
       <p>Description:<br><textarea name="text" rows="4" cols="50"></textarea></p>
       <p>Type:<br>
-         <input type="radio" name="type" value="science" checked>Science
-         <input type="radio" name="type" value="politics">Politics
-         <input type="radio" name="type" value="life">Life
-         <input type="radio" name="type" value="sports">Sports
+         <input name="type" type="radio" value="science" id="science" checked />
+         <label for="science">Science</label>
+         <input name="type" type="radio" value="politics" id="politics" />
+         <label for="politics">Politics</label> 
+         <input name="type" type="radio" value="life" id="life" />
+         <label for="life">Life</label>
+         <input name="type" type="radio" value="sports" id="sports" />
+         <label for="sports">Sports</label> 
       </p>
       <p>Scope:<br>
-         <input type="radio" name="scope" value="local" checked>Local
-         <input type="radio" name="scope" value="regional">Regional
-         <input type="radio" name="scope" value="national">National
-         <input type="radio" name="scope" value="global">Global
+         <input name="scope" type="radio" value="local" id="local" checked />
+         <label for="local">Local</label>
+         <input name="scope" type="radio" value="regional" id="regional" />
+         <label for="regional">Regional</label> 
+         <input name="scope" type="radio" value="national" id="national" />
+         <label for="national">National</label>
+         <input name="scope" type="radio" value="global" id="global" />
+         <label for="global">Global</label> 
       </p>
-      <input type="checkbox" id="alsocomment">
-        <label for="alsocomment">Add your own comment</label>
+      <input type="checkbox" id="alsocomment" />
+      <label for="alsocomment">Add your own comment</label>
 
       <script>
           var checkbox = document.querySelector("#alsocomment");
@@ -74,8 +90,10 @@
 
         <div class="commentForm">
           <p>Side:<br>
-            <input type="radio" name="commside" value="pro" checked>Pro
-            <input type="radio" name="commside" value="con">Con
+            <input name="commside" type="radio" value="pro" id="pro" checked />
+            <label for="pro">Pro</label>
+            <input name="commside" type="radio" value="con" id="con" />
+            <label for="con">Con</label> 
           </p>
           <p>Comment:<br>
             <textarea type="text" name="commtext" cols="40" rows="4"></textarea>
@@ -84,10 +102,14 @@
             <input type="text" name="commref" style="width:300px"><br>
           </p>
           <p>Comment Type:<br>
-            <input type="radio" name="commtype" value="statistical" checked>Statistical
-            <input type="radio" name="commtype" value="rational">Rational
-            <input type="radio" name="commtype" value="moral">Moral
-            <input type="radio" name="commtype" value="anecdotal">Anecdotal
+            <input name="commtype" type="radio" value="statistical" id="statistical" checked />
+            <label for="statistical">Statistical</label>
+            <input name="commtype" type="radio" value="rational" id="rational" />
+            <label for="rational">Rational</label> 
+            <input name="commtype" type="radio" value="moral" id="moral" />
+            <label for="moral">Moral</label>
+            <input name="commtype" type="radio" value="anecdotal" id="anecdotal" />
+            <label for="anecdotal">Anecdotal</label> 
           </p>
         </div>
 
@@ -100,7 +122,10 @@
             $(".commentForm").hide();
           </script>
 
-      <p><input type="submit" value="Ask " /> (Submit)</p>
+      <p><button class="btn waves-effect waves-light" type="submit" value="Ask ">(Submit)</button></p>
     </form>
+    </div>
+    </div>
+    </div>
   </body>
 </html>
