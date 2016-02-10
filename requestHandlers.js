@@ -266,12 +266,17 @@ function comment(response, postData, query) {
 
   response.writeHead(200, {"Content-Type": "text/html"});
   response.end(
-    "<!--header-->" +
-    '<div id="navbar"><a href = "/"><img src="http://oi61.tinypic.com/11hwk11.jpg" alt="IP Logo" style="width: 400px"></a>' +
-    '<p><a href="/">Home</a> &nbsp; <a href="/addissue">Add Issue</a><!--<div class="issueTypeScope"></div>--></p>' +
+    '<head>'+
+    '<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css">' +
+    '<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>' +
+    '</head><body>' +
+    '<div id="navbar">' +
+      '<a href = "/"><img src="http://oi61.tinypic.com/11hwk11.jpg " alt="IP Logo" style="width: 400px"></a>' +
+      '<p><a href="/"><button class="btn waves-effect waves-light">Home</button></a> &nbsp; <a href="/addissue"><button class="btn waves-effect waves-light">Add Issue</button></a><!--<div class="issueTypeScope"></div>--></p>' +
     '</div>' +
     '<!--content-->' +
-    "<p>Comment sumbmitted!</p>");
+    "<h3>Comment sumbmitted!</h3>" +
+    '</body>');
 }
 
 function id (response, postData, query){
